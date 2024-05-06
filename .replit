@@ -1,0 +1,13 @@
+entrypoint = "main.py"
+modules = ["python-3.11:v23-20240125-d91747b"]
+
+hidden = [".pythonlibs"]
+
+[nix]
+channel = "stable-23_11"
+
+[unitTest]
+language = "python3"
+
+[gitHubImport]
+requiredFiles = [".replit", "replit.nix"]
