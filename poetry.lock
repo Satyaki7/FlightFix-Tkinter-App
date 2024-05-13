@@ -172,6 +172,20 @@ typing = ["typing-extensions"]
 xmp = ["defusedxml"]
 
 [[package]]
+name = "productionalizingproject-1"
+version = "0.23.3"
+description = "A very simple setuptools-pyproject.toml project"
+optional = false
+python-versions = "*"
+files = [
+    {file = "ProductionalizingProject-1-0.23.3.tar.gz", hash = "sha256:21f02cc19af5a5d2ba7f494c62f7822d9c593626a1ce8521d2fe05d992eca2ec"},
+    {file = "ProductionalizingProject_1-0.23.3-py3-none-any.whl", hash = "sha256:e8ae5a12cc78b14d3548829a68db2c550eb4b0a96df36a62c24cc7e14e89f45d"},
+]
+
+[package.dependencies]
+numpy = ">=1.16"
+
+[[package]]
 name = "ttkbootstrap"
 version = "1.10.1"
 description = "A supercharged theme extension for tkinter that enables on-demand modern flat style themes inspired by Bootstrap."
@@ -188,4 +202,4 @@ pillow = ">=8.2.0"
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.11.0,<3.12"
-content-hash = "56d95087fd2c490847d1f64489b33bedcdf4e329c944927845be91f9634c02c9"
+content-hash = "28952414e3b8c2e6417798dd6d238a57e66555d232fc803c5fc08826cca7ca41"

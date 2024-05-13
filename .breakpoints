@@ -3,9 +3,17 @@
     "main.py": [
       {
         "id": "6d72aabc-7564-46de-ab92-d4f01dab7bdd",
-        "line": 29,
-        "version": 4911,
-        "index": 726
+        "line": 1,
+        "version": 5449,
+        "index": 0
+      }
+    ],
+    "mypackage/login.py": [
+      {
+        "id": "290a684c-6796-482b-ac6d-f8c579ff18a5",
+        "line": 12,
+        "version": 121,
+        "index": 222
       }
     ]
   }
