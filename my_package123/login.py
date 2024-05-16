@@ -1,10 +1,11 @@
 from tkinter.constants import COMMAND
 from PIL import Image, ImageTk
+from .signin import signop
+from my_package123 import signin
 
-def loginop(a,b):
-   def open_sign():
-      window.destroy()
-      
+def loginop(a,b,window,return_callback):
+   def breakop():
+      return_callback("signin")   
    
    def on_entry_click(event):
       if username.get() == "Username":
@@ -27,14 +28,7 @@ def loginop(a,b):
          password.configure(foreground="gray")
 
    #window
-   window = a.CTk()
-   window.title("Testing")
    window.geometry('900x600')
-
-   logimg = Image.open('backoppp.png')
-   image = ImageTk.PhotoImage(logimg.resize((900, 600)))
-   label = b.Label(window, image=image)
-   label.pack()
 
    # Main frame
    frame_width = 300
@@ -45,7 +39,7 @@ def loginop(a,b):
    frame.pack_propagate(False)
 
    # Entry boxes
-   sign = a.CTkLabel(frame, text="Sign In", font=("Arial", 24))
+   sign = a.CTkLabel(frame, text="Log In", font=("Arial", 24))
    sign.place(relx=0.5, rely=0.3, anchor="center")
    username = b.Entry(frame)
    password = b.Entry(frame)
@@ -62,8 +56,8 @@ def loginop(a,b):
    wid = 20
    hei = 10
    signin_button = b.Button(frame, text="SignIn", bootstyle="primary")
-   signup_button = b.Button(frame,text="SignUp",bootstyle="primary-outline",command = open_sign)
+   signup_button = b.Button(frame,text="SignUp",bootstyle="primary-outline",command =  breakop)
    signin_button.place(relx=0.4, rely=0.8)
    signup_button.place(relx=0.6, rely=0.8)
 
-   window.mainloop()
+
