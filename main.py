@@ -6,10 +6,11 @@ from PIL import Image, ImageTk
 
 from my_package123 import authenticating
 from my_package123.authenticating import authenticate
+import CTkTable as op
 
 a = tk
 b = ttk
-
+z = op
 
 from my_package123 import *
 
@@ -33,7 +34,7 @@ def return_handling(h):
       new_window = tk.CTk()
       new_window.geometry("800x600")
       new_window.title("New Window")
-      dashboard.dashboardop(a,b,new_window,return_handling)
+      dashboard.dashboardop(a,b,new_window,return_handling,z)
       new_window.mainloop()
 
 
