@@ -1,0 +1,5 @@
+https://github.com/Akascape/py-window-styles
+
+import pywinstyles
+
+pywinstyles.apply_style(window,"acrylic")

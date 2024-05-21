@@ -1,9 +1,14 @@
 from tkinter.constants import COMMAND
 from PIL import Image, ImageTk
-from .signin import signop
-from my_package123 import signin
+from .authenticating import on_login
+from .authenticating import on_signup
 
 def loginop(a,b,window,return_callback):
+
+   def transfer():
+      f= on_login(username.get(),password.get())
+      if f == True:
+         return_callback("dashboard")
    def breakop():
       return_callback("signin")   
    
@@ -55,7 +60,7 @@ def loginop(a,b,window,return_callback):
    #buttons
    wid = 20
    hei = 10
-   signin_button = b.Button(frame, text="SignIn", bootstyle="primary")
+   signin_button = b.Button(frame, text="SignIn", bootstyle="primary",command = transfer)
    signup_button = b.Button(frame,text="SignUp",bootstyle="primary-outline",command =  breakop)
    signin_button.place(relx=0.4, rely=0.8)
    signup_button.place(relx=0.6, rely=0.8)

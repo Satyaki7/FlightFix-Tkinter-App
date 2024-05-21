@@ -4,8 +4,16 @@
       {
         "id": "6d72aabc-7564-46de-ab92-d4f01dab7bdd",
         "line": 1,
-        "version": 5709,
+        "version": 5987,
         "index": 0
+      }
+    ],
+    "my_package123/authenticating.py": [
+      {
+        "id": "8e6d1466-0660-4baf-ab28-57494a0e6f5d",
+        "line": 93,
+        "version": 728,
+        "index": 2580
       }
     ],
     "mypackage/login.py": [

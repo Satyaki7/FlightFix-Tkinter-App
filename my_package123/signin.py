@@ -1,8 +1,15 @@
 from PIL import Image, ImageTk
 
-def signop(a,b,window1):
+from my_package123.authenticating import on_signup
+
+def signop(a,b,window1,return_callback,):
    print("hwllo work")
 
+   def transfer():
+      f = on_signup(username.get(),password.get(),password1.get())
+      if f == True:
+         return_callback("dashboard")
+   
    def on_entry_click(event):
       if username.get() == "Username":
          username.delete(0, a.END)
@@ -65,12 +72,11 @@ def signop(a,b,window1):
    password1.bind("<FocusOut>", on_focus_out2)
    password1.place(relx=0.5, rely=0.74, anchor="center")
 
-
-
    #buttons
    wid = 20
    hei = 10
-   signup_button = b.Button(frame,text="SignUp",bootstyle="primary")
+   signup_button = b.Button(frame,text="SignUp",bootstyle="primary",command = transfer)
+   
    signup_button.place(relx=0.6, rely=0.85)
 
 
