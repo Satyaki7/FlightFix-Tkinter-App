@@ -14,11 +14,17 @@ z = op
 
 from my_package123 import *
 
+# new_window = tk.CTk()
+# new_window.geometry("900x600")
+# new_window.title("New Window")
+# dashboard.dashboardop(a,b,new_window,z)
+# new_window.mainloop()
+
 window = tk.CTk()
 window.title("Testing")
 
 
-logimg = Image.open('my_package123/backoppp.png')
+logimg = Image.open('assets/backoppp.png')
 image = ImageTk.PhotoImage(logimg.resize((900, 600)))
 label = b.Label(window, image=image)
 label.pack()
@@ -32,7 +38,7 @@ def return_handling(h):
       window.destroy()
       # Create a new window
       new_window = tk.CTk()
-      new_window.geometry("800x600")
+      new_window.geometry("900x600")
       new_window.title("New Window")
       dashboard.dashboardop(a,b,new_window,return_handling,z)
       new_window.mainloop()
