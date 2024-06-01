@@ -8,6 +8,6 @@ channel = "stable-23_11"
 
 [unitTest]
 language = "python3"
-
 [gitHubImport]
+
 requiredFiles = [".replit", "replit.nix"]

@@ -4,7 +4,7 @@
       {
         "id": "6d72aabc-7564-46de-ab92-d4f01dab7bdd",
         "line": 1,
-        "version": 6169,
+        "version": 6793,
         "index": 0
       }
     ],
@@ -14,6 +14,14 @@
         "line": 93,
         "version": 728,
         "index": 2580
+      }
+    ],
+    "my_package123/booking.py": [
+      {
+        "id": "fd26e89b-0786-446e-bb6a-ca3d8eba300f",
+        "line": 1,
+        "version": 554,
+        "index": 0
       }
     ],
     "mypackage/login.py": [
