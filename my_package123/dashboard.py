@@ -4,6 +4,11 @@
 
 def dashboardop(a, b, c, d, z):
         from PIL import Image, ImageTk
+
+        # c.geometry("900x600")
+
+        # c.title("New Window")
+        # c.configure(fg_color="white")
         # Configure grid layout for the window
         c.grid_columnconfigure(0, weight=0)
         c.grid_columnconfigure(1, weight=1)
@@ -12,7 +17,10 @@ def dashboardop(a, b, c, d, z):
         c.grid_rowconfigure(1, weight=1)
         c.grid_rowconfigure(2, weight=1)
         c.grid_rowconfigure(3, weight=1)
-
+        
+        def on_button_click(a):
+            print("booking is working")
+            
         # Left Sidebar Frame
         sidebar_frame = a.CTkFrame(c,
                                    width=30,
@@ -96,14 +104,37 @@ def dashboardop(a, b, c, d, z):
         upcoming_flights_frame.grid(row=1,
                                     column=2,
                                     sticky="nsew",
-                                    padx=5,
+                                    padx=10,
                                     pady=10)
-        flights = [["Sl.No", "Flight No", "Date", "Status"], [1, 2, 3, 4],
-                   [1, 2, 3, 4], [1, 2, 3, 4], [1, 2, 3, 4], [1, 2, 3, 4]]
 
-        table2 = z.CTkTable(upcoming_flights_frame,
-                            row=6,
-                            column=4,
-                            values=flights,
-                            colors=["#F6F7F2", "#F6F7F2"])
-        table2.pack(expand=True, fill="both", padx=10, pady=10)
+        # Configure rows and columns for the grid in upcoming_flights_frame
+        for i in range(6):
+            upcoming_flights_frame.grid_rowconfigure(i, weight=1)
+        for j in range(5):
+            upcoming_flights_frame.grid_columnconfigure(j, weight=1)
+
+        # Populate the grid with labels and buttons
+        for row in range(6):
+            for col in range(5):
+                if col == 4:  # Place button in the 5th column
+                    if row == 0:
+                        continue
+                    button = b.Button(upcoming_flights_frame, text=f"Button {row}", bootstyle="primary.Outline.TButton", command=lambda r=row: on_button_click(r))
+                    button.grid(row=row, column=col, padx=5, pady=5, sticky="ew")
+                elif row == 0:
+                    if col == 0:
+                        label = a.CTkLabel(upcoming_flights_frame, text="Sl No.")
+                        label.grid(row=row, column=col, padx=5, pady=5, sticky="nsew")
+                    elif col == 1:
+                        label = a.CTkLabel(upcoming_flights_frame, text="Flight No")
+                        label.grid(row=row, column=col, padx=5, pady=5, sticky="nsew")
+                    elif col == 2:
+                        label = a.CTkLabel(upcoming_flights_frame, text="Date")
+                        label.grid(row=row, column=col, padx=5, pady=5, sticky="nsew")
+                    elif col == 3:
+                        label = label = a.CTkLabel(upcoming_flights_frame, text="Time")
+                        label.grid(row=row, column=col, padx=5, pady=5, sticky="nsew")
+
+                else:  # Place labels in other columns
+                    label = a.CTkLabel(upcoming_flights_frame, text=f"Label {row},{col}")
+                    label.grid(row=row, column=col, padx=5, pady=5, sticky="nsew")
