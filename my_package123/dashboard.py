@@ -2,13 +2,13 @@
 #def dashboardop(a,b,c,d,z):
 
 
-def dashboardop(a, b, c, d, z):
+def dashboardop(a, b, c, d):
         from PIL import Image, ImageTk
 
-        # c.geometry("900x600")
+        c.geometry("900x600")
 
-        # c.title("New Window")
-        # c.configure(fg_color="white")
+        c.title("New Window")
+        c.configure(fg_color="white")
         # Configure grid layout for the window
         c.grid_columnconfigure(0, weight=0)
         c.grid_columnconfigure(1, weight=1)

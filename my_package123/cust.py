@@ -1,7 +1,7 @@
 import customtkinter as a
 
 
-def customer(a, b, c, d, e):
+def customer(a, b, c, d):
     from PIL import Image, ImageTk
     c.geometry("900x600")
     c.configure(bg='white')

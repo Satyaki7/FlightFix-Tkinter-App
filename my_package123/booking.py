@@ -3,12 +3,12 @@ from typing import Text
 
 from ttkbootstrap.constants import PRIMARY
 
-def book(a,b,c,d,z):
+def book(a,b,c,d):
     from PIL import Image, ImageTk
 
-    # c.geometry("900x600")
-    # c.title("Booking")
-    # Configure grid layout for the window
+    c.geometry("900x600")
+    c.title("Booking")
+    #Configure grid layout for the window
     c.grid_columnconfigure(0, weight=0)
     c.grid_columnconfigure(1, weight=2)
     c.grid_rowconfigure(0, weight=1)
@@ -113,4 +113,3 @@ def book(a,b,c,d,z):
     button = b.Button(top_frame, text="Book", bootstyle="primary.outline",command = search)
     button.grid(row=1, column=3, padx=10, pady=1, sticky="ew")
 
-    c.mainloop()
