@@ -14,6 +14,7 @@ from my_package123 import *
 m = "Monkey D Luffy"
 
 def username_entry(u):
+   global m
    m = u
    print(m)
 def destroy_all_widgets():
