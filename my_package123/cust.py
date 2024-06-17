@@ -12,6 +12,13 @@ def customer(a, b, c, d):
     c.grid_rowconfigure(0, weight=1)
     c.grid_rowconfigure(1, weight=1)
 
+                      # Load the background image
+    bg_image = Image.open("assets/14337.jpg")
+    bg_photo = ImageTk.PhotoImage(bg_image)
+# Create a Label to hold the background image
+    bg_label = a.CTkLabel(c, image=bg_photo)      
+    bg_label.place(relwidth=1, relheight=1)
+                      
     # Left Sidebar Frame
     sidebar_frame = a.CTkFrame(c,
                                width=0,

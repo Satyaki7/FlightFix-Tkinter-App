@@ -1,6 +1,6 @@
 from tkinter.constants import ACTIVE, DISABLED
 from typing import Text
-
+from tkinter import messagebox
 from ttkbootstrap.constants import PRIMARY
 
 def book(a,b,c,d):
@@ -12,18 +12,29 @@ def book(a,b,c,d):
     c.grid_columnconfigure(0, weight=0)
     c.grid_columnconfigure(1, weight=2)
     c.grid_rowconfigure(0, weight=1)
-    c.grid_rowconfigure(1, weight=2)
+    c.grid_rowconfigure(1, weight=0)
+    c.grid_rowconfigure(2, weight=1)
 
+    # Load the background image
+    bg_image = Image.open("assets/14337.jpg")
+    bg_photo = ImageTk.PhotoImage(bg_image)
+
+    # Create a Label to hold the background image
+    bg_label = a.CTkLabel(c, image=bg_photo,text="")
+    bg_label.place(relwidth=1, relheight=1)
+    
     def on_button_click(a):
         print("booking is working")
     
     def search():
         q,w,e,r = drop1.get(),drop2.get(),dropdown3.get(),spinbox.get()
-        
-        if q != "Form" and w != "To" and dropdown3 != "Class" and spinbox != "Passengers" :
+        if q == w : 
+            messagebox.showerror("Error", "Departure and Arrival location cannot be same.")
+            return
+        elif q != "Form" and w != "To" and dropdown3 != "Class" and spinbox != "Passengers" :
             
-            bottom_frame = a.CTkFrame(c, width=600, height=400, corner_radius=20, fg_color="transparent")
-            bottom_frame.grid(row=1, column=1, sticky="nsew", padx=10, pady=10)
+            bottom_frame = a.CTkFrame(c, width=600, height=400, corner_radius=20, fg_color="whitesmoke")
+            bottom_frame.grid(row=2, column=1, sticky="nsew", padx=10, pady=10)
             bottom_frame.grid_columnconfigure(0, weight=1)
             bottom_frame.grid_rowconfigure(0, weight=1)
             # Configure rows and columns for the grid in bottom_frame
@@ -80,11 +91,12 @@ def book(a,b,c,d):
     button3.grid(row=3, column=0, padx=2, pady=1)
 
     # Top Frame
-    top_frame = a.CTkFrame(c, width=600, height=200, corner_radius=20, fg_color="transparent")
-    top_frame.grid(row=0, column=1, sticky="nsew", padx=5, pady=5)
+    top_frame = a.CTkFrame(c, width=750, height=50, corner_radius=20, fg_color="whitesmoke",border_color="black",border_width=1)
+    top_frame.grid(row=0, column=1, sticky="nsew", padx=10, pady=10)
     top_frame.grid_columnconfigure((0, 1, 2, 3), weight=1)
     top_frame.grid_rowconfigure((0, 1), weight=1)
-
+    top_frame.grid_propagate(False)
+    
     cities = ['Kolkata', 'Delhi', 'Mumbai', 'Chennai', 'Bangalore', 'Hyderabad', 'Pune']
 
     # Dropdown Boxes and Other Widgets in Top Frame

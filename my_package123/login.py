@@ -3,11 +3,12 @@ from PIL import Image, ImageTk
 from .authenticating import on_login
 from .authenticating import on_signup
 
-def loginop(a,b,window,return_callback):
+def loginop(a,b,window,return_callback,u):
 
    def transfer():
       f= on_login(username.get(),password.get())
       if f == True:
+         u(username.get())
          return_callback("dashboard")
    def breakop():
       return_callback("signin")   

@@ -2,12 +2,13 @@ from PIL import Image, ImageTk
 
 from my_package123.authenticating import on_signup
 
-def signop(a,b,window,return_callback,):
+def signop(a,b,window,return_callback,u):
    print("hwllo work")
 
    def transfer():
       f = on_signup(username.get(),password.get(),password1.get())
       if f == True:
+         u(username.get())
          return_callback("dashboard")
    
    def on_entry_click(event):
