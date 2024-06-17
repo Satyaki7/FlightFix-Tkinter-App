@@ -8,7 +8,8 @@ def loginop(a,b,window,return_callback,u):
    def transfer():
       f= on_login(username.get(),password.get())
       if f == True:
-         u(username.get())
+         v = username.get()
+         u(v)
          return_callback("dashboard")
    def breakop():
       return_callback("signin")   
