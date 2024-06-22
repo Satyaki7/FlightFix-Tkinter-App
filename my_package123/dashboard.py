@@ -1,94 +1,111 @@
 def dashboardop(a, b, c, d,m):
     from PIL import Image, ImageDraw, ImageTk
-    c.geometry("900x600")
+    import tkinter as tk
+    c.geometry("960x700")
     c.title("Dashboard")
-    #c.configure(fg_color='transparent')
+    c.configure(fg_color='#5ca3ff')
     # Configure grid layout for the window
-    c.grid_columnconfigure(0, weight=0)
-    c.grid_columnconfigure(1, weight=1)
-    c.grid_columnconfigure(2, weight=2)
+    c.grid_columnconfigure(0, weight=1)
     c.grid_rowconfigure(0, weight=1)
-    c.grid_rowconfigure(1, weight=1)
-    c.grid_rowconfigure(2, weight=1)
-    c.grid_rowconfigure(3, weight=1)
+
+    bm = a.CTkFrame(c, fg_color="transparent",width = 960,height = 700,corner_radius = 10)
+    bm.grid(row=0, column=0, sticky="nsew",padx = 10,pady=10)
+    bm.grid_propagate(False)
+    
+    bm.grid_columnconfigure(0, weight=0)
+    bm.grid_columnconfigure(1, weight=1)
+    bm.grid_columnconfigure(2, weight=2)
+    bm.grid_rowconfigure(0, weight=1)
+    bm.grid_rowconfigure(1, weight=1)
+    bm.grid_rowconfigure(2, weight=1)
+    bm.grid_rowconfigure(3, weight=1)
 
     # Load the background image
-    bg_image = Image.open("assets/14337.jpg")
+    bg_image = Image.open("assets/14337.jpg").resize((1100,700))
     bg_photo = ImageTk.PhotoImage(bg_image)
 
     # Create a Label to hold the background image
-    bg_label = a.CTkLabel(c, image=bg_photo,text="")
+    bg_label = a.CTkLabel(bm, image=bg_photo,text="")
     bg_label.place(relwidth=1, relheight=1)  
-    
+
     def on_button_click(a):
         print("booking is working")
 
     # Left Sidebar Frame
-    sidebar_frame = a.CTkFrame(c,
-                               width=30,
+    sidebar_frame = a.CTkFrame(bm,
+                               width=36,
                                height=500,
                                corner_radius=20,
-                               fg_color="transparent")
-    sidebar_frame.grid(row=0, column=0, rowspan=4, padx=10, pady=10)
-    sidebar_frame.grid_rowconfigure((0, 4), weight=1)  # Add empty rows for centering
-    sidebar_frame.grid_rowconfigure((1, 2, 3), weight=0)  # Rows for buttons
+                               fg_color="#5ca3ff")
+    sidebar_frame.grid(row=0, column=0, rowspan=4, padx=5, pady=10)
+    sidebar_frame.grid_rowconfigure((0, 5), weight=1)  # Add empty rows for centering
+    sidebar_frame.grid_rowconfigure((1, 2, 3, 4), weight=1)  # Rows for buttons
 
     #dash
-    img1 = ImageTk.PhotoImage(
-        Image.open('assets/home.png').resize((30, 30)))
+    img1 =a.CTkImage(
+        Image.open('assets/home.png').resize((36, 36)))
     button1 = a.CTkButton(sidebar_frame,
                           image=img1,
                           text="",
-                          width=10,
-                          height=10,
-                          corner_radius=100,
-                          fg_color="blue",
+                          width=36,
+                          height=36,
+                          corner_radius=18,
+                          fg_color="#A2CCFE",
                           hover="DISABLED")
-    button1.grid(row=1, column=0, padx=2, pady=10)
+    button1.grid(row=1, column=0, padx=2, pady=10,sticky = "nsew")
     #flight
     img2 = ImageTk.PhotoImage(
         Image.open('assets/plane.png').resize((30, 30)))
     button2 = a.CTkButton(sidebar_frame,
                           text="",
-                          width=10,
-                          height=10,
-                          corner_radius=100,
-                          fg_color="whitesmoke",
+                          width=36,
+                          height=36,
+                          corner_radius=18,
+                          fg_color="#5ca3ff",
                           image=img2,
-                          hover_color="blue",
+                          hover_color="#A2CCFE",
                           command=lambda: d("Flight"))
-    button2.grid(row=2, column=0, padx=2, pady=30)
+    button2.grid(row=3, column=0, padx=2, pady=10)
     #cust
     img3 = ImageTk.PhotoImage(
         Image.open('assets/cust.png').resize((30, 30)))
     button3 = a.CTkButton(sidebar_frame,
                           text="",
-                          width=10,
-                          height=10,
-                          corner_radius=100,
-                          fg_color="whitesmoke",
+                          width=36,
+                          height=36,
+                          corner_radius=18,
+                          fg_color="#5ca3ff",
                           image=img3,
-                          hover_color="blue",
+                          hover_color="#A2CCFE",
                           command=lambda: d("Cust"))
-    button3.grid(row=3, column=0, padx=2, pady=10)
+    button3.grid(row=4, column=0, padx=2, pady=10)
+
+    img4 = ImageTk.PhotoImage(
+        Image.open('assets/map.png').resize((30, 30)))
+    button4 = a.CTkButton(sidebar_frame,
+                          text="",
+                          width=36,
+                          height=36,
+                          corner_radius=18,
+                          fg_color="#5ca3ff",
+                          image=img4,
+                          hover_color="#A2CCFE",
+                          command=lambda: d("Map"))
+    button4.grid(row=2, column=0, padx=2, pady=10)
 
     # User Info Frame
-    user_info_frame = a.CTkFrame(c,
-                                 width=200,
-                                 height=250,
+    user_info_frame = a.CTkFrame(bm,
+                                 width=273,
+                                 height=273,
                                  corner_radius=20,
                                  fg_color="whitesmoke",
                                  border_color = "black",
                                  border_width = 1)
-    user_info_frame.grid(row=0, column=1, padx=5, pady=10,sticky="nsew")
+    user_info_frame.grid(row=0, column=1, padx=5, pady=10)
     user_info_frame.grid_columnconfigure(0, weight=1)
-    user_info_frame.grid_rowconfigure(0, weight=0)
-    user_info_frame.grid_rowconfigure(1, weight=0)
-    user_info_frame.grid_rowconfigure(2, weight=0)
-    user_info_frame.grid_rowconfigure(3, weight=0)
+    user_info_frame.grid_rowconfigure((0,1,2,3), weight=0)
     user_info_frame.grid_propagate(False)
     # User Image
-
 
     # Load and process the image to be circular
     image_path = "assets/luffy.jpg"
@@ -101,24 +118,23 @@ def dashboardop(a, b, c, d,m):
     draw.ellipse((0, 0, size, size), fill=255)
 
     # Apply the mask to the image
-    circular_img = Image.new('RGBA', (size, size), (255, 192, 203))  # Transparent background
+    circular_img = Image.new('RGBA', (size, size), (245, 245, 245, 255))  # Transparent background
     circular_img.paste(img, (0, 0), mask=mask)
 
     # Convert the circular image to PhotoImage
     photo = ImageTk.PhotoImage(circular_img)
 
-    
-    user_image_frame = a.CTkFrame(user_info_frame,
-                                  width=60,
-                                  height = 60,
-                                  corner_radius=30,
-                                  fg_color = "transparent")
-    user_image_frame.grid(row=0, column=0, padx=5, pady=15)
-    user_image_frame.grid_propagate(False)
-    user_image_frame.grid_columnconfigure(0, weight=1)
-    user_image_frame.grid_rowconfigure(0, weight=1)
-    user = a.CTkLabel(user_image_frame,image = photo,text="")
-    user.grid(row=0, column=0, padx=0, pady=0)
+    # Create a frame to hold the canvas
+    frame = a.CTkFrame(user_info_frame, width=60, height=60,fg_color="transparent")
+    frame.grid(row=0, column=0,pady = 5)
+
+    # Create a canvas to display the image
+    canvas = a.CTkCanvas(frame, width=size, height=size, bg='whitesmoke', highlightthickness=0)
+    canvas.create_image(0, 0, image=photo, anchor='nw')
+    canvas.grid(row=0, column=0, padx=20, pady=20)
+
+    # Keep a reference to avoid garbage collection
+    canvas.image = photo
 
     #username
     userop = m
@@ -137,38 +153,38 @@ def dashboardop(a, b, c, d,m):
         text = "Non-Premium",
        font=("Arial", 15))
     usertype.grid(row=3, column=0, padx=5, pady=0)
-    
+
     # Flights Frame
-    flights_frame = a.CTkFrame(c,
-                               width=450,
-                               height=250,
-                               corner_radius=20,
+    flights_frame = a.CTkFrame(bm,
+                               width=437,
+                               height=273,
+                               corner_radius=10,
                                fg_color="transparent")
-    flights_frame.grid(row=0, column=2, sticky="nsew", padx=10, pady=10)
+    flights_frame.grid(row=0, column=2,padx=5, pady=10)
+    flights_frame.grid_propagate(False)
     # Premium Frame
-    premium_frame = a.CTkFrame(c,
-                               width=200,
-                               height=250,
+    premium_frame = a.CTkFrame(bm,
+                               width=273,
+                               height=273,
                                corner_radius=20,
                                fg_color="whitesmoke",
                                border_color = "black",
                                border_width = 1)
-    premium_frame.grid(row=1, column=1, sticky="nsew", padx=5, pady=10)
-
+    premium_frame.grid(row=1, column=1, padx=5, pady=5)
+    premium_frame.grid_propagate(False)
     # Upcoming Flights Frame
-    upcoming_flights_frame = a.CTkFrame(c,
-                                        width=450,
-                                        height=250,
-                                        corner_radius=20,
+    upcoming_flights_frame = a.CTkFrame(bm,
+                                        width=480,
+                                        height=273,
+                                        corner_radius=10,
                                         fg_color="whitesmoke",
                                         border_color = "black",
                                         border_width = 1)
     upcoming_flights_frame.grid(row=1,
                                 column=2,
-                                sticky="nsew",
-                                padx=10,
-                                pady=10)
-
+                                padx=5,
+                                pady=5)
+    upcoming_flights_frame.grid_propagate(False)
     # Configure rows and columns for the grid in upcoming_flights_frame
     for i in range(6):
         upcoming_flights_frame.grid_rowconfigure(i, weight=1)

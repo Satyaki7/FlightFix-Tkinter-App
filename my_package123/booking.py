@@ -6,21 +6,47 @@ from ttkbootstrap.constants import PRIMARY
 def book(a,b,c,d):
     from PIL import Image, ImageTk
 
-    c.geometry("900x600")
-    c.title("Booking")
-    #Configure grid layout for the window
-    c.grid_columnconfigure(0, weight=0)
-    c.grid_columnconfigure(1, weight=2)
+    # c.geometry("900x600")
+    # c.title("Booking")
+    # #Configure grid layout for the window
+    # c.grid_columnconfigure(0, weight=0)
+    # c.grid_columnconfigure(1, weight=2)
+    # c.grid_rowconfigure(0, weight=1)
+    # c.grid_rowconfigure(1, weight=0)
+    # c.grid_rowconfigure(2, weight=1)
+
+    # # Load the background image
+    # bg_image = Image.open("assets/14337.jpg")
+    # bg_photo = ImageTk.PhotoImage(bg_image)
+
+    # # Create a Label to hold the background image
+    # bg_label = a.CTkLabel(c, image=bg_photo,text="")
+    # bg_label.place(relwidth=1, relheight=1)
+
+    c.geometry("1100x700")
+    c.title("Dashboard")
+    c.configure(fg_color='#5ca3ff')
+    # Configure grid layout for the window
+    c.configure(bg='blue')
+    c.grid_columnconfigure(0, weight=1)
     c.grid_rowconfigure(0, weight=1)
-    c.grid_rowconfigure(1, weight=0)
-    c.grid_rowconfigure(2, weight=1)
+
+    bm = a.CTkFrame(c, fg_color="transparent",width = 1100,height = 700,corner_radius = 20)
+    bm.grid(row=0, column=0, sticky="nsew",padx = 10,pady=10)
+    bm.grid_propagate(False)
+
+    bm.grid_columnconfigure(0, weight=0)
+    bm.grid_columnconfigure(1, weight=1)
+    bm.grid_rowconfigure(0, weight=1)
+    bm.grid_rowconfigure(1, weight=0)
+    bm.grid_rowconfigure(2, weight=1)
 
     # Load the background image
     bg_image = Image.open("assets/14337.jpg")
     bg_photo = ImageTk.PhotoImage(bg_image)
 
     # Create a Label to hold the background image
-    bg_label = a.CTkLabel(c, image=bg_photo,text="")
+    bg_label = a.CTkLabel(bm, image=bg_photo,text="")
     bg_label.place(relwidth=1, relheight=1)
     
     def on_button_click(a):
@@ -33,7 +59,7 @@ def book(a,b,c,d):
             return
         elif q != "Form" and w != "To" and dropdown3 != "Class" and spinbox != "Passengers" :
             
-            bottom_frame = a.CTkFrame(c, width=600, height=400, corner_radius=20, fg_color="whitesmoke")
+            bottom_frame = a.CTkFrame(bm, width=600, height=400, corner_radius=20, fg_color="whitesmoke")
             bottom_frame.grid(row=2, column=1, sticky="nsew", padx=10, pady=10)
             bottom_frame.grid_columnconfigure(0, weight=1)
             bottom_frame.grid_rowconfigure(0, weight=1)
@@ -70,7 +96,7 @@ def book(a,b,c,d):
                         label.grid(row=row, column=col, padx=5, pady=5, sticky="nsew")
                     
     # Left Sidebar Frame
-    sidebar_frame = a.CTkFrame(c, width=0, height=0, corner_radius=20, fg_color="transparent")
+    sidebar_frame = a.CTkFrame(bm, width=0, height=0, corner_radius=20, fg_color="transparent")
     sidebar_frame.grid(row=0, column=0, rowspan=4, padx=10)
     sidebar_frame.grid_rowconfigure((0, 4), weight=1)  # Add empty rows for centering
     sidebar_frame.grid_rowconfigure((1, 2, 3), weight=0)  # Rows for buttons
@@ -91,7 +117,7 @@ def book(a,b,c,d):
     button3.grid(row=3, column=0, padx=2, pady=1)
 
     # Top Frame
-    top_frame = a.CTkFrame(c, width=750, height=50, corner_radius=20, fg_color="whitesmoke",border_color="black",border_width=1)
+    top_frame = a.CTkFrame(bm, width=750, height=50, corner_radius=20, fg_color="whitesmoke",border_color="black",border_width=1)
     top_frame.grid(row=0, column=1, sticky="nsew", padx=10, pady=10)
     top_frame.grid_columnconfigure((0, 1, 2, 3), weight=1)
     top_frame.grid_rowconfigure((0, 1), weight=1)
