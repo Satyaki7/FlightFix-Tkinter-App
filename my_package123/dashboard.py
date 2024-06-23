@@ -21,8 +21,7 @@ def dashboardop(a, b, c, d,m):
     bm.grid_rowconfigure(3, weight=1)
 
     # Load the background image
-    bg_image = Image.open("assets/14337.jpg").resize((1100,700))
-    bg_photo = ImageTk.PhotoImage(bg_image)
+    bg_photo = a.CTkImage(Image.open("assets/14337.jpg"),size = (1100,700))
 
     # Create a Label to hold the background image
     bg_label = a.CTkLabel(bm, image=bg_photo,text="")
@@ -33,31 +32,36 @@ def dashboardop(a, b, c, d,m):
 
     # Left Sidebar Frame
     sidebar_frame = a.CTkFrame(bm,
-                               width=36,
-                               height=500,
-                               corner_radius=20,
+                               width=106,
+                               height=700,
+                               corner_radius=0,
                                fg_color="#5ca3ff")
-    sidebar_frame.grid(row=0, column=0, rowspan=4, padx=5, pady=10)
+    sidebar_frame.grid(row=0, column=0, rowspan=4, padx=0, pady=0,sticky = "ns")
     sidebar_frame.grid_rowconfigure((0, 5), weight=1)  # Add empty rows for centering
-    sidebar_frame.grid_rowconfigure((1, 2, 3, 4), weight=1)  # Rows for buttons
+    sidebar_frame.grid_rowconfigure((1, 2, 3, 4), weight=0)  # Rows for buttons
 
     #dash
     img1 =a.CTkImage(
-        Image.open('assets/home.png').resize((36, 36)))
+        Image.open('assets/home.png'),size=(32, 32))
     button1 = a.CTkButton(sidebar_frame,
+                          text = "Home",
+                          font=("Arial", 10f7h opif8lm.
+                               
+                               ),
+                          text_color = "black",
                           image=img1,
-                          text="",
                           width=36,
                           height=36,
                           corner_radius=18,
                           fg_color="#A2CCFE",
                           hover="DISABLED")
-    button1.grid(row=1, column=0, padx=2, pady=10,sticky = "nsew")
+    button1.grid(row=1, column=0, padx=2, pady=4)
     #flight
-    img2 = ImageTk.PhotoImage(
-        Image.open('assets/plane.png').resize((30, 30)))
+    img2 = a.CTkImage(Image.open('assets/plane.png'),size = (34,34))
     button2 = a.CTkButton(sidebar_frame,
-                          text="",
+                          text = "Book",
+                          font=("Arial", 16),
+                          text_color = "black",
                           width=36,
                           height=36,
                           corner_radius=18,
@@ -65,12 +69,12 @@ def dashboardop(a, b, c, d,m):
                           image=img2,
                           hover_color="#A2CCFE",
                           command=lambda: d("Flight"))
-    button2.grid(row=3, column=0, padx=2, pady=10)
+    button2.grid(row=3, column=0, padx=2, pady=4)
     #cust
-    img3 = ImageTk.PhotoImage(
-        Image.open('assets/cust.png').resize((30, 30)))
+    img3 = a.CTkImage(
+        Image.open('assets/cust.png'),size = (32, 32))
     button3 = a.CTkButton(sidebar_frame,
-                          text="",
+                          text = "",
                           width=36,
                           height=36,
                           corner_radius=18,
@@ -78,20 +82,22 @@ def dashboardop(a, b, c, d,m):
                           image=img3,
                           hover_color="#A2CCFE",
                           command=lambda: d("Cust"))
-    button3.grid(row=4, column=0, padx=2, pady=10)
+    button3.grid(row=5, column=0, padx=2, pady=4)
 
-    img4 = ImageTk.PhotoImage(
-        Image.open('assets/map.png').resize((30, 30)))
+    img4 = a.CTkImage(
+        Image.open('assets/map.png'),size=(30, 30))
     button4 = a.CTkButton(sidebar_frame,
-                          text="",
+                          text = "Explore",
+                          font=("Arial", 18),
+                          text_color = "black",
                           width=36,
                           height=36,
-                          corner_radius=18,
+                          corner_radius=16,
                           fg_color="#5ca3ff",
                           image=img4,
                           hover_color="#A2CCFE",
                           command=lambda: d("Map"))
-    button4.grid(row=2, column=0, padx=2, pady=10)
+    button4.grid(row=2, column=0, padx=2, pady=4)
 
     # User Info Frame
     user_info_frame = a.CTkFrame(bm,
