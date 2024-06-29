@@ -29,6 +29,9 @@ def returnop(h):
    if h == "Dash":
       destroy_all_widgets()
       dashboard.dashboardop(a,b,window,returnop,m)
+   if h == "Map":
+      destroy_all_widgets()
+      explore.exploreop(a,b,window,returnop)
 dashboard.dashboardop(a,b,window,returnop,m)
 window.mainloop()
 
