@@ -12,15 +12,12 @@ def dashboardop(a, b, c, d,m):
     c.grid_rowconfigure(1, weight=1)
 
     bm = a.CTkFrame(c, fg_color="transparent",width = 960,height = 700,corner_radius = 10)
-    bm.grid(row=1, column=1, sticky="nsew",padx = 10,pady=10)
+    bm.grid(row=1, column=1, sticky="nsew",padx = 10,pady=10,rowspan = 3,columnspan = 3)
     
     bm.grid_columnconfigure(0, weight=0)
     bm.grid_columnconfigure(1, weight=1)
     bm.grid_columnconfigure(2, weight=2)
-    bm.grid_rowconfigure(0, weight=1)
-    bm.grid_rowconfigure(1, weight=1)
-    bm.grid_rowconfigure(2, weight=1)
-    bm.grid_rowconfigure(3, weight=1)
+    bm.grid_rowconfigure((0,1,2,3), weight=1)
 
     # Load the background image
     bg_photo = a.CTkImage(Image.open("assets/14337.jpg"),size = (1100,700))
@@ -36,8 +33,8 @@ def dashboardop(a, b, c, d,m):
         sidebar_frame = a.CTkFrame(bm,
                                    width=106,
                                    height=700,
-                                   corner_radius=0,
-                                   fg_color="#5ca3ff")
+                                   corner_radius=10,
+                                   fg_color="#FFFFFF")
         sidebar_frame.grid(row=0, column=0, rowspan=2, padx=0, pady=0, sticky="ns")
         sidebar_frame.grid_rowconfigure((0, 5), weight=1)  # Add empty rows for centering
         sidebar_frame.grid_rowconfigure((1, 2, 3, 4), weight=0)  # Rows for buttons
@@ -117,7 +114,7 @@ def dashboardop(a, b, c, d,m):
                                  fg_color="whitesmoke",
                                  border_color = "black",
                                  border_width = 1)
-    user_info_frame.grid(row=0, column=1, padx=5, pady=10)
+    user_info_frame.grid(row=0, column=1, padx=5, pady=5)
     user_info_frame.grid_columnconfigure(0, weight=1)
     user_info_frame.grid_rowconfigure((0,1,2,3), weight=0)
     user_info_frame.grid_propagate(False)
@@ -174,8 +171,7 @@ def dashboardop(a, b, c, d,m):
                                height=273,
                                corner_radius=10,
                                fg_color="transparent")
-    flights_frame.grid(row=0, column=2,padx=5, pady=10)
-    flights_frame.grid_propagate(False)
+    flights_frame.grid(row=0, column=2,padx=5, pady=5)
     # Premium Frame
     premium_frame = a.CTkFrame(bm,
                                width=273,

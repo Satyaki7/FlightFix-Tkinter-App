@@ -6,40 +6,23 @@ from ttkbootstrap.constants import PRIMARY
 def book(a,b,c,d):
     from PIL import Image, ImageTk
 
-    # c.geometry("900x600")
-    # c.title("Booking")
-    # #Configure grid layout for the window
-    # c.grid_columnconfigure(0, weight=0)
-    # c.grid_columnconfigure(1, weight=2)
-    # c.grid_rowconfigure(0, weight=1)
-    # c.grid_rowconfigure(1, weight=0)
-    # c.grid_rowconfigure(2, weight=1)
-
-    # # Load the background image
-    # bg_image = Image.open("assets/14337.jpg")
-    # bg_photo = ImageTk.PhotoImage(bg_image)
-
-    # # Create a Label to hold the background image
-    # bg_label = a.CTkLabel(c, image=bg_photo,text="")
-    # bg_label.place(relwidth=1, relheight=1)
-
-    c.geometry("1100x700")
+    c.geometry("960x700")
     c.title("Dashboard")
     c.configure(fg_color='#5ca3ff')
     # Configure grid layout for the window
-    c.configure(bg='blue')
-    c.grid_columnconfigure(0, weight=1)
-    c.grid_rowconfigure(0, weight=1)
+    c.grid_columnconfigure((0,2), weight=0)
+    c.grid_columnconfigure(1, weight=1)
+    c.grid_rowconfigure((0,2), weight=0)
+    c.grid_rowconfigure(1, weight=1)
 
-    bm = a.CTkFrame(c, fg_color="transparent",width = 1100,height = 700,corner_radius = 20)
-    bm.grid(row=0, column=0, sticky="nsew",padx = 10,pady=10)
-    bm.grid_propagate(False)
-
+    bm = a.CTkFrame(c, fg_color="transparent",width = 960,height = 700,corner_radius = 10)
+    bm.grid(row=1, column=1, sticky="nsew",padx = 10,pady=10)
     bm.grid_columnconfigure(0, weight=0)
     bm.grid_columnconfigure(1, weight=1)
     bm.grid_rowconfigure(0, weight=1)
     bm.grid_rowconfigure(1, weight=0)
     bm.grid_rowconfigure(2, weight=1)
+    bm.grid_propagate(False)
 
     # Load the background image
     bg_image = Image.open("assets/14337.jpg")
@@ -51,7 +34,6 @@ def book(a,b,c,d):
     
     def on_button_click(a):
         print("booking is working")
-    
     def search():
         q,w,e,r = drop1.get(),drop2.get(),dropdown3.get(),spinbox.get()
         if q == w : 
@@ -63,6 +45,7 @@ def book(a,b,c,d):
             bottom_frame.grid(row=2, column=1, sticky="nsew", padx=10, pady=10)
             bottom_frame.grid_columnconfigure(0, weight=1)
             bottom_frame.grid_rowconfigure(0, weight=1)
+            bottom_frame.grid_propagate(False)
             # Configure rows and columns for the grid in bottom_frame
             for i in range(6):
                 bottom_frame.grid_rowconfigure(i, weight=1)
@@ -95,30 +78,87 @@ def book(a,b,c,d):
                         label = a.CTkLabel(bottom_frame, text=f"Label {row},{col}")
                         label.grid(row=row, column=col, padx=5, pady=5, sticky="nsew")
                     
-    # Left Sidebar Frame
-    sidebar_frame = a.CTkFrame(bm, width=0, height=0, corner_radius=20, fg_color="transparent")
-    sidebar_frame.grid(row=0, column=0, rowspan=4, padx=10)
-    sidebar_frame.grid_rowconfigure((0, 4), weight=1)  # Add empty rows for centering
-    sidebar_frame.grid_rowconfigure((1, 2, 3), weight=0)  # Rows for buttons
+    def clk():
+        # Left Sidebar Frame
+        sidebar_frame = a.CTkFrame(bm,
+                                   width=106,
+                                   height=700,
+                                   corner_radius=0,
+                                   fg_color="#5ca3ff")
+        sidebar_frame.grid(row=0, column=0, rowspan=3, padx=0, pady=0, sticky="ns")
+        sidebar_frame.grid_rowconfigure((0, 5), weight=1)  # Add empty rows for centering
+        sidebar_frame.grid_rowconfigure((1, 2, 3, 4), weight=0)  # Rows for buttons
 
-    # dash
-    img1 = ImageTk.PhotoImage(Image.open('assets/home.png').resize((30, 30)))
-    button1 = a.CTkButton(sidebar_frame, image=img1, text="", width=10, height=10, fg_color="transparent", corner_radius=100, hover_color="cyan", command=lambda: d("Dash"))
-    button1.grid(row=1, column=0, padx=2, pady=1)
+        def clk2():
+            sidebar_frame.grid_forget()
 
-    # flight
-    img2 = ImageTk.PhotoImage(Image.open('assets/plane.png').resize((30, 30)))
-    button2 = a.CTkButton(sidebar_frame, text="", width=10, height=10, corner_radius=100, image=img2, fg_color="lightblue", hover="DISABLED")
-    button2.grid(row=2, column=0, padx=2, pady=30)
+        cross = a.CTkImage(Image.open('assets/close.png'), size=(18,18))
+        buttoncross = a.CTkButton(sidebar_frame,text = "",image = cross,width = 18,height=18,fg_color = "transparent",command = clk2)
+        buttoncross.grid(row=0,column=0,padx=5,pady=5,sticky = "ne")
+        # Home button
+        img1 = a.CTkImage(Image.open('assets/home.png'), size=(32, 32))
+        button1 = a.CTkButton(sidebar_frame,
+                              text="Home",
+                              font=("Arial", 16),
+                              text_color="black",
+                              image=img1,
+                              width=36,
+                              height=36,
+                              corner_radius=18,
+                              fg_color="#5ca3ff",
+                              hover_color="#A2CCFE",
+                               command=lambda: d("Dash"))
+        button1.grid(row=1, column=0, padx=2, pady=4)
 
-    # cust
-    img3 = ImageTk.PhotoImage(Image.open('assets/cust.png').resize((30, 30)))
-    button3 = a.CTkButton(sidebar_frame, text="", width=10, height=10, corner_radius=100, fg_color="transparent", image=img3, hover_color="cyan", command=lambda: d("Cust"))
-    button3.grid(row=3, column=0, padx=2, pady=1)
+        # Explore button
+        img4 = a.CTkImage(Image.open('assets/map.png'), size=(30, 30))
+        button4 = a.CTkButton(sidebar_frame,
+                              text="Explore",
+                              font=("Arial", 16),
+                              text_color="black",
+                              width=36,
+                              height=36,
+                              corner_radius=16,
+                              fg_color="#5ca3ff",
+                              image=img4,
+                              hover_color="#A2CCFE",
+                              command=lambda: d("Map"))
+        button4.grid(row=2, column=0, padx=2, pady=4)
+
+        # Book button
+        img2 = a.CTkImage(Image.open('assets/plane.png'), size=(34, 34))
+        button2 = a.CTkButton(sidebar_frame,
+                              text="Book",
+                              font=("Arial", 16),
+                              text_color="black",
+                              width=36,
+                              height=36,
+                              corner_radius=18,
+                              fg_color="#A2CCFE",
+                              image=img2,
+                              hover="DISABLE")
+        button2.grid(row=3, column=0, padx=2, pady=4)
+
+        # Cust button
+        img3 = a.CTkImage(Image.open('assets/cust.png'), size=(32, 32))
+        button3 = a.CTkButton(sidebar_frame,
+                              text="",
+                              width=36,
+                              height=36,
+                              corner_radius=18,
+                              fg_color="#5ca3ff",
+                              image=img3,
+                              hover_color="#A2CCFE",
+                              command=lambda: d("Cust"))
+        button3.grid(row=5, column=0, padx=2, pady=4)
+
+    imgmen = a.CTkImage(Image.open('assets/menu.png'), size=(20,20))
+    menu = a.CTkButton(bm,width = 20,height=20,corner_radius=18,fg_color="#5ca3ff",image = imgmen,text="",command = clk)
+    menu.grid(row=0,column=0,padx=5,pady=0,sticky = "n")
 
     # Top Frame
-    top_frame = a.CTkFrame(bm, width=750, height=50, corner_radius=20, fg_color="whitesmoke",border_color="black",border_width=1)
-    top_frame.grid(row=0, column=1, sticky="nsew", padx=10, pady=10)
+    top_frame = a.CTkFrame(bm, width=750, height=150, corner_radius=20, fg_color="whitesmoke",border_color="black",border_width=1)
+    top_frame.grid(row=0, column=1, padx=10, pady=10)
     top_frame.grid_columnconfigure((0, 1, 2, 3), weight=1)
     top_frame.grid_rowconfigure((0, 1), weight=1)
     top_frame.grid_propagate(False)

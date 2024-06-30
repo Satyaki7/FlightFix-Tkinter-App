@@ -93,8 +93,9 @@ def exploreop(a, b, c, d):
                               width=36,
                               height=36,
                               corner_radius=18,
-                              fg_color="#A2CCFE",
-                              hover="DISABLED")
+                              fg_color="#5ca3ff",
+                              hover_color="#A2CCFE",
+                              command = lambda:d("Dash"))
         button1.grid(row=1, column=0, padx=2, pady=4)
 
         # Explore button
@@ -106,10 +107,9 @@ def exploreop(a, b, c, d):
                               width=36,
                               height=36,
                               corner_radius=16,
-                              fg_color="#5ca3ff",
+                              fg_color="#A2CCFE",
                               image=img4,
-                              hover_color="#A2CCFE",
-                              command=lambda: d("Map"))
+                              hover="DISABLE")
         button4.grid(row=2, column=0, padx=2, pady=4)
 
         # Book button
