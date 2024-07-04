@@ -50,7 +50,7 @@ def loginop(a,b,window,return_callback,u):
    pic_frame.grid_rowconfigure(0, weight=0)
    
    logimg = Image.open('assets/Fix.png')
-   picop = ImageTk.PhotoImage(logimg.resize((375, 600)))
+   picop = a.CTkImage(logimg,size=(375, 600))
    lable_pic = a.CTkLabel(pic_frame, image=picop,text = "")
    lable_pic.grid(row=0, column=0,sticky= "nsew")
    

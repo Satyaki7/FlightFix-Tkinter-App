@@ -26,7 +26,7 @@ def book(a,b,c,d):
 
     # Load the background image
     bg_image = Image.open("assets/14337.jpg")
-    bg_photo = ImageTk.PhotoImage(bg_image)
+    bg_photo = a.CTkImage(bg_image,size = (960, 700))
 
     # Create a Label to hold the background image
     bg_label = a.CTkLabel(bm, image=bg_photo,text="")

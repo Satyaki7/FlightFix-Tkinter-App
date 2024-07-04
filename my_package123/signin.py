@@ -59,7 +59,7 @@ def signop(a,b,window,return_callback,u):
    pic_frame.grid_rowconfigure(0, weight=0)
 
    logimg = Image.open('assets/Fix.png')
-   picop = ImageTk.PhotoImage(logimg.resize((375, 600)))
+   picop = a.CTkImage(logimg,size=(375, 600))
    lable_pic = a.CTkLabel(pic_frame, image=picop,text = "")
    lable_pic.grid(row=0, column=0,sticky= "nsew")
 
@@ -94,7 +94,7 @@ def signop(a,b,window,return_callback,u):
    log1.grid(column=1, row=1, padx=50, pady=5,sticky = "w")
    log2 = a.CTkLabel(input_vox, text="Password:", font=("Arial", 16),fg_color= "transparent",text_color="black")
    log2.grid(column=1, row=3, padx=50, pady=5,sticky = "w")
-   log3 = a.CTkLabel(input_vox, text="Re-Enter Password:", font=("Arial", 16),fg_color= "transparent",text_color="black")
+   log3 = a.CTkLabel(input_vox, text="Re-Enter Password:", font=("Arial", 16),fg_color="transparent",text_color="black")
    log3.grid(column=1, row=5, padx=50, pady=5,sticky = "w")
 
    username = b.Entry(input_vox)

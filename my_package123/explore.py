@@ -22,22 +22,37 @@ def exploreop(a, b, c, d):
     # Create a Label to hold the background image
     bg_label = a.CTkLabel(bm, image=bg_photo, text="")
     bg_label.place(relwidth=1, relheight=1)
-
     # cards
-    one = a.CTkFrame(bm, fg_color="transparent", width=180, height=271)
+
+    def create_rounded_image(image_path, size, radius):
+        image = Image.open(image_path).resize(size).convert("RGBA")
+        mask = Image.new("L", size, 0)
+        draw = ImageDraw.Draw(mask)
+        draw.rounded_rectangle((0, 0, size[0], size[1]), radius, fill=255)
+        rounded_image = Image.new("RGBA", size)
+        rounded_image.paste(image, (0, 0), mask)
+        return rounded_image
+    
+    one = a.CTkFrame(bm, fg_color="transparent", width=180, height=271,corner_radius = 20)
     one.grid(row=0, column=1, padx=0, pady=0)
     one.grid_propagate(False)
 
-    one_photo = a.CTkImage(Image.open("assets/delhi.jpg"), size=(180, 271))
-    one_label = a.CTkButton(one, image=one_photo, fg_color='#5ca3ff', hover_color="wheat", corner_radius=10, text="")
-    one_label.place(relwidth=1, relheight=1)
+    one_r = create_rounded_image("assets/delhi.jpg", (180, 271), 10)
+    one_photo = a.CTkImage(one_r,size = (180,271))
+    one_label = a.CTkLabel(one, image=one_photo, text="")
+    one_label.place(relx = 0.5,rely=0.5,anchor="center")
+    on_frame = a.CTkFrame(one, fg_color="white", width=160, height=100,corner_radius =10)
+    on_frame.place(relx = 0.5,rely=0.8,anchor="center")
+
 
     two = a.CTkFrame(bm, fg_color="transparent", width=180, height=271)
     two.grid(row=0, column=2, padx=0, pady=0, sticky="")
     two.grid_propagate(False)
-    twop = a.CTkImage(Image.open("assets/rajasthan.jpg"), size=(180, 271))
-    twob = a.CTkButton(two, image=twop, fg_color='#5ca3ff', hover_color="wheat", corner_radius=10, text="")
-    twob.place(relwidth=1, relheight=1)
+
+    two_r = create_rounded_image("assets/delhi.jpg", (180, 271), 10)
+    twop = a.CTkImage(two_r,size = (180,271))
+    twob = a.CTkLabel(two, image=twop,text="")
+    twob.place(relx=0.5, rely=0.5, anchor="center")
 
     three = a.CTkFrame(bm, fg_color="transparent", width=180, height=271)
     three.grid(row=0, column=3, padx=0, pady=0, sticky="")
