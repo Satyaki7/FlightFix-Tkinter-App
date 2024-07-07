@@ -13,7 +13,13 @@ def initialop():
     CREATE TABLE IF NOT EXISTS users (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         username TEXT NOT NULL UNIQUE,
-        password TEXT NOT NULL
+        password TEXT NOT NULL,
+        flight1 INTEGER NOT NULL,
+        flight2 INTEGER NOT NULL,
+        flight3 INTEGER NOT NULL,
+        flight4 INTEGER NOT NULL,
+        flight5 INTEGER NOT NULL,
+        No_Flight INTEGER NOT NULL
     )
     ''')
 
@@ -30,6 +36,16 @@ def initialop():
     conn.close()
 
     print("Database setup complete.")
+
+def flight(flightno,username):
+    conn = sqlite3.connect('users.db')
+    cursor = conn.cursor()
+
+    # Check if username exists
+    cursor.execute('''
+        SELECT * FROM users WHERE username = ?
+        
+    ''', (username,))
 
 # Function to authenticate the user just checking the login info
 def authenticate(username, password):

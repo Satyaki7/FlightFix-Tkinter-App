@@ -37,56 +37,60 @@ def exploreop(a, b, c, d):
     one.grid(row=0, column=1, padx=0, pady=0)
     one.grid_propagate(False)
 
-    one_r = create_rounded_image("assets/delhi.jpg", (180, 271), 10)
+    one_r = create_rounded_image("assets/Delhi.png", (180, 271), 10)
     one_photo = a.CTkImage(one_r,size = (180,271))
     one_label = a.CTkLabel(one, image=one_photo, text="")
     one_label.place(relx = 0.5,rely=0.5,anchor="center")
     on_frame = a.CTkFrame(one, fg_color="white", width=160, height=100,corner_radius =10)
-    on_frame.place(relx = 0.5,rely=0.8,anchor="center")
-    on_frame.grid_rowconfigure((0,1,2), weight=1)
-    on_frame.grid_propagate(False)
-    onel = a.CTkLabel(on_frame, text="Delhi", font=("Arial", 16),fg_color= "transparent")
-    onel.grid(row = 0,sticky = "w",padx= 10,pady=5)
-    onel2 = a.CTkLabel(on_frame, text="Lorem ipsum dolor sit \n amet, consectetur \nadipiscing elitsdafafrefhgedfgadjhfgdhjd \n dasfdasfadf       hgkajsdfha   df", font=("Arial", 10),fg_color = "transparent",text_color = "black",anchor= "w")
-    onel2.grid(row = 1,sticky = "w",padx= 10,pady=5)
+    # on_frame.place(relx = 0.5,rely=0.8,anchor="center")
+    # on_frame.grid_rowconfigure((0,1,2), weight=1)
+    # on_frame.grid_propagate(False)
     
-
+    # onel = a.CTkLabel(on_frame, text="Delhi", font=("Arial", 16),fg_color= "transparent",anchor= "w")
+    # onel.grid(row = 0,sticky = "w",padx= 10,pady=5)
+    # onel2 = a.CTkLabel(on_frame, text="hello world this is my computer \n project", font=("Arial", 10),fg_color = "transparent",text_color = "black",anchor= "w")
+    # onel2.grid(row = 1,sticky = "w",padx=4,pady=2)
+    
+    but = a.CTkButton(on_frame,text="Book Now",fg_color = "transparent" ,text_color = "black",corner_radius = 10,font=("Arial", 10),width = 16)
+    but.grid(row = 2,pady=2,padx=6,sticky = "e")
 
     two = a.CTkFrame(bm, fg_color="transparent", width=180, height=271)
     two.grid(row=0, column=2, padx=0, pady=0, sticky="")
     two.grid_propagate(False)
 
-    two_r = create_rounded_image("assets/delhi.jpg", (180, 271), 10)
+    two_r =create_rounded_image("assets/Delhi 1.png", (180, 271), 10)
     twop = a.CTkImage(two_r,size = (180,271))
     twob = a.CTkLabel(two, image=twop,text="")
     twob.place(relx=0.5, rely=0.5, anchor="center")
 
+    
+
     three = a.CTkFrame(bm, fg_color="transparent", width=180, height=271)
     three.grid(row=0, column=3, padx=0, pady=0, sticky="")
     three.grid_propagate(False)
-    three_photo = a.CTkImage(Image.open("assets/delhi.jpg"), size=(180, 271))
-    threeb = a.CTkButton(three, image=three_photo, fg_color='#5ca3ff', hover_color="wheat", corner_radius=10, text="")
+    three_photo = a.CTkImage(create_rounded_image("assets/delhi.jpg", (180, 271), 10), size=(180, 271))
+    threeb = a.CTkLabel(three, image=three_photo,text="")
     threeb.place(relwidth=1, relheight=1)
 
     four = a.CTkFrame(bm, fg_color="transparent", width=180, height=271)
     four.grid(row=1, column=1, padx=0, pady=5, sticky="")
     four.grid_propagate(False)
-    four_photo = a.CTkImage(Image.open("assets/delhi.jpg"), size=(180, 271))
-    fourb = a.CTkButton(four, image=four_photo, fg_color='#5ca3ff', hover_color="wheat", corner_radius=10, text="")
+    four_photo = a.CTkImage(create_rounded_image("assets/delhi.jpg", (180, 271), 10), size=(180, 271))
+    fourb = a.CTkLabel(four, image=four_photo,text="")
     fourb.place(relwidth=1, relheight=1)
 
     five = a.CTkFrame(bm, fg_color="transparent", width=180, height=271)
     five.grid(row=1, column=2, padx=0, pady=5, sticky="")
     five.grid_propagate(False)
-    five_photo = a.CTkImage(Image.open("assets/rajasthan.jpg"), size=(180, 271))
-    fiveb = a.CTkButton(five, image=five_photo, fg_color='#5ca3ff', hover_color="wheat", corner_radius=10, text="")
+    five_photo = a.CTkImage(create_rounded_image("assets/delhi.jpg", (180, 271), 10), size=(180, 271))
+    fiveb = a.CTkLabel(five, image=five_photo, text="")
     fiveb.place(relwidth=1, relheight=1)
 
     six = a.CTkFrame(bm, fg_color="transparent", width=180, height=271)
     six.grid(row=1, column=3, padx=0, pady=5, sticky="")
     six.grid_propagate(False)
-    six_photo = a.CTkImage(Image.open("assets/delhi.jpg"), size=(180, 271))
-    sixb = a.CTkButton(six, image=six_photo, fg_color='#5ca3ff', hover_color="wheat", corner_radius=10, text="")
+    six_photo = a.CTkImage(create_rounded_image("assets/delhi.jpg", (180, 271), 10), size=(180, 271))
+    sixb = a.CTkLabel(six, image=six_photo,text="")
     sixb.place(relwidth=1, relheight=1)
     def clk():
         # Left Sidebar Frame

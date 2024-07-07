@@ -4,6 +4,7 @@ from tkinter import messagebox
 from ttkbootstrap.constants import PRIMARY
 
 def book(a,b,c,d):
+    import random
     from PIL import Image, ImageTk
 
     c.geometry("960x700")
@@ -15,6 +16,11 @@ def book(a,b,c,d):
     c.grid_rowconfigure((0,2), weight=0)
     c.grid_rowconfigure(1, weight=1)
 
+    gigalist=[] 
+
+    def flightb(x):
+        print(gigalist[x-1])
+    
     bm = a.CTkFrame(c, fg_color="transparent",width = 960,height = 700,corner_radius = 10)
     bm.grid(row=1, column=1, sticky="nsew",padx = 10,pady=10)
     bm.grid_columnconfigure(0, weight=0)
@@ -32,8 +38,7 @@ def book(a,b,c,d):
     bg_label = a.CTkLabel(bm, image=bg_photo,text="")
     bg_label.place(relwidth=1, relheight=1)
     
-    def on_button_click(a):
-        print("booking is working")
+
     def search():
         q,w,e,r = drop1.get(),drop2.get(),dropdown3.get(),spinbox.get()
         if q == w : 
@@ -58,7 +63,7 @@ def book(a,b,c,d):
                     if col == 4:  # Place button in the 5th column
                         if row == 0:
                             continue
-                        button = b.Button(bottom_frame, text=f"Button {row}", style="primary.Outline.TButton", command=lambda r=row: on_button_click(r))
+                        button = b.Button(bottom_frame, text=f"Button {row}", style="primary.Outline.TButton", command=lambda r=row: flightb(r))
                         button.grid(row=row, column=col, padx=5, pady=5, sticky="ew")
                     elif row == 0:
                         if col == 0:
@@ -73,11 +78,18 @@ def book(a,b,c,d):
                         elif col == 3:
                             label = label = a.CTkLabel(bottom_frame, text="Time")
                             label.grid(row=row, column=col, padx=5, pady=5, sticky="nsew")
-    
-                    else:  # Place labels in other columns
-                        label = a.CTkLabel(bottom_frame, text=f"Label {row},{col}")
+                    elif row != 0 and col == 1:
+                        aaa = "AC" + str(random.randint(0,9999))
+                        gigalist.append(aaa)
+                        print(gigalist)
+                        label = a.CTkLabel(bottom_frame, text=aaa)
                         label.grid(row=row, column=col, padx=5, pady=5, sticky="nsew")
-                    
+                    elif col == 0:
+                        label = a.CTkLabel(bottom_frame, text=row)
+                        label.grid(row=row, column=col, padx=5, pady=5, sticky="nsew")
+                    else:  # Place labels in other columns
+                        label = a.CTkLabel(bottom_frame, text="working on it")
+                        label.grid(row=row, column=col, padx=5, pady=5, sticky="nsew")
     def clk():
         # Left Sidebar Frame
         sidebar_frame = a.CTkFrame(bm,
