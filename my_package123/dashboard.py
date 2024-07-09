@@ -12,8 +12,8 @@ def dashboardop(a, b, c, d,m):
     c.grid_rowconfigure(1, weight=1)
 
     bm = a.CTkFrame(c, fg_color="transparent",width = 960,height = 700,corner_radius = 10)
-    bm.grid(row=1, column=1, sticky="nsew",padx = 10,pady=10,rowspan = 3,columnspan = 3)
-    
+    bm.grid(row=1, column=1, sticky="nsew",padx = 0,pady=0,rowspan = 3,columnspan = 3)
+
     bm.grid_columnconfigure(0, weight=0)
     bm.grid_columnconfigure(1, weight=1)
     bm.grid_columnconfigure(2, weight=2)
@@ -31,14 +31,15 @@ def dashboardop(a, b, c, d,m):
     def clk():
         # Left Sidebar Frame
         sidebar_frame = a.CTkFrame(bm,
-                                   width=106,
-                                   height=700,
-                                   corner_radius=10,
-                                   fg_color="#FFFFFF")
+                 width=106,
+                 height=700,
+                 corner_radius=0,
+                 fg_color="white")
         sidebar_frame.grid(row=0, column=0, rowspan=2, padx=0, pady=0, sticky="ns")
+        sidebar_frame.grid_columnconfigure(0,weight = 1)
         sidebar_frame.grid_rowconfigure((0, 5), weight=1)  # Add empty rows for centering
         sidebar_frame.grid_rowconfigure((1, 2, 3, 4), weight=0)  # Rows for buttons
-        
+        sidebar_frame.grid_propagate(False)
         def clk2():
             sidebar_frame.grid_forget()
 
@@ -48,64 +49,64 @@ def dashboardop(a, b, c, d,m):
         # Home button
         img1 = a.CTkImage(Image.open('assets/home.png'), size=(32, 32))
         button1 = a.CTkButton(sidebar_frame,
-                              text="Home",
-                              font=("Arial", 16),
-                              text_color="black",
-                              image=img1,
-                              width=36,
-                              height=36,
-                              corner_radius=18,
-                              fg_color="#A2CCFE",
-                              hover="DISABLED")
-        button1.grid(row=1, column=0, padx=2, pady=4)
+            text="Home",
+            font=("Arial", 16),
+            text_color="black",
+            image=img1,
+            width=36,
+            height=36,
+            corner_radius=0,
+            fg_color="#FFE4E4",
+            hover="DISABLE")
+        button1.grid(row=1, column=0, padx=0, pady=4,sticky = "we")
 
         # Explore button
         img4 = a.CTkImage(Image.open('assets/map.png'), size=(30, 30))
         button4 = a.CTkButton(sidebar_frame,
-                              text="Explore",
-                              font=("Arial", 16),
-                              text_color="black",
-                              width=36,
-                              height=36,
-                              corner_radius=16,
-                              fg_color="#5ca3ff",
-                              image=img4,
-                              hover_color="#A2CCFE",
-                              command=lambda: d("Map"))
-        button4.grid(row=2, column=0, padx=2, pady=4)
+            text="Explore",
+            font=("Arial", 16),
+            text_color="black",
+            width=36,
+            height=36,
+            corner_radius=0,
+            fg_color="white",
+            image=img4,
+            hover_color="#FFE4E4",
+            command = lambda:d("Map"))
+        button4.grid(row=2, column=0, padx=0, pady=4,sticky = "we")
 
         # Book button
         img2 = a.CTkImage(Image.open('assets/plane.png'), size=(34, 34))
         button2 = a.CTkButton(sidebar_frame,
-                              text="Book",
-                              font=("Arial", 16),
-                              text_color="black",
-                              width=36,
-                              height=36,
-                              corner_radius=18,
-                              fg_color="#5ca3ff",
-                              image=img2,
-                              hover_color="#A2CCFE",
-                              command=lambda: d("Flight"))
-        button2.grid(row=3, column=0, padx=2, pady=4)
+            text="Book",
+            font=("Arial", 16),
+            text_color="black",
+            width=36,
+            height=36,
+            corner_radius=0,
+            fg_color="white",
+            image=img2,
+            hover_color="#FFE4E4",
+            command=lambda: d("Flight"))
+        button2.grid(row=3, column=0, padx=0, pady=4,sticky = "we")
 
         # Cust button
         img3 = a.CTkImage(Image.open('assets/cust.png'), size=(32, 32))
         button3 = a.CTkButton(sidebar_frame,
-                              text="",
-                              width=36,
-                              height=36,
-                              corner_radius=18,
-                              fg_color="#5ca3ff",
-                              image=img3,
-                              hover_color="#A2CCFE",
-                              command=lambda: d("Cust"))
-        button3.grid(row=5, column=0, padx=2, pady=4)
+            text="",
+            width=36,
+            height=36,
+            corner_radius=18,
+            fg_color="white",
+            image=img3,
+            hover_color="#FFE4E4",
+            command=lambda: d("Cust"))
+        button3.grid(row=5, column=0, padx=0, pady=4,sticky = "we")
 
     imgmen = a.CTkImage(Image.open('assets/menu.png'), size=(20,20))
     menu = a.CTkButton(bm,width = 20,height=20,corner_radius=18,fg_color="#5ca3ff",image = imgmen,text="",command = clk)
     menu.grid(row=0,column=0,padx=5,pady=0,sticky = "n")
-    
+
     # User Info Frame
     user_info_frame = a.CTkFrame(bm,
                                  width=273,

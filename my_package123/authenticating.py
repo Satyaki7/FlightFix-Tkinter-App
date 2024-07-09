@@ -1,6 +1,20 @@
 from tkinter import messagebox
 import sqlite3
 
+def view_users_table():
+    conn = sqlite3.connect('users.db')
+    cursor = conn.cursor()
+
+    cursor.execute('SELECT * FROM users')
+    rows = cursor.fetchall()
+
+    for row in rows:
+        print(row)
+
+    conn.close()
+
+# Call the function to view the users table
+
 def initialop():
     # Connect to the SQLite database (or create it if it doesn't exist)
     conn = sqlite3.connect('users.db')
@@ -31,6 +45,7 @@ def initialop():
     for table in tables:
         print(table)
 
+    view_users_table()
     # Commit the changes and close the connection
     conn.commit()
     conn.close()

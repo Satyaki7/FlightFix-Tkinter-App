@@ -9,7 +9,7 @@ def exploreop(a, b, c, d):
     c.grid_rowconfigure(0, weight=1)
 
     bm = a.CTkFrame(c, fg_color="transparent", width=960, height=700, corner_radius=20)
-    bm.grid(row=0, column=0, sticky="nsew", padx=10, pady=10)
+    bm.grid(row=0, column=0, sticky="nsew", padx=0, pady=0)
     bm.grid_propagate(False)
     bm.grid_columnconfigure(0, weight=0)
     bm.grid_columnconfigure((1, 2, 3), weight=1)
@@ -32,38 +32,33 @@ def exploreop(a, b, c, d):
         rounded_image = Image.new("RGBA", size)
         rounded_image.paste(image, (0, 0), mask)
         return rounded_image
-    
+
     one = a.CTkFrame(bm, fg_color="transparent", width=180, height=271,corner_radius = 20)
     one.grid(row=0, column=1, padx=0, pady=0)
+    one.grid_rowconfigure((0,1,2),weight = 1)
     one.grid_propagate(False)
 
     one_r = create_rounded_image("assets/Delhi.png", (180, 271), 10)
     one_photo = a.CTkImage(one_r,size = (180,271))
     one_label = a.CTkLabel(one, image=one_photo, text="")
     one_label.place(relx = 0.5,rely=0.5,anchor="center")
-    on_frame = a.CTkFrame(one, fg_color="white", width=160, height=100,corner_radius =10)
-    # on_frame.place(relx = 0.5,rely=0.8,anchor="center")
-    # on_frame.grid_rowconfigure((0,1,2), weight=1)
-    # on_frame.grid_propagate(False)
-    
-    # onel = a.CTkLabel(on_frame, text="Delhi", font=("Arial", 16),fg_color= "transparent",anchor= "w")
-    # onel.grid(row = 0,sticky = "w",padx= 10,pady=5)
-    # onel2 = a.CTkLabel(on_frame, text="hello world this is my computer \n project", font=("Arial", 10),fg_color = "transparent",text_color = "black",anchor= "w")
-    # onel2.grid(row = 1,sticky = "w",padx=4,pady=2)
-    
-    but = a.CTkButton(on_frame,text="Book Now",fg_color = "transparent" ,text_color = "black",corner_radius = 10,font=("Arial", 10),width = 16)
+    but = a.CTkButton(one,text="Book Now",fg_color = "transparent" ,text_color = "black",corner_radius = 10,font=("Arial", 10),width = 16)
     but.grid(row = 2,pady=2,padx=6,sticky = "e")
 
     two = a.CTkFrame(bm, fg_color="transparent", width=180, height=271)
     two.grid(row=0, column=2, padx=0, pady=0, sticky="")
+    two.grid_rowconfigure((0,1),weight = 1)
+    two.grid_rowconfigure(2,weight = 0)
     two.grid_propagate(False)
 
     two_r =create_rounded_image("assets/Delhi 1.png", (180, 271), 10)
     twop = a.CTkImage(two_r,size = (180,271))
     twob = a.CTkLabel(two, image=twop,text="")
-    twob.place(relx=0.5, rely=0.5, anchor="center")
+    twob.grid(row = 1,rowspan = 3,sticky = "nsew")
+    twobb = b.Button(two,style = "primary.outline",text = "Book Now")
+    twobb.grid(row = 2,sticky = "e",padx = 10,pady = 10)
 
-    
+
 
     three = a.CTkFrame(bm, fg_color="transparent", width=180, height=271)
     three.grid(row=0, column=3, padx=0, pady=0, sticky="")
@@ -98,11 +93,12 @@ def exploreop(a, b, c, d):
                  width=106,
                  height=700,
                  corner_radius=0,
-                 fg_color="#5ca3ff")
+                 fg_color="white")
         sidebar_frame.grid(row=0, column=0, rowspan=2, padx=0, pady=0, sticky="ns")
+        sidebar_frame.grid_columnconfigure(0,weight = 1)
         sidebar_frame.grid_rowconfigure((0, 5), weight=1)  # Add empty rows for centering
         sidebar_frame.grid_rowconfigure((1, 2, 3, 4), weight=0)  # Rows for buttons
-
+        sidebar_frame.grid_propagate(False)
         def clk2():
             sidebar_frame.grid_forget()
 
@@ -118,11 +114,11 @@ def exploreop(a, b, c, d):
             image=img1,
             width=36,
             height=36,
-            corner_radius=18,
-            fg_color="#5ca3ff",
-            hover_color="#A2CCFE",
+            corner_radius=0,
+            fg_color="white",
+            hover_color="#FFE4E4",
             command = lambda:d("Dash"))
-        button1.grid(row=1, column=0, padx=2, pady=4)
+        button1.grid(row=1, column=0, padx=0, pady=4,sticky = "we")
 
         # Explore button
         img4 = a.CTkImage(Image.open('assets/map.png'), size=(30, 30))
@@ -132,11 +128,11 @@ def exploreop(a, b, c, d):
             text_color="black",
             width=36,
             height=36,
-            corner_radius=16,
-            fg_color="#A2CCFE",
+            corner_radius=0,
+            fg_color="#FFE4E4",
             image=img4,
             hover="DISABLE")
-        button4.grid(row=2, column=0, padx=2, pady=4)
+        button4.grid(row=2, column=0, padx=0, pady=4,sticky = "we")
 
         # Book button
         img2 = a.CTkImage(Image.open('assets/plane.png'), size=(34, 34))
@@ -146,12 +142,12 @@ def exploreop(a, b, c, d):
             text_color="black",
             width=36,
             height=36,
-            corner_radius=18,
-            fg_color="#5ca3ff",
+            corner_radius=0,
+            fg_color="white",
             image=img2,
-            hover_color="#A2CCFE",
+            hover_color="#FFE4E4",
             command=lambda: d("Flight"))
-        button2.grid(row=3, column=0, padx=2, pady=4)
+        button2.grid(row=3, column=0, padx=0, pady=4,sticky = "we")
 
         # Cust button
         img3 = a.CTkImage(Image.open('assets/cust.png'), size=(32, 32))
@@ -160,11 +156,11 @@ def exploreop(a, b, c, d):
             width=36,
             height=36,
             corner_radius=18,
-            fg_color="#5ca3ff",
+            fg_color="white",
             image=img3,
-            hover_color="#A2CCFE",
+            hover_color="#FFE4E4",
             command=lambda: d("Cust"))
-        button3.grid(row=5, column=0, padx=2, pady=4)
+        button3.grid(row=5, column=0, padx=0, pady=4,sticky = "we")
 
     imgmen = a.CTkImage(Image.open('assets/menu.png'), size=(20,20))
     menu = a.CTkButton(bm,width = 20,height=20,corner_radius=18,fg_color="#5ca3ff",image = imgmen,text="",command = clk)

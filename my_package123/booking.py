@@ -20,7 +20,7 @@ def book(a,b,c,d):
 
     def flightb(x):
         print(gigalist[x-1])
-    
+
     bm = a.CTkFrame(c, fg_color="transparent",width = 960,height = 700,corner_radius = 10)
     bm.grid(row=1, column=1, sticky="nsew",padx = 10,pady=10)
     bm.grid_columnconfigure(0, weight=0)
@@ -37,7 +37,7 @@ def book(a,b,c,d):
     # Create a Label to hold the background image
     bg_label = a.CTkLabel(bm, image=bg_photo,text="")
     bg_label.place(relwidth=1, relheight=1)
-    
+
 
     def search():
         q,w,e,r = drop1.get(),drop2.get(),dropdown3.get(),spinbox.get()
@@ -45,7 +45,7 @@ def book(a,b,c,d):
             messagebox.showerror("Error", "Departure and Arrival location cannot be same.")
             return
         elif q != "Form" and w != "To" and dropdown3 != "Class" and spinbox != "Passengers" :
-            
+
             bottom_frame = a.CTkFrame(bm, width=600, height=400, corner_radius=20, fg_color="whitesmoke")
             bottom_frame.grid(row=2, column=1, sticky="nsew", padx=10, pady=10)
             bottom_frame.grid_columnconfigure(0, weight=1)
@@ -93,14 +93,15 @@ def book(a,b,c,d):
     def clk():
         # Left Sidebar Frame
         sidebar_frame = a.CTkFrame(bm,
-                                   width=106,
-                                   height=700,
-                                   corner_radius=0,
-                                   fg_color="#5ca3ff")
-        sidebar_frame.grid(row=0, column=0, rowspan=3, padx=0, pady=0, sticky="ns")
+                 width=106,
+                 height=700,
+                 corner_radius=0,
+                 fg_color="white")
+        sidebar_frame.grid(row=0, column=0, rowspan=2, padx=0, pady=0, sticky="ns")
+        sidebar_frame.grid_columnconfigure(0,weight = 1)
         sidebar_frame.grid_rowconfigure((0, 5), weight=1)  # Add empty rows for centering
         sidebar_frame.grid_rowconfigure((1, 2, 3, 4), weight=0)  # Rows for buttons
-
+        sidebar_frame.grid_propagate(False)
         def clk2():
             sidebar_frame.grid_forget()
 
@@ -110,59 +111,59 @@ def book(a,b,c,d):
         # Home button
         img1 = a.CTkImage(Image.open('assets/home.png'), size=(32, 32))
         button1 = a.CTkButton(sidebar_frame,
-                              text="Home",
-                              font=("Arial", 16),
-                              text_color="black",
-                              image=img1,
-                              width=36,
-                              height=36,
-                              corner_radius=18,
-                              fg_color="#5ca3ff",
-                              hover_color="#A2CCFE",
-                               command=lambda: d("Dash"))
-        button1.grid(row=1, column=0, padx=2, pady=4)
+            text="Home",
+            font=("Arial", 16),
+            text_color="black",
+            image=img1,
+            width=36,
+            height=36,
+            corner_radius=0,
+            fg_color="white",
+            hover_color="#FFE4E4",
+            command = lambda:d("Dash"))
+        button1.grid(row=1, column=0, padx=0, pady=4,sticky = "we")
 
         # Explore button
         img4 = a.CTkImage(Image.open('assets/map.png'), size=(30, 30))
         button4 = a.CTkButton(sidebar_frame,
-                              text="Explore",
-                              font=("Arial", 16),
-                              text_color="black",
-                              width=36,
-                              height=36,
-                              corner_radius=16,
-                              fg_color="#5ca3ff",
-                              image=img4,
-                              hover_color="#A2CCFE",
-                              command=lambda: d("Map"))
-        button4.grid(row=2, column=0, padx=2, pady=4)
+            text="Explore",
+            font=("Arial", 16),
+            text_color="black",
+            width=36,
+            height=36,
+            corner_radius=0,
+            fg_color="white",
+            image=img4,
+            hover_color="#FFE4E4",
+            command = lambda:d("Map"))
+        button4.grid(row=2, column=0, padx=0, pady=4,sticky = "we")
 
         # Book button
         img2 = a.CTkImage(Image.open('assets/plane.png'), size=(34, 34))
         button2 = a.CTkButton(sidebar_frame,
-                              text="Book",
-                              font=("Arial", 16),
-                              text_color="black",
-                              width=36,
-                              height=36,
-                              corner_radius=18,
-                              fg_color="#A2CCFE",
-                              image=img2,
-                              hover="DISABLE")
-        button2.grid(row=3, column=0, padx=2, pady=4)
+            text="Book",
+            font=("Arial", 16),
+            text_color="black",
+            width=36,
+            height=36,
+            corner_radius=0,
+            fg_color="#FFE4E4",
+            image=img2,
+            hover="DISABLE")
+        button2.grid(row=3, column=0, padx=0, pady=4,sticky = "we")
 
         # Cust button
         img3 = a.CTkImage(Image.open('assets/cust.png'), size=(32, 32))
         button3 = a.CTkButton(sidebar_frame,
-                              text="",
-                              width=36,
-                              height=36,
-                              corner_radius=18,
-                              fg_color="#5ca3ff",
-                              image=img3,
-                              hover_color="#A2CCFE",
-                              command=lambda: d("Cust"))
-        button3.grid(row=5, column=0, padx=2, pady=4)
+            text="",
+            width=36,
+            height=36,
+            corner_radius=18,
+            fg_color="white",
+            image=img3,
+            hover_color="#FFE4E4",
+            command=lambda: d("Cust"))
+        button3.grid(row=5, column=0, padx=0, pady=4,sticky = "we")
 
     imgmen = a.CTkImage(Image.open('assets/menu.png'), size=(20,20))
     menu = a.CTkButton(bm,width = 20,height=20,corner_radius=18,fg_color="#5ca3ff",image = imgmen,text="",command = clk)
@@ -174,7 +175,7 @@ def book(a,b,c,d):
     top_frame.grid_columnconfigure((0, 1, 2, 3), weight=1)
     top_frame.grid_rowconfigure((0, 1), weight=1)
     top_frame.grid_propagate(False)
-    
+
     cities = ['Kolkata', 'Delhi', 'Mumbai', 'Chennai', 'Bangalore', 'Hyderabad', 'Pune']
 
     # Dropdown Boxes and Other Widgets in Top Frame
@@ -202,4 +203,3 @@ def book(a,b,c,d):
 
     button = b.Button(top_frame, text="Book", bootstyle="primary.outline",command = search)
     button.grid(row=1, column=3, padx=10, pady=1, sticky="ew")
-
