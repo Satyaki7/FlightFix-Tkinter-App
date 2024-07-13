@@ -4,3 +4,24 @@ import pywinstyles
 
 pywinstyles.apply_style(window,"acrylic")
 
+cities_with_flights = [
+    ["Mumbai", "AI101", "6E203", "UK305", "G8467", "SG558"],
+    ["Delhi", "AI204", "6E410", "UK511", "G8721", "SG663"],
+    ["Bangalore", "AI307", "6E315", "UK423", "G8345", "SG772"],
+    ["Hyderabad", "AI412", "6E527", "UK634", "G8612", "SG883"],
+    ["Chennai", "AI515", "6E634", "UK745", "G8964", "SG994"],
+    ["Kolkata", "AI620", "6E741", "UK856", "G8210", "SG105"]
+]
+for city in cities_with_flights:
+    add_city_and_flights(city[0], city[1], city[2], city[3], city[4], city[5])
+
+cities_with_flights = [
+    ["London", "BA101", "LH202", "AF303", "EK404", "SQ505"],
+    ["Paris", "AF101", "LH202", "BA303", "EK404", "SQ505"],
+    ["Tokyo", "NH101", "JL202", "ANA303", "EK404", "SQ505"],
+    ["Sydney", "QF101", "VA202", "JQ303", "EK404", "SQ505"],
+    ["Dubai", "EK101", "FZ202", "EY303", "QR404", "SV505"],
+    ["New York", "DL101", "UA202", "AA303", "B6404", "EK505"]
+]
+for city in cities_with_flights:
+    add_city_and_flights(city[0], city[1], city[2], city[3], city[4], city[5])

@@ -3,10 +3,14 @@ from typing import Text
 from tkinter import messagebox
 from ttkbootstrap.constants import PRIMARY
 
+from my_package123.authenticating import authenticate
+
 def book(a,b,c,d):
     import random
     from PIL import Image, ImageTk
-
+    from datetime import datetime
+    from .authenticating import searchfli
+    from .form import formop
     c.geometry("960x700")
     c.title("Dashboard")
     c.configure(fg_color='#5ca3ff')
@@ -15,19 +19,16 @@ def book(a,b,c,d):
     c.grid_columnconfigure(1, weight=1)
     c.grid_rowconfigure((0,2), weight=0)
     c.grid_rowconfigure(1, weight=1)
-
-    gigalist=[] 
-
-    def flightb(x):
-        print(gigalist[x-1])
+    r = 1
+    def flightb(x,r):
+        formop(a,b,c,d,x,r)
 
     bm = a.CTkFrame(c, fg_color="transparent",width = 960,height = 700,corner_radius = 10)
     bm.grid(row=1, column=1, sticky="nsew",padx = 10,pady=10)
     bm.grid_columnconfigure(0, weight=0)
     bm.grid_columnconfigure(1, weight=1)
-    bm.grid_rowconfigure(0, weight=1)
     bm.grid_rowconfigure(1, weight=0)
-    bm.grid_rowconfigure(2, weight=1)
+    bm.grid_rowconfigure((0,2), weight=1)
     bm.grid_propagate(False)
 
     # Load the background image
@@ -40,10 +41,24 @@ def book(a,b,c,d):
 
 
     def search():
-        q,w,e,r = drop1.get(),drop2.get(),dropdown3.get(),spinbox.get()
-        if q == w : 
-            messagebox.showerror("Error", "Departure and Arrival location cannot be same.")
+        global r
+        q,w,e,r,t,y = drop1.get(),drop2.get(),dropdown3.get(),spinbox.get(),datetime.strptime(datepicker1.entry.get(), "%d/%m/%Y"),datetime.strptime(datepicker2.entry.get(),"%d/%m/%Y")
+        print("The selected date is: ",t)
+        if q == "Form" or w == "To":
+            messagebox.showerror("Error", "Select Departure and Arrival location properly.")
             return
+        # elif q == w : 
+        #     messagebox.showerror("Error", "Departure and Arrival location cannot be same.")
+        #     return
+        # elif dropdown3 == "Class":
+        #     messagebox.showerror("Error", "Please select the class of ticket.")
+        #     return
+        # elif t == y:
+        #     messagebox.showerror("Error", "Departure and Return date cannot be same.")
+        #     return
+        # elif t > y:
+        #     messagebox.showerror("Error", "Time travel not allowed !")
+        #     return
         elif q != "Form" and w != "To" and dropdown3 != "Class" and spinbox != "Passengers" :
 
             bottom_frame = a.CTkFrame(bm, width=600, height=400, corner_radius=20, fg_color="whitesmoke")
@@ -54,16 +69,16 @@ def book(a,b,c,d):
             # Configure rows and columns for the grid in bottom_frame
             for i in range(6):
                 bottom_frame.grid_rowconfigure(i, weight=1)
-            for j in range(5):
+            for j in range(6):
                 bottom_frame.grid_columnconfigure(j, weight=1)
 
             # Populate the grid with labels and buttons
             for row in range(6):
-                for col in range(5):
-                    if col == 4:  # Place button in the 5th column
+                for col in range(6):
+                    if col == 5:  # Place button in the 5th column
                         if row == 0:
                             continue
-                        button = b.Button(bottom_frame, text=f"Button {row}", style="primary.Outline.TButton", command=lambda r=row: flightb(r))
+                        button = b.Button(bottom_frame, text=f"Button {row}", style="primary.Outline.TButton", command=lambda x=row: flightb(x,r))
                         button.grid(row=row, column=col, padx=5, pady=5, sticky="ew")
                     elif row == 0:
                         if col == 0:
@@ -73,22 +88,30 @@ def book(a,b,c,d):
                             label = a.CTkLabel(bottom_frame, text="Flight No")
                             label.grid(row=row, column=col, padx=5, pady=5, sticky="nsew")
                         elif col == 2:
-                            label = a.CTkLabel(bottom_frame, text="Date")
+                            label = a.CTkLabel(bottom_frame, text="Departure Date")
                             label.grid(row=row, column=col, padx=5, pady=5, sticky="nsew")
                         elif col == 3:
+                            label = label = a.CTkLabel(bottom_frame, text="Return Date")
+                            label.grid(row=row, column=col, padx=5, pady=5, sticky="nsew")
+                        elif col == 4:
                             label = label = a.CTkLabel(bottom_frame, text="Time")
                             label.grid(row=row, column=col, padx=5, pady=5, sticky="nsew")
                     elif row != 0 and col == 1:
-                        aaa = "AC" + str(random.randint(0,9999))
-                        gigalist.append(aaa)
-                        print(gigalist)
-                        label = a.CTkLabel(bottom_frame, text=aaa)
+                        aaa = searchfli(w)
+                        label = a.CTkLabel(bottom_frame, text=aaa[row-1])
                         label.grid(row=row, column=col, padx=5, pady=5, sticky="nsew")
                     elif col == 0:
                         label = a.CTkLabel(bottom_frame, text=row)
                         label.grid(row=row, column=col, padx=5, pady=5, sticky="nsew")
-                    else:  # Place labels in other columns
-                        label = a.CTkLabel(bottom_frame, text="working on it")
+                    elif col == 2:  # Departure date
+                        label = a.CTkLabel(bottom_frame, text=datepicker1.entry.get())
+                        label.grid(row=row, column=col, padx=5, pady=5, sticky="nsew")
+                    elif col == 3:  # Place labels in other columns
+                        label = a.CTkLabel(bottom_frame, text=datepicker2.entry.get())
+                        label.grid(row=row, column=col, padx=5, pady=5, sticky="nsew")
+                    else:
+                        timeop = str(random.randint(1,18)) + ":" + str(random.randint(0,59))
+                        label = a.CTkLabel(bottom_frame,text=timeop)
                         label.grid(row=row, column=col, padx=5, pady=5, sticky="nsew")
     def clk():
         # Left Sidebar Frame
@@ -172,34 +195,34 @@ def book(a,b,c,d):
     # Top Frame
     top_frame = a.CTkFrame(bm, width=750, height=150, corner_radius=20, fg_color="whitesmoke",border_color="black",border_width=1)
     top_frame.grid(row=0, column=1, padx=10, pady=10)
-    top_frame.grid_columnconfigure((0, 1, 2, 3), weight=1)
-    top_frame.grid_rowconfigure((0, 1), weight=1)
+    top_frame.grid_columnconfigure((0, 1, 2, 3,4), weight=1)
+    top_frame.grid_rowconfigure((0,1,2,3,4), weight=1)
     top_frame.grid_propagate(False)
 
     cities = ['Kolkata', 'Delhi', 'Mumbai', 'Chennai', 'Bangalore', 'Hyderabad', 'Pune']
 
     # Dropdown Boxes and Other Widgets in Top Frame
     drop1 = b.Combobox(top_frame, style='primary.TCombobox', values=cities)
-    drop1.grid(row=0, column=0, padx=10, pady=1, sticky="we")
+    drop1.grid(row=1, column=1, padx=10, pady=1, sticky="we")
     drop1.set("From")
 
     drop2 = b.Combobox(top_frame, style='primary.TCombobox', values=cities)
-    drop2.grid(row=0, column=1, padx=10, pady=1, sticky="we")
+    drop2.grid(row=1, column=2, padx=10, pady=1, sticky="we")
     drop2.set("To")
 
     spinbox = b.Spinbox(top_frame, from_=1, to=100, style='info.TSpinbox')
-    spinbox.grid(row=0, column=2, padx=10, pady=1, sticky="ew")
+    spinbox.grid(row=1, column=3, padx=10, pady=1, sticky="ew")
     spinbox.set("Passengers")
 
-    datepicker1 = b.DateEntry(top_frame, style='primary')
-    datepicker1.grid(row=1, column=0, padx=10, pady=1, sticky="ew")
+    datepicker1 = b.DateEntry(top_frame, style='primary',startdate=None,dateformat= "%d/%m/%Y")
+    datepicker1.grid(row=3, column=1, padx=10, pady=1, sticky="ew")
 
-    datepicker2 = b.DateEntry(top_frame, bootstyle="danger", firstweekday=0)
-    datepicker2.grid(row=1, column=1, padx=10, pady=1, sticky="ew")
+    datepicker2 = b.DateEntry(top_frame, bootstyle="danger", firstweekday=0,startdate=None,dateformat= "%d/%m/%Y")
+    datepicker2.grid(row=3, column=2, padx=10, pady=1, sticky="ew")
 
     dropdown3 = b.Combobox(top_frame, style='primary.TCombobox', values=["Economic" , "Business", "First Class"])
-    dropdown3.grid(row=1, column=2, padx=10, pady=1, sticky="ew")
+    dropdown3.grid(row=3, column=3, padx=10, pady=1, sticky="ew")
     dropdown3.set("Class")
 
     button = b.Button(top_frame, text="Book", bootstyle="primary.outline",command = search)
-    button.grid(row=1, column=3, padx=10, pady=1, sticky="ew")
+    button.grid(row=4, column=3, padx=10, pady=1, sticky="ew")

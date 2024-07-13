@@ -1,17 +1,48 @@
 from tkinter import messagebox
 import sqlite3
+import pandas as pd
 
-def view_users_table():
+def add_city_and_flights(city, flight1, flight2, flight3, flight4, flight5):
+    # Check if any input is empty
+    if not city or not flight1 or not flight2 or not flight3 or not flight4 or not flight5:
+        print("Error: All fields are required.")
+        return
+
     conn = sqlite3.connect('users.db')
     cursor = conn.cursor()
 
-    cursor.execute('SELECT * FROM users')
-    rows = cursor.fetchall()
+    try:
+        # Insert the data into the cities table
+        cursor.execute('''
+            INSERT INTO cities (CITY, FLIGHT1, FLIGHT2, FLIGHT3, FLIGHT4, FLIGHT5)
+            VALUES (?, ?, ?, ?, ?, ?)
+        ''', (city, flight1, flight2, flight3, flight4, flight5))
 
-    for row in rows:
-        print(row)
+        conn.commit()
+        print("City and flights added successfully.")
+    except sqlite3.IntegrityError as e:
+        print(f"Error: {e}")
+    finally:
+        conn.close()
+
+# Example usage of the function
+def view_database():
+    conn = sqlite3.connect('users.db')
+
+    # View all data from the users table
+    print("Users Table:")
+    users_df = pd.read_sql_query("SELECT * FROM users", conn)
+    print(users_df.to_string(index=False))
+    print("\n")
+
+    # View all data from the cities table
+    print("Cities Table:")
+    cities_df = pd.read_sql_query("SELECT * FROM cities", conn)
+    print(cities_df.to_string(index=False))
+    print("\n")
 
     conn.close()
+
 
 # Call the function to view the users table
 
@@ -27,16 +58,21 @@ def initialop():
     CREATE TABLE IF NOT EXISTS users (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         username TEXT NOT NULL UNIQUE,
-        password TEXT NOT NULL,
-        flight1 INTEGER NOT NULL,
-        flight2 INTEGER NOT NULL,
-        flight3 INTEGER NOT NULL,
-        flight4 INTEGER NOT NULL,
-        flight5 INTEGER NOT NULL,
-        No_Flight INTEGER NOT NULL
+        password TEXT NOT NULL
     )
     ''')
 
+    cursor.execute('''
+    CREATE TABLE IF NOT EXISTS cities (
+        CITY TEXT PRIMARY KEY,
+        FLIGHT1 TEXT,
+        FLIGHT2 TEXT,
+        FLIGHT3 TEXT,
+        FLIGHT4 TEXT,
+        FLIGHT5 TEXT
+    )
+    ''')
+    
     # Execute a query to list all tables
     cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
 
@@ -44,24 +80,13 @@ def initialop():
     tables = cursor.fetchall()
     for table in tables:
         print(table)
-
-    view_users_table()
     # Commit the changes and close the connection
     conn.commit()
     conn.close()
 
     print("Database setup complete.")
-
-def flight(flightno,username):
-    conn = sqlite3.connect('users.db')
-    cursor = conn.cursor()
-
-    # Check if username exists
-    cursor.execute('''
-        SELECT * FROM users WHERE username = ?
-        
-    ''', (username,))
-
+    view_database()
+    
 # Function to authenticate the user just checking the login info
 def authenticate(username, password):
     conn = sqlite3.connect('users.db')
@@ -127,6 +152,22 @@ def on_signup(username, password, confirm_password):
         return True
 
     conn.close()
+def searchfli(city_name):
+    conn = sqlite3.connect('users.db')
+    cursor = conn.cursor()
 
+    # Convert city_name to lowercase for case-insensitive comparison
+    city_name_lower = city_name.lower()
+
+    # Query to retrieve flights for the given city (case-insensitive)
+    cursor.execute('SELECT FLIGHT1, FLIGHT2, FLIGHT3, FLIGHT4, FLIGHT5 FROM cities WHERE LOWER(CITY) = ?', (city_name_lower,))
+    flights = cursor.fetchone()
+
+    conn.close()
+
+    if flights:
+        return flights
+    else:
+        return None
 # Initialize the database and print the tables
 initialop()
