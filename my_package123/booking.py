@@ -20,6 +20,7 @@ def book(a,b,c,d):
     c.grid_rowconfigure((0,2), weight=0)
     c.grid_rowconfigure(1, weight=1)
     r = 1
+
     def flightb(x,r):
         formop(a,b,c,d,x,r)
 
