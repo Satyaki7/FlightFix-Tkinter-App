@@ -1,3 +1,187 @@
+# from tkinter import messagebox
+# import mysql.connector
+# import pandas as pd
+
+# def add_city_and_flights(city, flight1, flight2, flight3, flight4, flight5):
+#     if not city or not flight1 or not flight2 or not flight3 or not flight4 or not flight5:
+#         print("Error: All fields are required.")
+#         return
+
+#     conn = mysql.connector.connect(
+#         host='your_host',
+#         user='your_username',
+#         password='your_password',
+#         database='your_database'
+#     )
+#     cursor = conn.cursor()
+
+#     try:
+#         cursor.execute('''
+#             INSERT INTO cities (CITY, FLIGHT1, FLIGHT2, FLIGHT3, FLIGHT4, FLIGHT5)
+#             VALUES (%s, %s, %s, %s, %s, %s)
+#         ''', (city, flight1, flight2, flight3, flight4, flight5))
+
+#         conn.commit()
+#         print("City and flights added successfully.")
+#     except mysql.connector.IntegrityError as e:
+#         print(f"Error: {e}")
+#     finally:
+#         conn.close()
+
+# def view_database():
+#     conn = mysql.connector.connect(
+#         host='your_host',
+#         user='your_username',
+#         password='your_password',
+#         database='your_database'
+#     )
+
+#     print("Users Table:")
+#     users_df = pd.read_sql("SELECT * FROM users", conn)
+#     print(users_df.to_string(index=False))
+#     print("\n")
+
+#     print("Cities Table:")
+#     cities_df = pd.read_sql("SELECT * FROM cities", conn)
+#     print(cities_df.to_string(index=False))
+#     print("\n")
+
+#     conn.close()
+
+# def initialop():
+#     conn = mysql.connector.connect(
+#         host='your_host',
+#         user='your_username',
+#         password='your_password',
+#         database='your_database'
+#     )
+
+#     cursor = conn.cursor()
+
+#     cursor.execute('''
+#     CREATE TABLE IF NOT EXISTS users (
+#         id INT AUTO_INCREMENT PRIMARY KEY,
+#         username VARCHAR(255) NOT NULL UNIQUE,
+#         password VARCHAR(255) NOT NULL
+#     )
+#     ''')
+
+#     cursor.execute('''
+#     CREATE TABLE IF NOT EXISTS cities (
+#         CITY VARCHAR(255) PRIMARY KEY,
+#         FLIGHT1 VARCHAR(255),
+#         FLIGHT2 VARCHAR(255),
+#         FLIGHT3 VARCHAR(255),
+#         FLIGHT4 VARCHAR(255),
+#         FLIGHT5 VARCHAR(255)
+#     )
+#     ''')
+
+#     cursor.execute("SHOW TABLES")
+
+#     tables = cursor.fetchall()
+#     for table in tables:
+#         print(table)
+
+#     conn.commit()
+#     conn.close()
+
+#     print("Database setup complete.")
+#     view_database()
+
+# def authenticate(username, password):
+#     conn = mysql.connector.connect(
+#         host='your_host',
+#         user='your_username',
+#         password='your_password',
+#         database='your_database'
+#     )
+#     cursor = conn.cursor()
+
+#     cursor.execute('SELECT * FROM users WHERE username = %s', (username,))
+#     user = cursor.fetchone()
+
+#     if user is None:
+#         conn.close()
+#         return "user_not_found"
+
+#     cursor.execute('SELECT * FROM users WHERE username = %s AND password = %s', (username, password))
+#     user = cursor.fetchone()
+#     conn.close()
+
+#     if user:
+#         return "authenticated"
+#     else:
+#         return "incorrect_password"
+
+# def on_login(username, password):
+#     if username == "Username" or password == "Password":
+#         messagebox.showerror("Error", "Username and password cannot be empty.")
+#         return
+
+#     auth_result = authenticate(username, password)
+
+#     if auth_result == "authenticated":
+#         messagebox.showinfo("Success", "Signed in successfully!")
+#         return True
+#     elif auth_result == "user_not_found":
+#         messagebox.showerror("Error", "User does not exist.")
+#     elif auth_result == "incorrect_password":
+#         messagebox.showerror("Error", "Incorrect password.")
+
+# def on_signup(username, password, confirm_password):
+#     if username == "Username" or password == "Password":
+#         messagebox.showerror("Error", "Username and password cannot be empty.")
+#         return
+#     elif password != confirm_password:
+#         messagebox.showerror("Error", "Passwords do not match.")
+#         return
+
+#     conn = mysql.connector.connect(
+#         host='your_host',
+#         user='your_username',
+#         password='your_password',
+#         database='your_database'
+#     )
+#     cursor = conn.cursor()
+
+#     cursor.execute('SELECT * FROM users WHERE username = %s', (username,))
+#     user = cursor.fetchone()
+
+#     if user:
+#         messagebox.showerror("Error", "Username already exists.")
+#     else:
+#         cursor.execute('INSERT INTO users (username, password) VALUES (%s, %s)', (username, password))
+#         conn.commit()
+#         messagebox.showinfo("Success", "User signed up successfully!")
+#         return True
+
+#     conn.close()
+
+# def searchfli(city_name):
+#     conn = mysql.connector.connect(
+#         host='your_host',
+#         user='your_username',
+#         password='your_password',
+#         database='your_database'
+#     )
+#     cursor = conn.cursor()
+
+#     city_name_lower = city_name.lower()
+
+#     cursor.execute('SELECT FLIGHT1, FLIGHT2, FLIGHT3, FLIGHT4, FLIGHT5 FROM cities WHERE LOWER(CITY) = %s', (city_name_lower,))
+#     flights = cursor.fetchone()
+
+#     conn.close()
+
+#     if flights:
+#         return flights
+#     else:
+#         return None
+
+# initialop()
+
+
 from tkinter import messagebox
 import sqlite3
 import pandas as pd
