@@ -8,9 +8,9 @@
 #         return
 
 #     conn = mysql.connector.connect(
-#         host='your_host',
-#         user='your_username',
-#         password='your_password',
+#         host='sql209.infinityfree.com',
+#         user='if0_36916235',
+#         password='mYi3ZCkdjtT',
 #         database='your_database'
 #     )
 #     cursor = conn.cursor()
@@ -30,9 +30,9 @@
 
 # def view_database():
 #     conn = mysql.connector.connect(
-#         host='your_host',
-#         user='your_username',
-#         password='your_password',
+#         host='sql209.infinityfree.com',
+#         user='if0_36916235',
+#         password='mYi3ZCkdjtT',
 #         database='your_database'
 #     )
 
@@ -50,9 +50,9 @@
 
 # def initialop():
 #     conn = mysql.connector.connect(
-#         host='your_host',
-#         user='your_username',
-#         password='your_password',
+#         host='sql209.infinityfree.com',
+#         user='if0_36916235',
+#         password='mYi3ZCkdjtT',
 #         database='your_database'
 #     )
 
@@ -91,9 +91,9 @@
 
 # def authenticate(username, password):
 #     conn = mysql.connector.connect(
-#         host='your_host',
-#         user='your_username',
-#         password='your_password',
+#         host='sql209.infinityfree.com',
+#         user='if0_36916235',
+#         password='mYi3ZCkdjtT',
 #         database='your_database'
 #     )
 #     cursor = conn.cursor()
@@ -138,9 +138,9 @@
 #         return
 
 #     conn = mysql.connector.connect(
-#         host='your_host',
-#         user='your_username',
-#         password='your_password',
+#         host='sql209.infinityfree.com',
+#         user='if0_36916235',
+#         password='mYi3ZCkdjtT',
 #         database='your_database'
 #     )
 #     cursor = conn.cursor()
@@ -160,9 +160,9 @@
 
 # def searchfli(city_name):
 #     conn = mysql.connector.connect(
-#         host='your_host',
-#         user='your_username',
-#         password='your_password',
+#         host='sql209.infinityfree.com',
+#         user='if0_36916235',
+#         password='mYi3ZCkdjtT',
 #         database='your_database'
 #     )
 #     cursor = conn.cursor()
