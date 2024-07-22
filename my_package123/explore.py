@@ -1,7 +1,8 @@
 import customtkinter as ctk
 from PIL import Image, ImageDraw, ImageTk
 
-def exploreop(a, b, c, d):
+def exploreop(a, b, c, d,m):
+    from .booking import book
     c.geometry("960x700")
     c.title("Dashboard")
     c.configure(fg_color='#5ca3ff')
@@ -23,6 +24,20 @@ def exploreop(a, b, c, d):
     bg_label = a.CTkLabel(bm, image=bg_photo, text="")
     bg_label.place(relwidth=1, relheight=1)
     # cards
+    def bookingplaces(place):
+        if place == "Delhi":
+            book(a,b,c,d,m,place)
+        elif place == "Rajasthan":
+            book(a,b,c,d,m,place)
+        elif place == "Kashmir":
+            book(a,b,c,d,m,place)
+        elif place == "Kerela":
+            book(a,b,c,d,m,place)
+        elif place == "Paris":
+            book(a,b,c,d,m,place)
+        elif place == "Japan":
+            book(a,b,c,d,m,place)
+
 
     def create_rounded_image(image_path, size, radius):
         image = Image.open(image_path).resize(size).convert("RGBA")
@@ -33,60 +48,90 @@ def exploreop(a, b, c, d):
         rounded_image.paste(image, (0, 0), mask)
         return rounded_image
 
-    one = a.CTkFrame(bm, fg_color="transparent", width=180, height=271,corner_radius = 20)
-    one.grid(row=0, column=1, padx=0, pady=0)
-    one.grid_rowconfigure((0,1,2),weight = 1)
+    # Card One
+    one = a.CTkFrame(bm, fg_color="transparent", width=180, height=271)
+    one.grid(row=0, column=1, padx=0, pady=0, sticky="")
+    one.grid_rowconfigure((0,1),weight = 1)
+    one.grid_rowconfigure(2,weight = 0)
     one.grid_propagate(False)
 
-    one_r = create_rounded_image("assets/Delhi.png", (180, 271), 10)
-    one_photo = a.CTkImage(one_r,size = (180,271))
-    one_label = a.CTkLabel(one, image=one_photo, text="")
-    one_label.place(relx = 0.5,rely=0.5,anchor="center")
-    but = a.CTkButton(one,text="Book Now",fg_color = "transparent" ,text_color = "black",corner_radius = 10,font=("Arial", 10),width = 16)
-    but.grid(row = 2,pady=2,padx=6,sticky = "e")
+    one_r = create_rounded_image("assets/Delhi 1.png", (180, 271), 10)
+    onep = a.CTkImage(one_r, size=(180, 271))
+    oneb = a.CTkLabel(one, image=onep, text="")
+    oneb.grid(row=1, rowspan=3, sticky="nsew")
+    onebb = b.Button(one, style="primary.outline", text="Book Now", command = lambda: bookingplaces("Delhi"))
+    onebb.grid(row=2, sticky="e", padx=10, pady=10)
 
+    # Card Two
     two = a.CTkFrame(bm, fg_color="transparent", width=180, height=271)
     two.grid(row=0, column=2, padx=0, pady=0, sticky="")
     two.grid_rowconfigure((0,1),weight = 1)
     two.grid_rowconfigure(2,weight = 0)
     two.grid_propagate(False)
 
-    two_r =create_rounded_image("assets/Delhi 1.png", (180, 271), 10)
-    twop = a.CTkImage(two_r,size = (180,271))
-    twob = a.CTkLabel(two, image=twop,text="")
-    twob.grid(row = 1,rowspan = 3,sticky = "nsew")
-    twobb = b.Button(two,style = "primary.outline",text = "Book Now")
-    twobb.grid(row = 2,sticky = "e",padx = 10,pady = 10)
+    two_r = create_rounded_image("assets/rajasthan.jpeg", (180, 271), 10)
+    twop = a.CTkImage(two_r, size=(180, 271))
+    twob = a.CTkLabel(two, image=twop, text="")
+    twob.grid(row=1, rowspan=3, sticky="nsew")
+    twobb = b.Button(two, style="primary.outline", text="Book Now", command = lambda: bookingplaces("Rajasthan"))
+    twobb.grid(row=2, sticky="e", padx=10, pady=10)
 
-
-
+    # Card Three
     three = a.CTkFrame(bm, fg_color="transparent", width=180, height=271)
     three.grid(row=0, column=3, padx=0, pady=0, sticky="")
+    three.grid_rowconfigure((0,1),weight = 1)
+    three.grid_rowconfigure(2,weight = 0)
     three.grid_propagate(False)
-    three_photo = a.CTkImage(create_rounded_image("assets/delhi.jpg", (180, 271), 10), size=(180, 271))
-    threeb = a.CTkLabel(three, image=three_photo,text="")
-    threeb.place(relwidth=1, relheight=1)
 
+    three_r = create_rounded_image("assets/kashmir.jpeg", (180, 271), 10)
+    threep = a.CTkImage(three_r, size=(180, 271))
+    threeb = a.CTkLabel(three, image=threep, text="")
+    threeb.grid(row=1, rowspan=3, sticky="nsew")
+    threebb = b.Button(three, style="primary.outline", text="Book Now", command = lambda: bookingplaces("Kashmir"))
+    threebb.grid(row=2, sticky="e", padx=10, pady=10)
+
+    # Card Four
     four = a.CTkFrame(bm, fg_color="transparent", width=180, height=271)
     four.grid(row=1, column=1, padx=0, pady=5, sticky="")
+    four.grid_rowconfigure((0,1),weight = 1)
+    four.grid_rowconfigure(2,weight = 0)
     four.grid_propagate(False)
-    four_photo = a.CTkImage(create_rounded_image("assets/delhi.jpg", (180, 271), 10), size=(180, 271))
-    fourb = a.CTkLabel(four, image=four_photo,text="")
-    fourb.place(relwidth=1, relheight=1)
 
+    four_r = create_rounded_image("assets/kerela.jpeg", (180, 271), 10)
+    fourp = a.CTkImage(four_r, size=(180, 271))
+    fourb = a.CTkLabel(four, image=fourp, text="")
+    fourb.grid(row=1, rowspan=3, sticky="nsew")
+    fourbb = b.Button(four, style="primary.outline", text="Book Now", command = lambda: bookingplaces("Kerela"))
+    fourbb.grid(row=2, sticky="e", padx=10, pady=10)
+
+    # Card Five
     five = a.CTkFrame(bm, fg_color="transparent", width=180, height=271)
     five.grid(row=1, column=2, padx=0, pady=5, sticky="")
+    five.grid_rowconfigure((0,1),weight = 1)
+    five.grid_rowconfigure(2,weight = 0)
     five.grid_propagate(False)
-    five_photo = a.CTkImage(create_rounded_image("assets/delhi.jpg", (180, 271), 10), size=(180, 271))
-    fiveb = a.CTkLabel(five, image=five_photo, text="")
-    fiveb.place(relwidth=1, relheight=1)
 
+    five_r = create_rounded_image("assets/paris.jpeg", (180, 271), 10)
+    fivep = a.CTkImage(five_r, size=(180, 271))
+    fiveb = a.CTkLabel(five, image=fivep, text="")
+    fiveb.grid(row=1, rowspan=3, sticky="nsew")
+    fivebb = b.Button(five, style="primary.outline", text="Book Now", command = lambda: bookingplaces("Paris"))
+    fivebb.grid(row=2, sticky="e", padx=10, pady=10)
+
+    # Card Six
     six = a.CTkFrame(bm, fg_color="transparent", width=180, height=271)
     six.grid(row=1, column=3, padx=0, pady=5, sticky="")
+    six.grid_rowconfigure((0,1),weight = 1)
+    six.grid_rowconfigure(2,weight = 0)
     six.grid_propagate(False)
-    six_photo = a.CTkImage(create_rounded_image("assets/delhi.jpg", (180, 271), 10), size=(180, 271))
-    sixb = a.CTkLabel(six, image=six_photo,text="")
-    sixb.place(relwidth=1, relheight=1)
+
+    six_r = create_rounded_image("assets/shibuya.jpeg", (180, 271), 10)
+    sixp = a.CTkImage(six_r, size=(180, 271))
+    sixb = a.CTkLabel(six, image=sixp, text="")
+    sixb.grid(row=1, rowspan=3, sticky="nsew")
+    sixbb = b.Button(six, style="primary.outline", text="Book Now", command = lambda: bookingplaces("Tokyo"))
+    sixbb.grid(row=2, sticky="e", padx=10, pady=10)
+
     def clk():
         # Left Sidebar Frame
         sidebar_frame = a.CTkFrame(bm,

@@ -10,7 +10,7 @@ from my_package123 import *
 
 window = tk.CTk()
 m = "Monkey D Luffy"
-
+placename = " "
 def username_entry(u):
    global m
    m = u
@@ -22,7 +22,7 @@ def destroy_all_widgets():
 def returnop(h):
    if h == "Flight":
       destroy_all_widgets()
-      booking.book(a,b,window,returnop)
+      booking.book(a,b,window,returnop,m,placename)
    if h == "Cust":
       destroy_all_widgets()
       cust.customer(a,b,window,returnop)
@@ -31,9 +31,9 @@ def returnop(h):
       dashboard.dashboardop(a,b,window,returnop,m)
    if h == "Map":
       destroy_all_widgets()
-      explore.exploreop(a,b,window,returnop)
-# dashboard.dashboardop(a,b,window,returnop,m)
-booking.book(a,b,window,returnop)
+      explore.exploreop(a,b,window,returnop,m)
+dashboard.dashboardop(a,b,window,returnop,m)
+#booking.book(a,b,window,returnop,m,placename)
 
 # def destroy_all_widgets():
 #     for widget in window.winfo_children():

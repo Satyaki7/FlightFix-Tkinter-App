@@ -1,6 +1,9 @@
-from tkinter import StringVar
+from tkinter import StringVar, END
+import ttkbootstrap as b
+from tkinter import messagebox
 
-def formop(a, b, c, d, x, y):
+def formop(a, b, c, d, x, y,m):
+    from .authenticating import add_booking_record
     ct = a.CTkToplevel(c, fg_color="white")
     ct.geometry("600x600")
     ct.title("Dashboard")
@@ -14,7 +17,7 @@ def formop(a, b, c, d, x, y):
 
     def on_entry_click(event, entry, placeholder):
         if entry.get() == placeholder:
-            entry.delete(0, a.END)
+            entry.delete(0, END)
             entry.configure(foreground="black")
 
     def on_focus_out(event, entry, placeholder):
@@ -24,16 +27,46 @@ def formop(a, b, c, d, x, y):
 
     def on_radio_button_change():
         selected_value = radio_var.get()
+        print("selected gender: ", selected_value)
+        global gender
+        gender = selected_value
         print(f"Selected option: {selected_value}")
 
+    def makinghistory(m,y,passengernames):
+        if ph.get() == "Phone Number" or email.get() == "Email ID eg: user@gmail.com":
+            messagebox.showerror("Error", "Enter proper contact details")
+            return
+        elif ph.get() != "Phone Number" and email.get() != "Email ID eg: user@gmail.com":
+            add_booking_record(m,y,passengernames)
+    
     radio_var = a.StringVar()
+    global gender
+    gender = "0"
+    global passengernames
+    passengernames = ""
     global passs
     passs = 1
 
-    def passengerdetails():
+    def passengerdetails(y):
         global passs
-        passs += 1
-        button_text.set(f"Add Passenger {passs} of {y}")
+        global gender
+        global passengernames
+        if passs == int(y):
+            fir,las = first.get(),last.get()
+            passengernames = passengernames + "," + gender + fir + las
+            print(gender,fir,las)
+            print("Disabling button")  # Debug print
+            passengerbut.configure(state = "disabled")
+            booking.configure(state="normal")
+            passengernames = ""
+        else:
+            fir,las = first.get(),last.get()
+            passengernames = passengernames + "," + gender + fir + las
+            print(gender,fir,las)
+            passs += 1
+            button_text.set(f"Add Passenger {passs} of {y}")
+            first.delete(0, END)  # Clear the entry before inserting new text
+            first.insert(0, "First Name")
 
     bm = a.CTkFrame(ct, fg_color="white", width=580, height=580, border_color="black", border_width=1)
     bm.grid(row=1, column=1, padx=5, pady=5, sticky="nsew")
@@ -77,10 +110,10 @@ def formop(a, b, c, d, x, y):
     # Create the StringVar and Button
     button_text = StringVar()
     button_text.set(f"Add Passenger {passs} of {y}")
-    passengerbut = b.Button(nameframe, textvariable=button_text, command=passengerdetails, style="primary")
+    passengerbut = b.Button(nameframe, textvariable=button_text, command=lambda: passengerdetails(y), style="primary")
     passengerbut.grid(row=2, column=1, padx=5, pady=5)
 
-    contframe = b.LabelFrame(bm, text="")
+    contframe = b.Labelframe(bm, text="")
     contframe.grid(row=3, column=1, padx=5, pady=2, sticky="ew")
     contframe.grid_columnconfigure((1, 2), weight=1)
     contframe.grid_columnconfigure(0, weight=0)
@@ -100,6 +133,10 @@ def formop(a, b, c, d, x, y):
     ph9 = a.CTkEntry(contframe, placeholder_text="+91", width=35, height=15, fg_color="white", text_color="black", border_width=1, border_color="blue")
     ph9.grid(row=1, column=0, padx=2, pady=5)
     ph9.configure(state="readonly")
-    booking = b.Button(bm, text="Book Flight", command="", style="success")
-    booking.configure(state="disable")
+    booking = b.Button(bm, text="Book Flight", command= lambda: makinghistory(m,y,passengernames), style="success")
+    booking.configure(state="disabled")
     booking.grid(row=4, column=1, padx=10, pady=5, sticky="ew")
+
+# Call your formop function with the necessary arguments
+# This is just an example, you'll need to pass the correct parameters
+# formop(a, b, c, d, x, y)

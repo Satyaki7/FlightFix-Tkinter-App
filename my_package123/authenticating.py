@@ -185,6 +185,34 @@
 from tkinter import messagebox
 import sqlite3
 import pandas as pd
+import random
+import string
+
+
+def generate_booking_id(length=10):
+    # Generate a random booking ID
+    return ''.join(random.choices(string.ascii_uppercase + string.digits, k=length))
+
+def add_booking_record(username, no_passengers, passenger_names):
+    conn = sqlite3.connect('users.db')
+    cursor = conn.cursor()
+
+    # Generate a random booking ID
+    booking_id = generate_booking_id()
+
+    # Convert the list of passenger names to a single string
+    passenger_names_str = passenger_names
+
+    # Insert the booking record into the bookinghistory table
+    cursor.execute('''
+    INSERT INTO bookinghistory (BOOKING_ID, USER, NO_PASSENGERS, PASSENGER_NAMES)
+    VALUES (?, ?, ?, ?)
+    ''', (booking_id, username, no_passengers, passenger_names_str))
+    print("Details added to bookinghistory table.",booking_id, username, no_passengers, passenger_names_str)
+
+    conn.commit()
+    conn.close()
+    print(f"Booking record added successfully with Booking ID: {booking_id}")
 
 def add_city_and_flights(city, flight1, flight2, flight3, flight4, flight5):
     # Check if any input is empty
@@ -225,6 +253,12 @@ def view_database():
     print(cities_df.to_string(index=False))
     print("\n")
 
+    # View all data from the history table
+    print("Boooking History Table:")
+    cities_df = pd.read_sql_query("SELECT * FROM bookinghistory", conn)
+    print(cities_df.to_string(index=False))
+    print("\n")
+
     conn.close()
 
 
@@ -256,7 +290,17 @@ def initialop():
         FLIGHT5 TEXT
     )
     ''')
+    # Create the bookinghistory table if it doesn't exist
+    cursor.execute('''
+    CREATE TABLE IF NOT EXISTS bookinghistory (
+        BOOKING_ID TEXT PRIMARY KEY,
+        USER TEXT NOT NULL,
+        NO_PASSENGERS INTEGER,
+        PASSENGER_NAMES TEXT
+    )
+    ''')
     
+    print("Booking history table setup complete.")
     # Execute a query to list all tables
     cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
 
