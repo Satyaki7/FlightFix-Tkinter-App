@@ -20,12 +20,13 @@ def book(a, b, c, d, m,placename):
     c.grid_rowconfigure((0, 2), weight=0)
     c.grid_rowconfigure(1, weight=1)
     r = 1
-
-    def flightb(x, r, m):
-        formop(a, b, c, d, x, r, m)
+    q, w, e, r, t, y, = "","","","","",""
+    def flightb(x, r, m,e):
+        global q, w, t, y
+        formop(a, b, c, d, x, r, m,e,q,w,t)
 
     bm = a.CTkFrame(c, fg_color="transparent", width=960, height=700, corner_radius=10)
-    bm.grid(row=1, column=1, sticky="nsew", padx=10, pady=10)
+    bm.grid(row=1, column=1, sticky="nsew", padx=0, pady=0)
     bm.grid_columnconfigure(0, weight=0)
     bm.grid_columnconfigure(1, weight=1)
     bm.grid_rowconfigure(1, weight=0)
@@ -41,7 +42,7 @@ def book(a, b, c, d, m,placename):
     bg_label.place(relwidth=1, relheight=1)
 
     def search():
-        global r
+        global q, w, e, r, t, y
         q, w, e, r, t, y = drop1.get(), drop2.get(), dropdown3.get(), spinbox.get(), datetime.strptime(datepicker1.entry.get(), "%d/%m/%Y"), datetime.strptime(datepicker2.entry.get(), "%d/%m/%Y")
         print("The selected date is: ", t)
         if q == "Form" or w == "To":
@@ -60,8 +61,8 @@ def book(a, b, c, d, m,placename):
         #     messagebox.showerror("Error", "Time travel not allowed !")
         #     return
         elif q != "Form" and w != "To" and dropdown3 != "Class" and spinbox.get() != "Passengers":
-            bottom_frame = a.CTkFrame(bm, width=600, height=400, corner_radius=20, fg_color="whitesmoke")
-            bottom_frame.grid(row=2, column=1, sticky="nsew", padx=10, pady=10)
+            bottom_frame = a.CTkFrame(bm, width=700, height=400, corner_radius=20, fg_color="whitesmoke")
+            bottom_frame.grid(row=2, column=1,padx=10, pady=10)
             bottom_frame.grid_columnconfigure(0, weight=1)
             bottom_frame.grid_rowconfigure(0, weight=1)
             bottom_frame.grid_propagate(False)
@@ -73,11 +74,11 @@ def book(a, b, c, d, m,placename):
 
             # Populate the grid with labels and buttons
             for row in range(6):
-                for col in range(6):
-                    if col == 5:  # Place button in the 5th column
+                for col in range(7):
+                    if col == 6:  # Place button in the 5th column
                         if row == 0:
                             continue
-                        button = b.Button(bottom_frame, text="Book Flight", style="primary.Outline.TButton", command=lambda x=row: flightb(x, r, m))
+                        button = b.Button(bottom_frame, text="Book Flight", style="primary.Outline.TButton", command=lambda x=row: flightb(x, r, m,e))
                         button.grid(row=row, column=col, padx=5, pady=5, sticky="ew")
                     elif row == 0:
                         if col == 0:
@@ -95,6 +96,9 @@ def book(a, b, c, d, m,placename):
                         elif col == 4:
                             label = a.CTkLabel(bottom_frame, text="Time", text_color="black")
                             label.grid(row=row, column=col, padx=5, pady=5, sticky="nsew")
+                        elif col == 5: 
+                            label = a.CTkLabel(bottom_frame, text="Price", text_color="black")
+                            label.grid(row=row, column=col, padx=5, pady=5, sticky="nsew")
                     elif row != 0 and col == 1:
                         aaa = searchfli(w)
                         label = a.CTkLabel(bottom_frame, text=aaa[row-1], text_color="black")
@@ -108,11 +112,23 @@ def book(a, b, c, d, m,placename):
                     elif col == 3:  # Return date
                         label = a.CTkLabel(bottom_frame, text=datepicker2.entry.get(), text_color="black")
                         label.grid(row=row, column=col, padx=5, pady=5, sticky="nsew")
-                    else:
+                    elif col == 4:
                         timeop = str(random.randint(1, 18)) + ":" + str(random.randint(0, 59))
                         label = a.CTkLabel(bottom_frame, text=timeop, text_color="black")
                         label.grid(row=row, column=col, padx=5, pady=5, sticky="nsew")
-
+                    elif col == 5:
+                        if e == "First Class":
+                            price = "₹" + str(random.randint(20000, 30000))
+                            label = a.CTkLabel(bottom_frame, text=price, text_color="black")
+                            label.grid(row=row, column=col, padx=5, pady=5, sticky="nsew")
+                        elif e == "Economic":
+                            price = "₹" + str(random.randint(6000, 10000))
+                            label = a.CTkLabel(bottom_frame, text=price, text_color="black")
+                            label.grid(row=row, column=col, padx=5, pady=5, sticky="nsew")
+                        elif e == "Business Class":
+                            price = "₹" + str(random.randint(30000, 40000))
+                            label = a.CTkLabel(bottom_frame, text=price, text_color="black")
+                            label.grid(row=row, column=col, padx=5, pady=5, sticky="nsew")
     def clk():
         # Left Sidebar Frame
         sidebar_frame = a.CTkFrame(bm,
@@ -209,10 +225,13 @@ def book(a, b, c, d, m,placename):
 
     drop2 = b.Combobox(top_frame, style='primary.TCombobox', values=cities)
     drop2.grid(row=1, column=2, padx=10, pady=1, sticky="we")
-    if placename != " ":
+    if placename != "":
         for i in range(len(cities)):
-            if placename == cities[i]:
-                drop2.set(cities[i])
+            if placename != "":
+                if placename in cities:
+                    drop2.set(placename)
+                else:
+                    drop2.set("To")
             else:
                 drop2.set("To")
     
@@ -226,7 +245,7 @@ def book(a, b, c, d, m,placename):
     datepicker2 = b.DateEntry(top_frame, bootstyle="danger", firstweekday=0, startdate=None, dateformat="%d/%m/%Y")
     datepicker2.grid(row=3, column=2, padx=10, pady=1, sticky="ew")
 
-    dropdown3 = b.Combobox(top_frame, style='primary.TCombobox', values=["Economic", "Business", "First Class"])
+    dropdown3 = b.Combobox(top_frame, style='primary.TCombobox', values=["Economic", "Business Class", "First Class"])
     dropdown3.grid(row=3, column=3, padx=10, pady=1, sticky="ew")
     dropdown3.set("Class")
 

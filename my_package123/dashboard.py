@@ -1,12 +1,13 @@
 def dashboardop(a, b, c, d, m):
     from PIL import Image, ImageDraw, ImageTk
+    from .explore import create_rounded_image
     import tkinter as tk
     import time
     c.geometry("960x700")
     c.title("Dashboard")
     c.configure(fg_color='#5ca3ff')
     # Configure grid layout for the window
-    c.grid_columnconfigure((0, 2), weight=0)
+    c.grid_columnconfigure((0,2), weight=0)
     c.grid_columnconfigure(1, weight=1)
     c.grid_rowconfigure((0, 2), weight=0)
     c.grid_rowconfigure(1, weight=1)
@@ -14,9 +15,8 @@ def dashboardop(a, b, c, d, m):
     bm = a.CTkFrame(c, fg_color="transparent", width=960, height=700, corner_radius=10)
     bm.grid(row=1, column=1, sticky="nsew", padx=0, pady=0, rowspan=3, columnspan=3)
 
-    bm.grid_columnconfigure(0, weight=0)
-    bm.grid_columnconfigure(1, weight=1)
-    bm.grid_columnconfigure(2, weight=2)
+    bm.grid_columnconfigure((0,3), weight=0)
+    bm.grid_columnconfigure((1,2), weight=1)
     bm.grid_rowconfigure((0, 1, 2, 3), weight=1)
 
     # Load the background image
@@ -105,14 +105,23 @@ def dashboardop(a, b, c, d, m):
     imgmen = a.CTkImage(Image.open('assets/menu.png'), size=(20, 20))
     menu = a.CTkButton(bm, width=20, height=20, corner_radius=18, fg_color="#5ca3ff", image=imgmen, text="", command=clk)
     menu.grid(row=0, column=0, padx=5, pady=0, sticky="n")
-
+    
+    userframe = a.CTkFrame(bm, width=0, height=0, fg_color="#1a73cd")
+    userframe.grid(row=0, column=1, rowspan=2, padx=0, pady=0, sticky="")
+    userframe.grid_columnconfigure((0,1), weight=1)
+    userframe.grid_rowconfigure((0, 1), weight=1)
     # User Info Frame
-    user_info_frame = a.CTkFrame(bm, width=273, height=273, corner_radius=20, fg_color="whitesmoke", border_color="black", border_width=1)
-    user_info_frame.grid(row=0, column=1, padx=5, pady=5)
+    user_info_frame = a.CTkFrame(userframe, width=273, height=273, corner_radius=20, fg_color="whitesmoke", border_color="black", border_width=1)
+    user_info_frame.grid(row=0, column=0, padx=5, pady=5)
     user_info_frame.grid_columnconfigure(0, weight=1)
     user_info_frame.grid_rowconfigure((0, 1, 2, 3), weight=0)
     user_info_frame.grid_propagate(False)
 
+    bookingmanagement = a.CTkFrame(userframe, width=480, height=273, corner_radius=10, fg_color="whitesmoke", border_color="black", border_width=1)
+    bookingmanagement.grid(row=1, column=0,columnspan = 2, padx=5, pady=5)
+    bookingmanagement.grid_propagate(False)
+    
+    
     # Load and process the image to be circular
     image_path = "assets/luffy.jpg"
     size = 50
@@ -152,18 +161,33 @@ def dashboardop(a, b, c, d, m):
     usertype.grid(row=3, column=0, padx=5, pady=0)
 
     # Flights Frame
-    flights_frame = a.CTkFrame(bm, width=437, height=273, corner_radius=10, fg_color="transparent")
-    flights_frame.grid(row=0, column=2, padx=5, pady=5)
+    # flights_frame = a.CTkFrame(bm, width=437, height=273, corner_radius=10, fg_color="transparent")
+    # flights_frame.grid(row=0, column=2, padx=5, pady=5)
 
     # Premium Frame
-    premium_frame = a.CTkFrame(bm, width=273, height=273, corner_radius=20, fg_color="whitesmoke", border_color="black", border_width=1)
-    premium_frame.grid(row=1, column=1, padx=5, pady=5)
+    premium_frame = a.CTkFrame(userframe, width=273, height=273, corner_radius=20, fg_color="whitesmoke", border_color="black", border_width=1)
+    premium_frame.grid(row=0, column=1, padx=5, pady=5)
     premium_frame.grid_propagate(False)
+    premium_frame.grid_rowconfigure((0), weight=1)
+    premium_frame.grid_columnconfigure((0), weight=1)
+    premiumad = create_rounded_image("assets/offer.png", (273,273), 10)
+    premiumadop = a.CTkImage(premiumad, size=(480, 273))
+    premiumadd = a.CTkLabel(bookingmanagement, image=premiumadop,text = " ")
+    premiumadd.grid(row=0, column=0, padx=0, pady=0,sticky = "nsew")
+    
 
+    flightinfoframe = a.CTkFrame(bm, width=0, height=0, fg_color="#1a73cd")
+    flightinfoframe.grid(row=0, column=2, rowspan=2, padx=0, pady=0, sticky="")
+    flightinfoframe.grid_columnconfigure((0), weight=1)
+    flightinfoframe.grid_rowconfigure((0, 1), weight=1)
     # Upcoming Flights Frame
-    upcoming_flights_frame = a.CTkFrame(bm, width=480, height=273, corner_radius=10, fg_color="whitesmoke", border_color="black", border_width=1)
-    upcoming_flights_frame.grid(row=1, column=2, padx=5, pady=5)
+    upcoming_flights_frame = a.CTkFrame(flightinfoframe, width=480, height=273, corner_radius=10, fg_color="whitesmoke", border_color="black", border_width=1)
+    upcoming_flights_frame.grid(row=0, column=0, padx=5, pady=5)
     upcoming_flights_frame.grid_propagate(False)
+
+    advertisement = a.CTkFrame(flightinfoframe, width=480, height=273, corner_radius=10, fg_color="whitesmoke", border_color="black", border_width=1)
+    advertisement.grid(row=1, column=0, padx=5, pady=5)
+    advertisement.grid_propagate(False)
 
     # Configure rows and columns for the grid in upcoming_flights_frame
     for i in range(6):

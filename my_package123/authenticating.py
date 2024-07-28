@@ -1,21 +1,53 @@
-# from tkinter import messagebox
 # import mysql.connector
-# import pandas as pd
+# from mysql.connector import errorcode
+# from tkinter import messagebox
+# import random
+# import string
+
+# def generate_booking_id(length=10):
+#     # Generate a random booking ID
+#     return ''.join(random.choices(string.ascii_uppercase + string.digits, k=length))
+
+# def add_booking_record(username, no_passengers, passenger_names, seating, depart, to, dateop):
+#     conn = mysql.connector.connect(
+#         host='localhost',
+#         user='root',
+#         password='bbit@123',
+#         database='flightfix'
+#     )
+#     cursor = conn.cursor()
+
+#     # Generate a random booking ID
+#     booking_id = generate_booking_id()
+
+#     # Insert the booking record into the bookinghistory table
+#     cursor.execute('''
+#     INSERT INTO bookinghistory (BOOKING_ID, USER, NO_PASSENGERS, PASSENGER_NAMES, SEATING_PREFERENCE, DEPARTURE, ARRIVAL, DATE)
+#     VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
+#     ''', (booking_id, username, no_passengers, passenger_names, seating, depart, to, dateop))
+
+#     print("Details added to bookinghistory table.", booking_id, username, no_passengers, passenger_names, seating, depart, to, dateop)
+
+#     conn.commit()
+#     conn.close()
+#     print(f"Booking record added successfully with Booking ID: {booking_id}")
 
 # def add_city_and_flights(city, flight1, flight2, flight3, flight4, flight5):
+#     # Check if any input is empty
 #     if not city or not flight1 or not flight2 or not flight3 or not flight4 or not flight5:
 #         print("Error: All fields are required.")
 #         return
 
 #     conn = mysql.connector.connect(
-#         host='sql209.infinityfree.com',
-#         user='if0_36916235',
-#         password='mYi3ZCkdjtT',
-#         database='your_database'
+#         host='localhost',
+#         user='root',
+#         password='bbit@123',
+#         database='flightfix'
 #     )
 #     cursor = conn.cursor()
 
 #     try:
+#         # Insert the data into the cities table
 #         cursor.execute('''
 #             INSERT INTO cities (CITY, FLIGHT1, FLIGHT2, FLIGHT3, FLIGHT4, FLIGHT5)
 #             VALUES (%s, %s, %s, %s, %s, %s)
@@ -30,34 +62,46 @@
 
 # def view_database():
 #     conn = mysql.connector.connect(
-#         host='sql209.infinityfree.com',
-#         user='if0_36916235',
-#         password='mYi3ZCkdjtT',
-#         database='your_database'
+#         host='localhost',
+#         user='root',
+#         password='bbit@123',
+#         database='flightfix'
 #     )
+#     cursor = conn.cursor()
 
+#     # View all data from the users table
 #     print("Users Table:")
-#     users_df = pd.read_sql("SELECT * FROM users", conn)
-#     print(users_df.to_string(index=False))
+#     cursor.execute("SELECT * FROM users")
+#     for row in cursor.fetchall():
+#         print(row)
 #     print("\n")
 
+#     # View all data from the cities table
 #     print("Cities Table:")
-#     cities_df = pd.read_sql("SELECT * FROM cities", conn)
-#     print(cities_df.to_string(index=False))
+#     cursor.execute("SELECT * FROM cities")
+#     for row in cursor.fetchall():
+#         print(row)
+#     print("\n")
+
+#     # View all data from the bookinghistory table
+#     print("Booking History Table:")
+#     cursor.execute("SELECT * FROM bookinghistory")
+#     for row in cursor.fetchall():
+#         print(row)
 #     print("\n")
 
 #     conn.close()
 
 # def initialop():
 #     conn = mysql.connector.connect(
-#         host='sql209.infinityfree.com',
-#         user='if0_36916235',
-#         password='mYi3ZCkdjtT',
-#         database='your_database'
+#         host='localhost',
+#         user='root',
+#         password='bbit@123',
+#         database='flightfix'
 #     )
-
 #     cursor = conn.cursor()
 
+#     # Create the users table
 #     cursor.execute('''
 #     CREATE TABLE IF NOT EXISTS users (
 #         id INT AUTO_INCREMENT PRIMARY KEY,
@@ -66,6 +110,7 @@
 #     )
 #     ''')
 
+#     # Create the cities table
 #     cursor.execute('''
 #     CREATE TABLE IF NOT EXISTS cities (
 #         CITY VARCHAR(255) PRIMARY KEY,
@@ -77,10 +122,24 @@
 #     )
 #     ''')
 
-#     cursor.execute("SHOW TABLES")
+#     # Create the bookinghistory table if it doesn't exist
+#     cursor.execute('''
+#     CREATE TABLE IF NOT EXISTS bookinghistory (
+#         BOOKING_ID VARCHAR(255) PRIMARY KEY,
+#         USER VARCHAR(255) NOT NULL,
+#         NO_PASSENGERS INT,
+#         PASSENGER_NAMES TEXT,
+#         SEATING_PREFERENCE VARCHAR(255),
+#         DEPARTURE VARCHAR(255),
+#         ARRIVAL VARCHAR(255),
+#         DATE VARCHAR(255)
+#     )
+#     ''')
 
-#     tables = cursor.fetchall()
-#     for table in tables:
+#     print("Booking history table setup complete.")
+#     # Execute a query to list all tables
+#     cursor.execute("SHOW TABLES")
+#     for table in cursor.fetchall():
 #         print(table)
 
 #     conn.commit()
@@ -91,20 +150,23 @@
 
 # def authenticate(username, password):
 #     conn = mysql.connector.connect(
-#         host='sql209.infinityfree.com',
-#         user='if0_36916235',
-#         password='mYi3ZCkdjtT',
-#         database='your_database'
+#         host='localhost',
+#         user='root',
+#         password='bbit@123',
+#         database='flightfix'
 #     )
 #     cursor = conn.cursor()
 
+#     # Check if username exists
 #     cursor.execute('SELECT * FROM users WHERE username = %s', (username,))
 #     user = cursor.fetchone()
 
+#     # If username does not exist
 #     if user is None:
 #         conn.close()
 #         return "user_not_found"
 
+#     # If username exists, check password
 #     cursor.execute('SELECT * FROM users WHERE username = %s AND password = %s', (username, password))
 #     user = cursor.fetchone()
 #     conn.close()
@@ -138,13 +200,14 @@
 #         return
 
 #     conn = mysql.connector.connect(
-#         host='sql209.infinityfree.com',
-#         user='if0_36916235',
-#         password='mYi3ZCkdjtT',
-#         database='your_database'
+#         host='localhost',
+#         user='root',
+#         password='bbit@123',
+#         database='flightfix'
 #     )
 #     cursor = conn.cursor()
 
+#     # Check if username already exists
 #     cursor.execute('SELECT * FROM users WHERE username = %s', (username,))
 #     user = cursor.fetchone()
 
@@ -160,15 +223,17 @@
 
 # def searchfli(city_name):
 #     conn = mysql.connector.connect(
-#         host='sql209.infinityfree.com',
-#         user='if0_36916235',
-#         password='mYi3ZCkdjtT',
-#         database='your_database'
+#         host='localhost',
+#         user='root',
+#         password='bbit@123',
+#         database='flightfix'
 #     )
 #     cursor = conn.cursor()
 
+#     # Convert city_name to lowercase for case-insensitive comparison
 #     city_name_lower = city_name.lower()
 
+#     # Query to retrieve flights for the given city (case-insensitive)
 #     cursor.execute('SELECT FLIGHT1, FLIGHT2, FLIGHT3, FLIGHT4, FLIGHT5 FROM cities WHERE LOWER(CITY) = %s', (city_name_lower,))
 #     flights = cursor.fetchone()
 
@@ -179,7 +244,9 @@
 #     else:
 #         return None
 
+# # Initialize the database and print the tables
 # initialop()
+
 
 
 from tkinter import messagebox
@@ -193,7 +260,7 @@ def generate_booking_id(length=10):
     # Generate a random booking ID
     return ''.join(random.choices(string.ascii_uppercase + string.digits, k=length))
 
-def add_booking_record(username, no_passengers, passenger_names):
+def add_booking_record(username, no_passengers, passenger_names,seating,depart,to,dateop):
     conn = sqlite3.connect('users.db')
     cursor = conn.cursor()
 
@@ -205,10 +272,10 @@ def add_booking_record(username, no_passengers, passenger_names):
 
     # Insert the booking record into the bookinghistory table
     cursor.execute('''
-    INSERT INTO bookinghistory (BOOKING_ID, USER, NO_PASSENGERS, PASSENGER_NAMES)
-    VALUES (?, ?, ?, ?)
-    ''', (booking_id, username, no_passengers, passenger_names_str))
-    print("Details added to bookinghistory table.",booking_id, username, no_passengers, passenger_names_str)
+    INSERT INTO bookinghistory (BOOKING_ID, USER, NO_PASSENGERS, PASSENGER_NAMES,SEATING_PREFERENCE,DEPARTURE,ARRIVAL,DATE)
+    VALUES (?, ?, ?, ?, ? ,?,?,?)
+    ''', (booking_id, username, no_passengers, passenger_names_str,seating,depart,to,dateop))
+    print("Details added to bookinghistory table.",booking_id, username, no_passengers, passenger_names_str,seating,depart,to,dateop)
 
     conn.commit()
     conn.close()
@@ -296,7 +363,11 @@ def initialop():
         BOOKING_ID TEXT PRIMARY KEY,
         USER TEXT NOT NULL,
         NO_PASSENGERS INTEGER,
-        PASSENGER_NAMES TEXT
+        PASSENGER_NAMES TEXT,
+        SEATING_PREFERENCE TEXT,
+        DEPARTURE TEXT,
+        ARRIVAL TEXT,
+        DATE TEXT
     )
     ''')
     

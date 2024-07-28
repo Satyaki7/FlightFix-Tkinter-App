@@ -19,7 +19,7 @@ def destroy_all_widgets():
     for widget in window.winfo_children():
         widget.destroy()
 
-def returnop(h):
+def returnop(h,placename=""):
    if h == "Flight":
       destroy_all_widgets()
       booking.book(a,b,window,returnop,m,placename)
@@ -33,7 +33,7 @@ def returnop(h):
       destroy_all_widgets()
       explore.exploreop(a,b,window,returnop,m)
 dashboard.dashboardop(a,b,window,returnop,m)
-#booking.book(a,b,window,returnop,m,placename)
+
 
 # def destroy_all_widgets():
 #     for widget in window.winfo_children():

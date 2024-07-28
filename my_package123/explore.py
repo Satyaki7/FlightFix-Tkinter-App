@@ -1,6 +1,15 @@
 import customtkinter as ctk
 from PIL import Image, ImageDraw, ImageTk
 
+def create_rounded_image(image_path, size, radius):
+    image = Image.open(image_path).resize(size).convert("RGBA")
+    mask = Image.new("L", size, 0)
+    draw = ImageDraw.Draw(mask)
+    draw.rounded_rectangle((0, 0, size[0], size[1]), radius, fill=255)
+    rounded_image = Image.new("RGBA", size)
+    rounded_image.paste(image, (0, 0), mask)
+    return rounded_image
+
 def exploreop(a, b, c, d,m):
     from .booking import book
     c.geometry("960x700")
@@ -26,27 +35,18 @@ def exploreop(a, b, c, d,m):
     # cards
     def bookingplaces(place):
         if place == "Delhi":
-            book(a,b,c,d,m,place)
+            d("Flight",placename = place)
         elif place == "Rajasthan":
-            book(a,b,c,d,m,place)
+            d("Flight",placename = place)
         elif place == "Kashmir":
-            book(a,b,c,d,m,place)
+            d("Flight",placename = place)
         elif place == "Kerela":
-            book(a,b,c,d,m,place)
+            d("Flight",placename = place)
         elif place == "Paris":
-            book(a,b,c,d,m,place)
+            d("Flight",placename = place)
         elif place == "Japan":
-            book(a,b,c,d,m,place)
+            d("Flight",placename = place)
 
-
-    def create_rounded_image(image_path, size, radius):
-        image = Image.open(image_path).resize(size).convert("RGBA")
-        mask = Image.new("L", size, 0)
-        draw = ImageDraw.Draw(mask)
-        draw.rounded_rectangle((0, 0, size[0], size[1]), radius, fill=255)
-        rounded_image = Image.new("RGBA", size)
-        rounded_image.paste(image, (0, 0), mask)
-        return rounded_image
 
     # Card One
     one = a.CTkFrame(bm, fg_color="transparent", width=180, height=271)
@@ -97,7 +97,7 @@ def exploreop(a, b, c, d,m):
     four.grid_rowconfigure(2,weight = 0)
     four.grid_propagate(False)
 
-    four_r = create_rounded_image("assets/kerela.jpeg", (180, 271), 10)
+    four_r = create_rounded_image("assets/kerela.jpg", (180, 271), 10)
     fourp = a.CTkImage(four_r, size=(180, 271))
     fourb = a.CTkLabel(four, image=fourp, text="")
     fourb.grid(row=1, rowspan=3, sticky="nsew")
