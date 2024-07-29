@@ -470,3 +470,24 @@ def searchfli(city_name):
         return None
 # Initialize the database and print the tables
 initialop()
+
+def get_bookings_by_username(username):
+    conn = sqlite3.connect('users.db')
+    cursor = conn.cursor()
+
+    # Query to retrieve all booking records for the given username
+    cursor.execute('''
+    SELECT DEPARTURE, ARRIVAL,NO_PASSENGERS, SEATING_PREFERENCE,  DATE 
+    FROM bookinghistory 
+    WHERE USER = ?
+    ''', (username,))
+
+    bookings = cursor.fetchall()
+    conn.close()
+
+    # Convert each row to a list and append "Cancel" to each list
+    booking_lists = [list(booking) + ["Cancel"] for booking in bookings]
+
+    return booking_lists
+
+    

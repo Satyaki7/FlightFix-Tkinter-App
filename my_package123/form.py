@@ -44,6 +44,7 @@ def formop(a, b, c, d, x, y,m,e,depart,to,dateop):
                 seating += i + ","
             add_booking_record(m,y,passengernames,seating,depart,to,dateop)
         print(m,y,passengernames,selected_seats,depart,to,dateop)
+        passengernames = ""
     
     radio_var = a.StringVar()
     global gender
@@ -64,7 +65,6 @@ def formop(a, b, c, d, x, y,m,e,depart,to,dateop):
             print("Disabling button")  # Debug print
             passengerbut.configure(state = "disabled")
             booking.configure(state="normal")
-            passengernames = ""
         else:
             fir,las = first.get(),last.get()
             passengernames = passengernames + "," + gender + fir + las
@@ -73,6 +73,8 @@ def formop(a, b, c, d, x, y,m,e,depart,to,dateop):
             button_text.set(f"Add Passenger {passs} of {y}")
             first.delete(0, END)  # Clear the entry before inserting new text
             first.insert(0, "First Name")
+            last.delete(0, END)  # Clear the entry before inserting new text
+            last.insert(0, "Last Name")
 
     bm = a.CTkFrame(ct, fg_color="white", width=580, height=580, border_color="black", border_width=1)
     bm.grid(row=1, column=1, padx=5, pady=5, sticky="nsew")

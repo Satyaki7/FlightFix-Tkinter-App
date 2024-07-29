@@ -44,6 +44,8 @@ def book(a, b, c, d, m,placename):
     def search():
         global q, w, e, r, t, y
         q, w, e, r, t, y = drop1.get(), drop2.get(), dropdown3.get(), spinbox.get(), datetime.strptime(datepicker1.entry.get(), "%d/%m/%Y"), datetime.strptime(datepicker2.entry.get(), "%d/%m/%Y")
+        t = t.strftime("%d/%m/%Y")
+        y = y.strftime("%d/%m/%Y")
         print("The selected date is: ", t)
         if q == "Form" or w == "To":
             messagebox.showerror("Error", "Select Departure and Arrival location properly.")
