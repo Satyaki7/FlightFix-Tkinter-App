@@ -489,5 +489,21 @@ def get_bookings_by_username(username):
     booking_lists = [list(booking) + ["Cancel"] for booking in bookings]
 
     return booking_lists
+def search_and_delete(unique_id_var):
+    unique_id = unique_id_var.get()
+    conn = sqlite3.connect('users.db')  # Replace with your actual database file
+    cursor = conn.cursor()
 
+    cursor.execute("SELECT * FROM bookinghistory WHERE BOOKING_ID=?", (unique_id,))
+    result = cursor.fetchone()
+
+    if result:
+        cursor.execute("DELETE FROM bookinghistory WHERE BOOKING_ID=?", (unique_id,))
+        conn.commit()
+        messagebox.showinfo("Success", "Booking has been cancelled.")
+    else:
+        messagebox.showerror("Error", "Booking not found.")
+
+    conn.close()
+    top.destroy()
     

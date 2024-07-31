@@ -2,6 +2,7 @@ from CTkTable import *
 
 def dashboardop(a, b, c, d, m):
     import sqlite3
+    from .authenticating import search_and_delete
     from PIL import Image, ImageDraw, ImageTk
     from .explore import create_rounded_image
     from .authenticating import get_bookings_by_username
@@ -136,27 +137,9 @@ def dashboardop(a, b, c, d, m):
         entry.pack(pady=10)
 
         # Add a cancel booking button
-        def search_and_delete():
-            unique_id = unique_id_var.get()
-            conn = sqlite3.connect('users.db')  # Replace with your actual database file
-            cursor = conn.cursor()
-
-            cursor.execute("SELECT * FROM bookinghistory WHERE unique_id=?", (unique_id,))
-            result = cursor.fetchone()
-
-            if result:
-                cursor.execute("DELETE FROM bookinghistory WHERE unique_id=?", (unique_id,))
-                conn.commit()
-                messagebox.showinfo("Success", "Booking has been cancelled.")
-            else:
-                messagebox.showerror("Error", "Booking not found.")
-
-            conn.close()
-            top.destroy()
-
-        cancel_button = b.Button(top, text="Cancel Booking", command=search_and_delete, state="disabled", bootstyle="success")
+        cancel_button = b.Button(top, text="Cancel Booking", command=lambda:search_and_delete(unique_id_var), state="disabled", bootstyle="success")
         cancel_button.pack(pady=10)
-
+        
         # Enable the button only when the unique ID is entered
         def on_unique_id_entry(*args):
             if unique_id_var.get().strip():
