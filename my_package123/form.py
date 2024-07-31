@@ -189,7 +189,7 @@ def formop(a, b, c, d, x, y,m,e,depart,to,dateop):
     lab.grid(row=0, column=1, padx=5, pady=5, sticky="ew", columnspan=2)
     lab.grid_rowconfigure((0, 1, 2), weight=1)
     lab.grid_columnconfigure(0, weight=1)
-    custd = a.CTkLabel(lab, text="Enter Passenger Details", text_color="black", font=("Arial", 14))
+    custd = a.CTkLabel(lab,text="Enter Passenger Details", text_color="black", font=("Arial", 14))
     custd.grid(row=0, column=0, padx=5, pady=0, sticky="w")
     cc = f"ADD ADULT {y}"
     custcount = a.CTkLabel(lab, text=cc, text_color="black", font=("Arial", 14))
