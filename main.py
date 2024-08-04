@@ -50,7 +50,7 @@ def return_handling(h):
       login.loginop(a,b,window,return_handling,username_entry)
    elif h == "dashboard":
       destroy_all_widgets()
-      def returnop(h,placename=""):
+      def returnop(h,placename=" "):
          if h == "Flight":
             destroy_all_widgets()
             booking.book(a,b,window,returnop,m,placename)

@@ -1,6 +1,7 @@
 from tkinter import COMMAND, StringVar, END
 from typing import final
 import ttkbootstrap as b
+from PIL import Image, ImageDraw, ImageTk, ImageSequence
 from tkinter import messagebox
 import time
 
@@ -8,7 +9,7 @@ def formop(a, b, c, d, x, y,m,e,depart,to,dateop):
     from .authenticating import add_booking_record
     ct = a.CTkToplevel(c, fg_color="white")
     ct.geometry("600x600")
-    ct.title("Dashboard")
+    ct.title("Booking")
     ct.configure(fg_color='white')
 
     # Configure grid layout for the window
@@ -63,8 +64,8 @@ def formop(a, b, c, d, x, y,m,e,depart,to,dateop):
             passengernames = passengernames + "," + gender + fir + las
             print(gender,fir,las)
             print("Disabling button")  # Debug print
+            passs = 79
             passengerbut.configure(state = "disabled")
-            booking.configure(state="normal")
         else:
             fir,las = first.get(),last.get()
             passengernames = passengernames + "," + gender + fir + las
@@ -173,6 +174,9 @@ def formop(a, b, c, d, x, y,m,e,depart,to,dateop):
         
         def finalseating():
             print("Selected seats are:", selected_seats)
+            if passs == 79 and ph.get() != "Phone Number" or email.get() != "Email ID eg: user@gmail.com": 
+                booking.configure(state="normal")
+                finalseat_but.configure(state="disabled")
 
         test = a.CTkLabel(seating_frame, text="Seating Plan", font=("Arial", 20))
         test.grid(column = 0,row=0,padx=4,pady=2)
@@ -254,8 +258,51 @@ def formop(a, b, c, d, x, y,m,e,depart,to,dateop):
     seatlabel.grid(row=0, column=0, padx=5, pady=5, sticky="w")
     seat = b.Button(seating_frame, text="Select Seating",style = "success.outline",command=seatbooking)
     seat.grid(row=0, column=1, padx=5, pady=5, sticky="ew")
-    
-    booking = b.Button(bm, text="Book Flight", command= lambda:makinghistory(m,y,passengernames,selected_seats,depart,to,dateop), style="success")
+
+
+    def laststep(m, y, passengernames, selected_seats, depart, to, dateop):
+        # Hide all widgets in bm
+        for widget in bm.winfo_children():
+            widget.grid_forget()  # or widget.pack_forget() if using pack()
+
+        # Store widget data
+        data = {}
+        data['passengernames'] = passengernames
+        data['selected_seats'] = selected_seats
+        data['depart'] = depart
+        data['to'] = to
+        data['dateop'] = dateop
+
+        # Create and display loading frame
+        loadingframe = a.CTkFrame(bm, fg_color="transparent")
+        loadingframe.place(relwidth=1, relheight=1, anchor="center")
+
+        # Load and display GIF
+        gif = Image.open("assets/loading.gif")
+        frames = []
+        durations = []
+
+        for frame in ImageSequence.Iterator(gif):
+            frame_ctk = a.CTkImage(light_image=frame.convert('RGBA'), size=(480, 273))
+            frames.append(frame_ctk)
+            durations.append(frame.info.get('duration', 100))
+
+        gif_label = a.CTkLabel(loadingframe, text="")
+        gif_label.grid(row=0, column=0, sticky="nsew")
+
+        def play_gif(frame_index=0):
+            if frames:
+                frame = frames[frame_index]
+                gif_label.configure(image=frame)
+                next_frame_index = (frame_index + 1) % len(frames)
+                loadingframe.after(durations[frame_index], play_gif, next_frame_index)
+
+        play_gif()
+
+        # Schedule makinghistory to be called after 8 seconds
+        loadingframe.after(8000, lambda: makinghistory(m, y, data['passengernames'], data['selected_seats'], data['depart'], data['to'], data['dateop']))
+
+    # Example usage
+    booking = b.Button(bm, text="Book Flight", command=lambda: laststep(m, y, passengernames, selected_seats, depart, to, dateop), style="success")
     booking.configure(state="disabled")
     booking.grid(row=5, column=1, padx=10, pady=5, sticky="ew")
-

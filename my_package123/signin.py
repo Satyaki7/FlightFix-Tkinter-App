@@ -50,7 +50,7 @@ def signop(a,b,window,return_callback,u):
    window.grid_columnconfigure(1, weight=0)
    window.grid_columnconfigure(2, weight=1)
    window.grid_rowconfigure(0, weight=0)
-   window.configure(fg_color='#fbf2e1')
+   window.configure(fg_color='white')
 
    # Create a red frame on the left
    pic_frame = a.CTkFrame(window, width=375, height=600,fg_color="transparent")
@@ -65,8 +65,8 @@ def signop(a,b,window,return_callback,u):
 
    
    # Create a red frame on the right
-   main_frame = a.CTkFrame(window, width=400, height=600,fg_color="#FFDFED")
-   main_frame.grid(row=0, column=2, padx=20, pady=20,sticky = "nsew")
+   main_frame = a.CTkFrame(window, width=400, height=600,fg_color="white")
+   main_frame.grid(row=0, column=2, padx=0, pady=0,sticky = "nsew")
    main_frame.grid_columnconfigure(0, weight=0)
    main_frame.grid_columnconfigure(1, weight=1)
    main_frame.grid_columnconfigure(2, weight=0)
@@ -74,10 +74,15 @@ def signop(a,b,window,return_callback,u):
    main_frame.grid_rowconfigure(1, weight=1)
    main_frame.grid_rowconfigure(2, weight=0)
 
+   logimg1 = Image.open('assets/contour.jpeg')
+   logimg2 = a.CTkImage(logimg1, size=(600,600))  # Resize to match frame size
 
+   # Create a label with the image and place it in the frame
+   label_pic1 = a.CTkLabel(main_frame, image=logimg2, text="")
+   label_pic1.place(relx=0, rely=0, relwidth=1, relheight=1)
 
    # Create a yellow frame inside the red frame on the right
-   input_vox = a.CTkFrame(main_frame, width=375, height=380, corner_radius=20, fg_color="white")
+   input_vox = a.CTkFrame(main_frame, width=400, height=400, corner_radius=20, fg_color="whitesmoke")
    input_vox.grid_propagate(False)
    input_vox.grid(column=1,row=1, padx=20, pady=20)
    input_vox.grid_columnconfigure(0, weight=0)

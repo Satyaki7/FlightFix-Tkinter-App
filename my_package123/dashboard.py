@@ -3,14 +3,14 @@ from CTkTable import *
 def dashboardop(a, b, c, d, m):
     import sqlite3
     from .authenticating import search_and_delete
-    from PIL import Image, ImageDraw, ImageTk
+    from PIL import Image, ImageDraw, ImageTk, ImageSequence
     from .explore import create_rounded_image
     from .authenticating import get_bookings_by_username
     import tkinter as tk
     import time
     c.geometry("1000x700")
     c.title("Dashboard")
-    c.configure(fg_color='#b187e8')
+    c.configure(fg_color='#1c82e3')
     # Configure grid layout for the window
     c.grid_columnconfigure((0,2), weight=0)
     c.grid_columnconfigure(1, weight=1)
@@ -38,7 +38,7 @@ def dashboardop(a, b, c, d, m):
     def clk():
         # Left Sidebar Frame
         sidebar_frame = a.CTkFrame(bm, width=106, height=700, corner_radius=0, fg_color="white")
-        sidebar_frame.grid(row=0, column=0, rowspan=2, padx=0, pady=0, sticky="ns")
+        sidebar_frame.grid(row=0, column=0, rowspan=3, padx=0, pady=0, sticky="ns")
         sidebar_frame.grid_columnconfigure(0, weight=1)
         sidebar_frame.grid_rowconfigure((0, 5), weight=1)  # Add empty rows for centering
         sidebar_frame.grid_rowconfigure((1, 2, 3, 4), weight=0)  # Rows for buttons
@@ -136,8 +136,26 @@ def dashboardop(a, b, c, d, m):
         entry = b.Entry(top, textvariable=unique_id_var, font=("Arial", 12))
         entry.pack(pady=10)
 
+        def cancelop(unique_id_var):
+            if search_and_delete(unique_id_var):
+                for widget in upcoming_flights_frame.winfo_children():
+                    widget.destroy()
+                flighthistory = [
+                    ["Booking ID","From","To","Passengers","Seating","Date"]
+                ]
+                nv = get_bookings_by_username(m)
+                for record in nv:
+                    flighthistory.append(record)
+                    print(record)
+                table = CTkTable(master = upcoming_flights_frame, row=5, column=6, values=flighthistory,colors = ["white","whitesmoke"])
+                table.pack(expand=True, fill="both", padx=2, pady=2)
+                top.destroy()
+            else:
+                pass
+            
+        
         # Add a cancel booking button
-        cancel_button = b.Button(top, text="Cancel Booking", command=lambda:search_and_delete(unique_id_var), state="disabled", bootstyle="success")
+        cancel_button = b.Button(top, text="Cancel Booking", command=lambda:cancelop(unique_id_var), state="disabled", bootstyle="success")
         cancel_button.pack(pady=10)
         
         # Enable the button only when the unique ID is entered
@@ -208,23 +226,44 @@ def dashboardop(a, b, c, d, m):
 
     # Premium Frame
     premium_frame = a.CTkFrame(bm, width=480, height=273, corner_radius=20, fg_color="white", border_color="black", border_width=1)
-    premium_frame.grid(row=1, column=3, padx=2, pady=5)
+    premium_frame.grid(row=1, column=3, padx=10, pady=5)
     premium_frame.grid_propagate(False)
     premium_frame.grid_rowconfigure((0), weight=1)
     premium_frame.grid_columnconfigure((0), weight=1)
-    premiumad = create_rounded_image("assets/Flat.jpg", (273,273), 10)
-    premiumadop = a.CTkImage(premiumad, size=(480, 273))
-    premiumadd = a.CTkLabel(premium_frame, image=premiumadop,text = " ")
-    premiumadd.grid(row=0, column=0, padx=0, pady=0,sticky = "nsew")
 
+    # Load the GIF
+
+    gif = Image.open("assets/ad.gif")
+
+    # Extract frames and their durations
+    frames = []
+    durations = []
+
+    for frame in ImageSequence.Iterator(gif):
+        frame_ctk = a.CTkImage(light_image=frame.convert('RGBA'), size=(480, 273))
+        frames.append(frame_ctk)
+        durations.append(frame.info.get('duration', 100))  # Default to 100ms if no duration is found
+
+    # Create a label to display GIF frames
+    gif_label = a.CTkLabel(premium_frame, text="")
+    gif_label.grid(row=0, column=0, sticky="nsew")
+
+    def play_gif(frame_index=0):
+        frame = frames[frame_index]
+        gif_label.configure(image=frame)
+        next_frame_index = (frame_index + 1) % len(frames)
+        premium_frame.after(durations[frame_index], play_gif, next_frame_index)
+
+    # Start playing the GIF
+    play_gif()
     
     # Upcoming Flights Frame
-    upcoming_flights_frame = a.CTkFrame(bm, width=480, height=273, corner_radius=10, fg_color="white", border_color="black", border_width=1)
-    upcoming_flights_frame.grid(row=2, column=1,columnspan = 2, padx=5, pady=0,sticky = "nsew")
+    upcoming_flights_frame = a.CTkScrollableFrame(bm, width=480, height=273, corner_radius=10, fg_color="white", border_color="black", border_width=1,scrollbar_fg_color = "white",scrollbar_button_color = "black",scrollbar_button_hover_color = "blue")
+    upcoming_flights_frame.grid(row=2, column=1,columnspan = 3, padx=10, pady=5,sticky = "nsew")
     # upcoming_flights_frame.grid_propagate(False)
 
     flighthistory = [
-        ["From","To","Passengers","Seating","Date"," "]
+        ["Booking ID","From","To","Passengers","Seating","Date"]
     ]
 
     nv = get_bookings_by_username(m)
@@ -232,36 +271,7 @@ def dashboardop(a, b, c, d, m):
         flighthistory.append(record)
         print(record)
     
-    table = CTkTable(master = upcoming_flights_frame, row=5, column=6, values=flighthistory,colors = ["white","whitesmoke"])
+    table = CTkTable(master = upcoming_flights_frame, row=len(flighthistory), column=6, values=flighthistory,colors = ["white","whitesmoke"])
     table.pack(expand=True, fill="both", padx=2, pady=2)
 
-    # # Configure rows and columns for the grid in upcoming_flights_frame
-    # for i in range(6):
-    #     upcoming_flights_frame.grid_rowconfigure(i, weight=1)
-    # for j in range(5):
-    #     upcoming_flights_frame.grid_columnconfigure(j, weight=1)
-
-    # # Populate the grid with labels and buttons
-    # for row in range(6):
-    #     for col in range(5):
-    #         if col == 4:  # Place button in the 5th column
-    #             if row == 0:
-    #                 continue
-    #             button = b.Button(upcoming_flights_frame, text=f"Button {row}", bootstyle="primary.Outline.TButton", command=lambda r=row: on_button_click(r))
-    #             button.grid(row=row, column=col, padx=5, pady=5, sticky="ew")
-    #         elif row == 0:
-    #             if col == 0:
-    #                 label = a.CTkLabel(upcoming_flights_frame, text="Sl No.", text_color="black")
-    #                 label.grid(row=row, column=col, padx=5, pady=5, sticky="nsew")
-    #             elif col == 1:
-    #                 label = a.CTkLabel(upcoming_flights_frame, text="Flight No", text_color="black")
-    #                 label.grid(row=row, column=col, padx=5, pady=5, sticky="nsew")
-    #             elif col == 2:
-    #                 label = a.CTkLabel(upcoming_flights_frame, text="Date", text_color="black")
-    #                 label.grid(row=row, column=col, padx=5, pady=5, sticky="nsew")
-    #             elif col == 3:
-    #                 label = a.CTkLabel(upcoming_flights_frame, text="Time", text_color="black")
-    #                 label.grid(row=row, column=col, padx=5, pady=5, sticky="nsew")
-    #         else:  # Place labels in other columns
-    #             label = a.CTkLabel(upcoming_flights_frame, text=f"Label {row},{col}", text_color="black")
-    #             label.grid(row=row, column=col, padx=5, pady=5, sticky="nsew")
+   

@@ -13,8 +13,8 @@ def create_rounded_image(image_path, size, radius):
 def exploreop(a, b, c, d,m):
     from .booking import book
     c.geometry("960x700")
-    c.title("Dashboard")
-    c.configure(fg_color='#5ca3ff')
+    c.title("Explore")
+    c.configure(fg_color='#1c82e3')
     c.grid_columnconfigure(0, weight=1)
     c.grid_rowconfigure(0, weight=1)
 
@@ -25,27 +25,27 @@ def exploreop(a, b, c, d,m):
     bm.grid_columnconfigure((1, 2, 3), weight=1)
     bm.grid_rowconfigure((0, 1), weight=1)
 
-    # Load the background image
-    bg_image = Image.open("assets/14337.jpg")
-    bg_photo = a.CTkImage(bg_image, size=(960, 700))
+    # # Load the background image
+    # bg_image = Image.open("assets/14337.jpg")
+    # bg_photo = a.CTkImage(bg_image, size=(960, 700))
 
-    # Create a Label to hold the background image
-    bg_label = a.CTkLabel(bm, image=bg_photo, text="")
-    bg_label.place(relwidth=1, relheight=1)
+    # # Create a Label to hold the background image
+    # bg_label = a.CTkLabel(bm, image=bg_photo, text="")
+    # bg_label.place(relwidth=1, relheight=1)
     # cards
     def bookingplaces(place):
         if place == "Delhi":
             d("Flight",placename = place)
         elif place == "Rajasthan":
-            d("Flight",placename = place)
+            d("Flight",placename = "Jaipur")
         elif place == "Kashmir":
-            d("Flight",placename = place)
+            d("Flight",placename = "Srinagar")
         elif place == "Kerela":
-            d("Flight",placename = place)
+            d("Flight",placename = "Kochi")
         elif place == "Paris":
             d("Flight",placename = place)
         elif place == "Japan":
-            d("Flight",placename = place)
+            d("Flight",placename = "Tokyo")
 
 
     # Card One

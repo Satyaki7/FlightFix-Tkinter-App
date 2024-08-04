@@ -43,7 +43,7 @@ def loginop(a,b,window,return_callback,u):
    window.grid_columnconfigure(1, weight=0)
    window.grid_columnconfigure(2, weight=1)
    window.grid_rowconfigure(0, weight=0)
-   window.configure(fg_color='#fbf2e1')
+   window.configure(fg_color='#f5f5f5')
    
    # Create a red frame on the left
    pic_frame = a.CTkFrame(window, width=375, height=600,fg_color="transparent")
@@ -57,8 +57,8 @@ def loginop(a,b,window,return_callback,u):
    lable_pic.grid(row=0, column=0,sticky= "nsew")
    
    # Create a red frame on the right
-   main_frame = a.CTkFrame(window, width=400, height=600,fg_color="#FFDFED")
-   main_frame.grid(row=0, column=2, padx=20, pady=20,sticky = "nsew")
+   main_frame = a.CTkFrame(window, width=400, height=600,fg_color="transparent")
+   main_frame.grid(row=0, column=2, padx=0, pady=0,sticky = "nsew")
    main_frame.grid_columnconfigure(0, weight=0)
    main_frame.grid_columnconfigure(1, weight=1)
    main_frame.grid_columnconfigure(2, weight=0)
@@ -66,13 +66,15 @@ def loginop(a,b,window,return_callback,u):
    main_frame.grid_rowconfigure(1, weight=1)
    main_frame.grid_rowconfigure(2, weight=0)
 
-   # logimg1 = Image.open('assets/log.jpg')
-   # picop1 = ImageTk.PhotoImage(logimg1.resize((600, 500)))
-   # lable_pic1 = a.CTkLabel(main_frame, image=picop1,text = "")
-   # lable_pic1.grid(row=0, column=0,sticky= "nsew",rowspan=3, columnspan=3)
+   logimg1 = Image.open('assets/contour.jpeg')
+   logimg2 = a.CTkImage(logimg1, size=(600,600))  # Resize to match frame size
+
+   # Create a label with the image and place it in the frame
+   label_pic1 = a.CTkLabel(main_frame, image=logimg2, text="")
+   label_pic1.place(relx=0, rely=0, relwidth=1, relheight=1)
    
    # Create a yellow frame inside the red frame on the right
-   input_vox = a.CTkFrame(main_frame, width=375, height=375, corner_radius=20, fg_color="white",border_color="black",border_width=2)
+   input_vox = a.CTkFrame(main_frame, width=375, height=375, corner_radius=20, fg_color="whitesmoke")
    input_vox.grid(column=1,row=1, padx=16, pady=16)
    input_vox.grid_propagate(False)
    input_vox.grid_columnconfigure(0, weight=0)

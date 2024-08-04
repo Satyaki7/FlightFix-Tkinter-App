@@ -5,23 +5,29 @@ import pywinstyles
 pywinstyles.apply_style(window,"acrylic")
 
 cities_with_flights = [
-    ["Mumbai", "AI101", "6E203", "UK305", "G8467", "SG558"],
-    ["Delhi", "AI204", "6E410", "UK511", "G8721", "SG663"],
-    ["Bangalore", "AI307", "6E315", "UK423", "G8345", "SG772"],
-    ["Hyderabad", "AI412", "6E527", "UK634", "G8612", "SG883"],
-    ["Chennai", "AI515", "6E634", "UK745", "G8964", "SG994"],
-    ["Kolkata", "AI620", "6E741", "UK856", "G8210", "SG105"]
+    ["Mumbai", "AI101", "6E203", "UK305", "G8467", "SG558", "AI999", "6E999", "UK999", "G9999", "SG999"],
+    ["Delhi", "AI204", "6E410", "UK511", "G8721", "SG663", "AI998", "6E998", "UK998", "G9989", "SG998"],
+    ["Bangalore", "AI307", "6E315", "UK423", "G8345", "SG772", "AI997", "6E997", "UK997", "G9978", "SG997"],
+    ["Hyderabad", "AI412", "6E527", "UK634", "G8612", "SG883", "AI996", "6E996", "UK996", "G9967", "SG996"],
+    ["Chennai", "AI515", "6E634", "UK745", "G8964", "SG994", "AI995", "6E995", "UK995", "G9956", "SG995"],
+    ["Kolkata", "AI620", "6E741", "UK856", "G8210", "SG105", "AI994", "6E994", "UK994", "G9945", "SG994"],
+    ["London", "BA101", "LH202", "AF303", "EK404", "SQ505", "BA202", "LH303", "AF404", "EK505", "SQ606"],
+    ["Paris", "AF101", "LH202", "BA303", "EK404", "SQ505", "AF202", "LH303", "BA404", "EK505", "SQ606"],
+    ["Tokyo", "NH101", "JL202", "ANA303", "EK404", "SQ505", "NH202", "JL303", "ANA404", "EK505", "SQ606"],
+    ["Sydney", "QF101", "VA202", "JQ303", "EK404", "SQ505", "QF202", "VA303", "JQ404", "EK505", "SQ606"],
+    ["Dubai", "EK101", "FZ202", "EY303", "QR404", "SV505", "EK202", "FZ303", "EY404", "QR505", "SV606"],
+    ["New York", "DL101", "UA202", "AA303", "B6404", "EK505", "DL202", "UA303", "AA404", "B6405", "EK606"],
+    ["Srinagar", "AI901", "6E601", "UK501", "G9021", "SG901", "AI902", "6E602", "UK502", "G9022", "SG902"],
+    ["Kochi", "AI902", "6E602", "UK502", "G9022", "SG902", "AI903", "6E603", "UK503", "G9023", "SG903"],
+    ["Kyoto", "NH901", "JL901", "ANA901", "EK901", "SQ901", "NH902", "JL902", "ANA902", "EK902", "SQ902"],
+    ["Jaipur", "AI903", "6E603", "UK503", "G9023", "SG903", "AI904", "6E604", "UK504", "G9024", "SG904"]
 ]
-for city in cities_with_flights:
-    add_city_and_flights(city[0], city[1], city[2], city[3], city[4], city[5])
 
-cities_with_flights = [
-    ["London", "BA101", "LH202", "AF303", "EK404", "SQ505"],
-    ["Paris", "AF101", "LH202", "BA303", "EK404", "SQ505"],
-    ["Tokyo", "NH101", "JL202", "ANA303", "EK404", "SQ505"],
-    ["Sydney", "QF101", "VA202", "JQ303", "EK404", "SQ505"],
-    ["Dubai", "EK101", "FZ202", "EY303", "QR404", "SV505"],
-    ["New York", "DL101", "UA202", "AA303", "B6404", "EK505"]
-]
-for city in cities_with_flights:
-    add_city_and_flights(city[0], city[1], city[2], city[3], city[4], city[5])
+
+
+librarires required 
+Tkinter 
+custom tkinter 
+ttkbootstrap 
+pillow
+mysql_connector
