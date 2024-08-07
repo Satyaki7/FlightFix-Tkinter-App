@@ -261,46 +261,50 @@ def formop(a, b, c, d, x, y,m,e,depart,to,dateop):
 
 
     def laststep(m, y, passengernames, selected_seats, depart, to, dateop):
-        # Hide all widgets in bm
-        for widget in bm.winfo_children():
-            widget.grid_forget()  # or widget.pack_forget() if using pack()
 
-        # Store widget data
-        data = {}
-        data['passengernames'] = passengernames
-        data['selected_seats'] = selected_seats
-        data['depart'] = depart
-        data['to'] = to
-        data['dateop'] = dateop
+        makinghistory(m,y,passengernames,selected_seats,depart,to,dateop)
+        ct.destroy()
+        messagebox.showinfo("Success", "Booking Successful!!")
+        # # Hide all widgets in bm
+        # for widget in bm.winfo_children():
+        #     widget.grid_forget()  # or widget.pack_forget() if using pack()
 
-        # Create and display loading frame
-        loadingframe = a.CTkFrame(bm, fg_color="transparent")
-        loadingframe.place(relwidth=1, relheight=1, anchor="center")
+        # # Store widget data
+        # data = {}
+        # data['passengernames'] = passengernames
+        # data['selected_seats'] = selected_seats
+        # data['depart'] = depart
+        # data['to'] = to
+        # data['dateop'] = dateop
 
-        # Load and display GIF
-        gif = Image.open("assets/loading.gif")
-        frames = []
-        durations = []
+        # # Create and display loading frame
+        # loadingframe = a.CTkFrame(bm, fg_color="transparent")
+        # loadingframe.place(relwidth=1, relheight=1, anchor="center")
 
-        for frame in ImageSequence.Iterator(gif):
-            frame_ctk = a.CTkImage(light_image=frame.convert('RGBA'), size=(480, 273))
-            frames.append(frame_ctk)
-            durations.append(frame.info.get('duration', 100))
+        # # Load and display GIF
+        # gif = Image.open("assets/loading.gif")
+        # frames = []
+        # durations = []
 
-        gif_label = a.CTkLabel(loadingframe, text="")
-        gif_label.grid(row=0, column=0, sticky="nsew")
+        # for frame in ImageSequence.Iterator(gif):
+        #     frame_ctk = a.CTkImage(light_image=frame.convert('RGBA'), size=(480, 273))
+        #     frames.append(frame_ctk)
+        #     durations.append(frame.info.get('duration', 100))
 
-        def play_gif(frame_index=0):
-            if frames:
-                frame = frames[frame_index]
-                gif_label.configure(image=frame)
-                next_frame_index = (frame_index + 1) % len(frames)
-                loadingframe.after(durations[frame_index], play_gif, next_frame_index)
+        # gif_label = a.CTkLabel(loadingframe, text="")
+        # gif_label.grid(row=0, column=0, sticky="nsew")
 
-        play_gif()
+        # def play_gif(frame_index=0):
+        #     if frames:
+        #         frame = frames[frame_index]
+        #         gif_label.configure(image=frame)
+        #         next_frame_index = (frame_index + 1) % len(frames)
+        #         loadingframe.after(durations[frame_index], play_gif, next_frame_index)
+
+        # play_gif()
 
         # Schedule makinghistory to be called after 8 seconds
-        loadingframe.after(8000, lambda: makinghistory(m, y, data['passengernames'], data['selected_seats'], data['depart'], data['to'], data['dateop']))
+        # loadingframe.after(8000, lambda: makinghistory(m, y, data['passengernames'], data['selected_seats'], data['depart'], data['to'], data['dateop']))
 
     # Example usage
     booking = b.Button(bm, text="Book Flight", command=lambda: laststep(m, y, passengernames, selected_seats, depart, to, dateop), style="success")
