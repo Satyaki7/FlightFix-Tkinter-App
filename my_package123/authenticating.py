@@ -422,21 +422,43 @@ def initialop():
     ''')
 
     
-    cursor.execute('''
-    CREATE TABLE IF NOT EXISTS cities (
-        CITY TEXT PRIMARY KEY,
-        FLIGHT1 TEXT,
-        FLIGHT2 TEXT,
-        FLIGHT3 TEXT,
-        FLIGHT4 TEXT,
-        FLIGHT5 TEXT,
-        FLIGHT6 TEXT,
-        FLIGHT7 TEXT,
-        FLIGHT8 TEXT,
-        FLIGHT9 TEXT,
-        FLIGHT10 TEXT
-    )
-    ''')
+    cursor.execute('''CREATE TABLE IF NOT EXISTS Cities (
+        FlightID INTEGER PRIMARY KEY AUTOINCREMENT,
+        Mumbai TEXT,
+        Delhi TEXT,
+        Bangalore TEXT,
+        Hyderabad TEXT,
+        Chennai TEXT,
+        Kolkata TEXT,
+        London TEXT,
+        Paris TEXT,
+        Tokyo TEXT,
+        Sydney TEXT,
+        Dubai TEXT,
+        NewYork TEXT,
+        Srinagar TEXT,
+        Kochi TEXT,
+        Kyoto TEXT,
+        Jaipur TEXT,
+        Time TEXT
+    )''')
+
+    # Step 4: Insert the data into the 'Cities' table
+    flights_data = [
+        ('AI101', 'AI204', 'AI307', 'AI412', 'AI515', 'AI620', 'BA101', 'AF101', 'NH101', 'QF101', 'EK101', 'DL101', 'AI901', 'AI902', 'NH901', 'AI903', '06:00 AM'),
+        ('6E203', '6E410', '6E315', '6E527', '6E634', '6E741', 'LH202', 'LH202', 'JL202', 'VA202', 'FZ202', 'UA202', '6E601', '6E602', 'JL901', '6E603', '07:30 AM'),
+        ('UK305', 'UK511', 'UK423', 'UK634', 'UK745', 'UK856', 'AF303', 'BA303', 'ANA303', 'JQ303', 'EY303', 'AA303', 'UK501', 'UK502', 'ANA901', 'UK503', '09:00 AM'),
+        ('G8467', 'G8721', 'G8345', 'G8612', 'G8964', 'G8210', 'EK404', 'EK404', 'EK404', 'EK404', 'QR404', 'B6404', 'G9021', 'G9022', 'EK901', 'G9023', '10:30 AM'),
+        ('SG558', 'SG663', 'SG772', 'SG883', 'SG994', 'SG105', 'SQ505', 'SQ505', 'SQ505', 'SQ505', 'SV505', 'EK505', 'SG901', 'SG902', 'SQ901', 'SG903', '12:00 PM'),
+        ('AI999', 'AI998', 'AI997', 'AI996', 'AI995', 'AI994', 'BA202', 'AF202', 'NH202', 'QF202', 'EK202', 'DL202', 'AI902', 'AI903', 'NH902', 'AI904', '01:30 PM'),
+        ('6E999', '6E998', '6E997', '6E996', '6E995', '6E994', 'LH303', 'LH303', 'JL303', 'VA303', 'FZ303', 'UA303', '6E602', '6E603', 'JL902', '6E604', '03:00 PM'),
+        ('UK999', 'UK998', 'UK997', 'UK996', 'UK995', 'UK994', 'AF404', 'BA404', 'ANA404', 'JQ404', 'EY404', 'AA404', 'UK502', 'UK503', 'ANA902', 'UK504', '04:30 PM'),
+        ('G9999', 'G9989', 'G9978', 'G9967', 'G9956', 'G9945', 'EK505', 'EK505', 'EK505', 'EK505', 'QR505', 'B6405', 'G9022', 'G9023', 'EK902', 'G9024', '06:00 PM'),
+        ('SG999', 'SG998', 'SG997', 'SG996', 'SG995', 'SG994', 'SQ606', 'SQ606', 'SQ606', 'SQ606', 'SV606', 'EK606', 'SG902', 'SG903', 'SQ902', 'SG904', '07:30 PM')
+    ]
+
+    cursor.executemany('''INSERT INTO Cities (Mumbai, Delhi, Bangalore, Hyderabad, Chennai, Kolkata, London, Paris, Tokyo, Sydney, Dubai, NewYork, Srinagar, Kochi, Kyoto, Jaipur, Time) 
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)''', flights_data)
 
     # Create the bookinghistory table if it doesn't exist
     cursor.execute('''
@@ -532,25 +554,60 @@ def on_signup(username, password, confirm_password):
         return True
 
     conn.close()
+
+#flight search function
 def searchfli(city_name):
-    conn = sqlite3.connect('users.db')
+    conn = sqlite3.connect('users.db')  # Connect to the 'flights.db' database
     cursor = conn.cursor()
 
-    # Convert city_name to lowercase for case-insensitive comparison
-    city_name_lower = city_name.lower()
+    # Convert city_name to title case (first letter capitalized, rest lowercase)
+    city_name_formatted = city_name.title()
+    print(city_name_formatted)
 
-    # Query to retrieve flights for the given city (case-insensitive)
-    cursor.execute('SELECT FLIGHT1, FLIGHT2, FLIGHT3, FLIGHT4, FLIGHT5,FLIGHT6,FLIGHT7,FLIGHT8,FLIGHT9,FLIGHT10 FROM cities WHERE LOWER(CITY) = ?', (city_name_lower,))
-    flights = cursor.fetchone()
+    # Query to retrieve flights for the given city
+    query = f'SELECT {city_name_formatted} FROM Cities'
 
-    conn.close()
+    try:
+        # Execute the query
+        cursor.execute(query)
 
+        # Fetch all rows (flights) for the selected city
+        flights = cursor.fetchall()
+
+        # If no flights are found, return a message
+        if not flights:
+            return None
+
+    except sqlite3.OperationalError:
+        return f"City '{city_name}' not found in the database."
+
+    # Check if flights were found and return accordingly
     if flights:
-        return flights
+        return [flight[0] for flight in flights]  # Return the list of flight names
     else:
         return None
+
+
 # Initialize the database and print the tables
 initialop()
+
+def get_flight_times():
+    conn = sqlite3.connect('users.db')  # Connect to the 'flights.db' database
+    cursor = conn.cursor()
+
+    # Query to retrieve all unique times from the Cities table
+    query = 'SELECT DISTINCT Time FROM Cities'
+
+    cursor.execute(query)
+
+    # Fetch all unique times
+    times = cursor.fetchall()
+
+    # Close the connection
+    conn.close()
+
+    # Return the list of times
+    return [time[0] for time in times]
 
 def get_bookings_by_username(username):
     conn = sqlite3.connect('users.db')

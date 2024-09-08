@@ -129,7 +129,7 @@ def exploreop(a, b, c, d,m):
     sixp = a.CTkImage(six_r, size=(180, 271))
     sixb = a.CTkLabel(six, image=sixp, text="")
     sixb.grid(row=1, rowspan=3, sticky="nsew")
-    sixbb = b.Button(six, style="primary.outline", text="Book Now", command = lambda: bookingplaces("Tokyo"))
+    sixbb = b.Button(six, style="primary.outline", text="Book Now", command = lambda: bookingplaces("Japan"))
     sixbb.grid(row=2, sticky="e", padx=10, pady=10)
 
     def clk():

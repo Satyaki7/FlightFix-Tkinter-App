@@ -46,7 +46,7 @@ def loginop(a,b,window,return_callback,u):
    window.configure(fg_color='#f5f5f5')
    
    # Create a red frame on the left
-   pic_frame = a.CTkFrame(window, width=375, height=600,fg_color="transparent")
+   pic_frame = a.CTkFrame(window, width=375, height=600,fg_color="transparent",corner_radius=20)
    pic_frame.grid(row=0, column=0, padx=0, pady=0,sticky = "nsew")
    pic_frame.grid_columnconfigure(0, weight=0)
    pic_frame.grid_rowconfigure(0, weight=0)
@@ -57,7 +57,7 @@ def loginop(a,b,window,return_callback,u):
    lable_pic.grid(row=0, column=0,sticky= "nsew")
    
    # Create a red frame on the right
-   main_frame = a.CTkFrame(window, width=400, height=600,fg_color="transparent")
+   main_frame = a.CTkFrame(window, width=400, height=600,fg_color="transparent",corner_radius=20)
    main_frame.grid(row=0, column=2, padx=0, pady=0,sticky = "nsew")
    main_frame.grid_columnconfigure(0, weight=0)
    main_frame.grid_columnconfigure(1, weight=1)
@@ -84,26 +84,31 @@ def loginop(a,b,window,return_callback,u):
    input_vox.grid_rowconfigure((0,2,4,5), weight=1)
 
    # Entry boxes
-   log = a.CTkLabel(input_vox, text="Sign In", font=("Arial", 32),fg_color= "transparent")
-   log.grid(column=1, row=0, padx=50, pady=20,sticky = "nsew")
-   log1 = a.CTkLabel(input_vox, text="Username:", font=("Arial", 16),fg_color= "transparent",text_color="black")
+   loginbox = a.CTkFrame(input_vox, width=300, height=50, fg_color="transparent")
+   loginbox.grid(row=0, column=1, padx=10, pady=10)
+   loginbox.grid_columnconfigure(0, weight=0)
+   loginbox.grid_rowconfigure((0,1), weight=1)
+   log = a.CTkLabel(loginbox, text="Welcome Back!", font=("Arial", 32),fg_color= "transparent")
+   log.grid(column=1, row=0, padx=50, pady=6,sticky = "nsew")
+   logmsg = a.CTkLabel(loginbox, text="Ready to continue your journey? \n  Log in now to book your next adventure!", font=("Arial", 10),fg_color= "transparent")
+   logmsg.grid(column=1, row=1, padx=50, pady=0,sticky = "nsew")
+   log1 = a.CTkLabel(input_vox, text="Username:", font=("Arial", 12),fg_color= "transparent",text_color="black")
    log1.grid(column=1, row=1, padx=50, pady=5,sticky = "w")
-   log2 = a.CTkLabel(input_vox, text="Password:", font=("Arial", 16),fg_color= "transparent",text_color="black")
+   log2 = a.CTkLabel(input_vox, text="Password:", font=("Arial", 12),fg_color= "transparent",text_color="black")
    log2.grid(column=1, row=3, padx=50, pady=5,sticky = "w")
 
    username = b.Entry(input_vox)
    password = b.Entry(input_vox)
-   password1 = b.Entry(input_vox)
 
    username.insert(0, "Username")
    username.bind("<FocusIn>", on_entry_click)
    username.bind("<FocusOut>", on_focus_out)
-   username.grid(column=1, row=2, padx=50, pady=5,sticky = "nsew")
+   username.grid(column=1, row=2, padx=50, pady=0,sticky = "nsew")
 
    password.insert(0, "Password")
    password.bind("<FocusIn>", on_entry_click1)
    password.bind("<FocusOut>", on_focus_out1)
-   password.grid(column=1, row=4, padx=50, pady=5,sticky = "nsew")
+   password.grid(column=1, row=4, padx=50, pady=0,sticky = "nsew")
 
    vottonframe = a.CTkFrame(input_vox, width=50, height=25,fg_color= "white")
    vottonframe.grid(column=1, row=5, padx=20, pady=20)

@@ -4,24 +4,22 @@ import pywinstyles
 
 pywinstyles.apply_style(window,"acrylic")
 
-cities_with_flights = [
-    ["Mumbai", "AI101", "6E203", "UK305", "G8467", "SG558", "AI999", "6E999", "UK999", "G9999", "SG999"],
-    ["Delhi", "AI204", "6E410", "UK511", "G8721", "SG663", "AI998", "6E998", "UK998", "G9989", "SG998"],
-    ["Bangalore", "AI307", "6E315", "UK423", "G8345", "SG772", "AI997", "6E997", "UK997", "G9978", "SG997"],
-    ["Hyderabad", "AI412", "6E527", "UK634", "G8612", "SG883", "AI996", "6E996", "UK996", "G9967", "SG996"],
-    ["Chennai", "AI515", "6E634", "UK745", "G8964", "SG994", "AI995", "6E995", "UK995", "G9956", "SG995"],
-    ["Kolkata", "AI620", "6E741", "UK856", "G8210", "SG105", "AI994", "6E994", "UK994", "G9945", "SG994"],
-    ["London", "BA101", "LH202", "AF303", "EK404", "SQ505", "BA202", "LH303", "AF404", "EK505", "SQ606"],
-    ["Paris", "AF101", "LH202", "BA303", "EK404", "SQ505", "AF202", "LH303", "BA404", "EK505", "SQ606"],
-    ["Tokyo", "NH101", "JL202", "ANA303", "EK404", "SQ505", "NH202", "JL303", "ANA404", "EK505", "SQ606"],
-    ["Sydney", "QF101", "VA202", "JQ303", "EK404", "SQ505", "QF202", "VA303", "JQ404", "EK505", "SQ606"],
-    ["Dubai", "EK101", "FZ202", "EY303", "QR404", "SV505", "EK202", "FZ303", "EY404", "QR505", "SV606"],
-    ["New York", "DL101", "UA202", "AA303", "B6404", "EK505", "DL202", "UA303", "AA404", "B6405", "EK606"],
-    ["Srinagar", "AI901", "6E601", "UK501", "G9021", "SG901", "AI902", "6E602", "UK502", "G9022", "SG902"],
-    ["Kochi", "AI902", "6E602", "UK502", "G9022", "SG902", "AI903", "6E603", "UK503", "G9023", "SG903"],
-    ["Kyoto", "NH901", "JL901", "ANA901", "EK901", "SQ901", "NH902", "JL902", "ANA902", "EK902", "SQ902"],
-    ["Jaipur", "AI903", "6E603", "UK503", "G9023", "SG903", "AI904", "6E604", "UK504", "G9024", "SG904"]
-]
+Here’s the updated table with a new column `Time` for the flight timings:
+
+| Flights | Mumbai | Delhi | Bangalore | Hyderabad | Chennai | Kolkata | London | Paris | Tokyo | Sydney | Dubai | New York | Srinagar | Kochi | Kyoto | Jaipur | Time      |
+|---------|--------|-------|-----------|-----------|---------|---------|--------|-------|-------|--------|-------|----------|----------|-------|--------|--------|-----------|
+| Flight1 | AI101  | AI204 | AI307     | AI412     | AI515   | AI620   | BA101  | AF101 | NH101 | QF101  | EK101 | DL101    | AI901    | AI902  | NH901  | AI903  | 06:00 AM  |
+| Flight2 | 6E203  | 6E410 | 6E315     | 6E527     | 6E634   | 6E741   | LH202  | LH202 | JL202 | VA202  | FZ202 | UA202    | 6E601    | 6E602  | JL901  | 6E603  | 07:30 AM  |
+| Flight3 | UK305  | UK511 | UK423     | UK634     | UK745   | UK856   | AF303  | BA303 | ANA303| JQ303  | EY303 | AA303    | UK501    | UK502  | ANA901 | UK503  | 09:00 AM  |
+| Flight4 | G8467  | G8721 | G8345     | G8612     | G8964   | G8210   | EK404  | EK404 | EK404 | EK404  | QR404 | B6404    | G9021    | G9022  | EK901  | G9023  | 10:30 AM  |
+| Flight5 | SG558  | SG663 | SG772     | SG883     | SG994   | SG105   | SQ505  | SQ505 | SQ505 | SQ505  | SV505 | EK505    | SG901    | SG902  | SQ901  | SG903  | 12:00 PM  |
+| Flight6 | AI999  | AI998 | AI997     | AI996     | AI995   | AI994   | BA202  | AF202 | NH202 | QF202  | EK202 | DL202    | AI902    | AI903  | NH902  | AI904  | 01:30 PM  |
+| Flight7 | 6E999  | 6E998 | 6E997     | 6E996     | 6E995   | 6E994   | LH303  | LH303 | JL303 | VA303  | FZ303 | UA303    | 6E602    | 6E603  | JL902  | 6E604  | 03:00 PM  |
+| Flight8 | UK999  | UK998 | UK997     | UK996     | UK995   | UK994   | AF404  | BA404 | ANA404| JQ404  | EY404 | AA404    | UK502    | UK503  | ANA902 | UK504  | 04:30 PM  |
+| Flight9 | G9999  | G9989 | G9978     | G9967     | G9956   | G9945   | EK505  | EK505 | EK505 | EK505  | QR505 | B6405    | G9022    | G9023  | EK902  | G9024  | 06:00 PM  |
+| Flight10| SG999  | SG998 | SG997     | SG996     | SG995   | SG994   | SQ606  | SQ606 | SQ606 | SQ606  | SV606 | EK606    | SG902    | SG903  | SQ902  | SG904  | 07:30 PM  |
+
+Each flight row has a corresponding flight time in the `Time` column.
 
 
 

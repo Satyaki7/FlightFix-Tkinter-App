@@ -3,6 +3,7 @@ def book(a, b, c, d, m, placename):
     from PIL import Image, ImageDraw, ImageTk, ImageSequence
     from datetime import datetime
     from .authenticating import searchfli
+    from .authenticating import get_flight_times
     from tkinter import messagebox
     from .form import formop
 
@@ -17,6 +18,7 @@ def book(a, b, c, d, m, placename):
     q, w, e, r, t, y = "", "", "", "", "", ""
 
     def flightb(x, r, m, e):
+        print("the row may be: ",x)
         global q, w, t, y
         formop(a, b, c, d, x, r, m, e, q, w, t)
 
@@ -51,7 +53,8 @@ def book(a, b, c, d, m, placename):
                         label = a.CTkLabel(bottom_frame, text=headers[col], text_color="black")
                         label.grid(row=row, column=col, padx=5, pady=5, sticky="nsew")
                 elif col == 1:
-                    aaa = searchfli(w)
+                    #flight search function
+                    aaa = searchfli(w.lower())
                     if aaa is None:
                         messagebox.showerror("Error", "No flights found.")
                         return
@@ -71,10 +74,10 @@ def book(a, b, c, d, m, placename):
                         label = a.CTkLabel(bottom_frame, text=datepicker2.entry.get(), text_color="black")
                     label.grid(row=row, column=col, padx=5, pady=5, sticky="nsew")
                 elif col == 4:
-                    timeop = ""
-                    timeop = f"{random.randint(1, 18)}:{random.randint(0, 59):02d}"
-                    label = a.CTkLabel(bottom_frame, text=timeop, text_color="black")
-                    label.grid(row=row, column=col, padx=5, pady=5, sticky="nsew")
+                    timelist = get_flight_times()
+                    if row - 1 < len(timelist):
+                        label = a.CTkLabel(bottom_frame, text=timelist[row-1], text_color="black")
+                        label.grid(row=row, column=col, padx=5, pady=5, sticky="nsew")
                 elif col == 5:
                     if e == "First Class":
                         price = f"₹{random.randint(20000, 30000)}"
@@ -90,6 +93,7 @@ def book(a, b, c, d, m, placename):
                         label.grid(row=row, column=col, padx=5, pady=5, sticky="nsew")
 
 
+    #searching for the flight
     def search():
         global q, w, e, r, t, y
         q, w, e, r, t, y = drop1.get(), drop2.get(), dropdown3.get(), spinbox.get(), datetime.strptime(datepicker1.entry.get(), "%d/%m/%Y"), datetime.strptime(datepicker2.entry.get(), "%d/%m/%Y")
@@ -123,7 +127,8 @@ def book(a, b, c, d, m, placename):
         elif not retcheck_var.get():
             if q != "From" and w != "To" and dropdown3 != "Class" and spinbox.get() != "Passengers":
                 btframe(w,r,t,y,e)
-    
+
+    #this is the side bar
     def clk():
         # Left Sidebar Frame
         sidebar_frame = a.CTkFrame(bm,
