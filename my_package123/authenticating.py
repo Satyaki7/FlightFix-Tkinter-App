@@ -334,7 +334,7 @@ def generate_booking_id(length=10):
     # Generate a random booking ID
     return ''.join(random.choices(string.ascii_uppercase + string.digits, k=length))
 
-def add_booking_record(username, no_passengers, passenger_names,seating,depart,to,dateop):
+def add_booking_record(username, no_passengers, passenger_names,seating,depart,to,dateop,flightname,flighttime):
     conn = sqlite3.connect('users.db')
     cursor = conn.cursor()
 
@@ -346,9 +346,9 @@ def add_booking_record(username, no_passengers, passenger_names,seating,depart,t
 
     # Insert the booking record into the bookinghistory table
     cursor.execute('''
-    INSERT INTO bookinghistory (BOOKING_ID, USER, NO_PASSENGERS, PASSENGER_NAMES,SEATING_PREFERENCE,DEPARTURE,ARRIVAL,DATE)
-    VALUES (?, ?, ?, ?, ? ,?,?,?)
-    ''', (booking_id, username, no_passengers, passenger_names_str,seating,depart,to,dateop))
+    INSERT INTO bookinghistory (BOOKING_ID,FLIGHT_ID, USER, NO_PASSENGERS, PASSENGER_NAMES,SEATING_PREFERENCE,DEPARTURE,ARRIVAL,DATE,TIME)
+    VALUES (?, ?, ?, ?, ? ,?,?,?,?,?)
+    ''', (booking_id, flightname,username, no_passengers, passenger_names_str,seating,depart,to,dateop,flighttime))
     print("Details added to bookinghistory table.",booking_id, username, no_passengers, passenger_names_str,seating,depart,to,dateop)
 
     conn.commit()
@@ -464,13 +464,15 @@ def initialop():
     cursor.execute('''
     CREATE TABLE IF NOT EXISTS bookinghistory (
         BOOKING_ID TEXT PRIMARY KEY,
+        FLIGHT_ID TEXT,
         USER TEXT NOT NULL,
         NO_PASSENGERS INTEGER,
         PASSENGER_NAMES TEXT,
         SEATING_PREFERENCE TEXT,
         DEPARTURE TEXT,
         ARRIVAL TEXT,
-        DATE TEXT
+        DATE TEXT,
+        TIME TEXT
     )
     ''')
     
@@ -615,7 +617,7 @@ def get_bookings_by_username(username):
 
     # Query to retrieve all booking records for the given username
     cursor.execute('''
-    SELECT BOOKING_ID, DEPARTURE, ARRIVAL,NO_PASSENGERS, SEATING_PREFERENCE,  DATE 
+    SELECT BOOKING_ID,FLIGHT_ID, DEPARTURE, ARRIVAL,NO_PASSENGERS, SEATING_PREFERENCE,DATE,TIME 
     FROM bookinghistory 
     WHERE USER = ?
     ''', (username,))

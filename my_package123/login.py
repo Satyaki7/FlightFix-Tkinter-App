@@ -57,7 +57,7 @@ def loginop(a,b,window,return_callback,u):
    lable_pic.grid(row=0, column=0,sticky= "nsew")
    
    # Create a red frame on the right
-   main_frame = a.CTkFrame(window, width=400, height=600,fg_color="transparent",corner_radius=20)
+   main_frame = a.CTkFrame(window, width=400, height=600,fg_color="transparent",corner_radius = 20)
    main_frame.grid(row=0, column=2, padx=0, pady=0,sticky = "nsew")
    main_frame.grid_columnconfigure(0, weight=0)
    main_frame.grid_columnconfigure(1, weight=1)
@@ -81,7 +81,7 @@ def loginop(a,b,window,return_callback,u):
    input_vox.grid_columnconfigure(1, weight=1)
    input_vox.grid_columnconfigure(2, weight=0)
    input_vox.grid_rowconfigure((1,3), weight=0)
-   input_vox.grid_rowconfigure((0,2,4,5), weight=1)
+   input_vox.grid_rowconfigure((0,2,4,5,6), weight=1)
 
    # Entry boxes
    loginbox = a.CTkFrame(input_vox, width=300, height=50, fg_color="transparent")
@@ -108,19 +108,19 @@ def loginop(a,b,window,return_callback,u):
    password.insert(0, "Password")
    password.bind("<FocusIn>", on_entry_click1)
    password.bind("<FocusOut>", on_focus_out1)
-   password.grid(column=1, row=4, padx=50, pady=0,sticky = "nsew")
+   password.grid(column=1, row=4, padx=50, pady=5,sticky = "nsew")
 
-   vottonframe = a.CTkFrame(input_vox, width=50, height=25,fg_color= "white")
-   vottonframe.grid(column=1, row=5, padx=20, pady=20)
-   vottonframe.grid_columnconfigure(0, weight=1)
-   vottonframe.grid_columnconfigure(1, weight=1)
-   vottonframe.grid_rowconfigure(0, weight=0)
+   vottonframe = a.CTkFrame(input_vox, width=300, height=30,fg_color= "transparent")
+   vottonframe.grid(column=1, row=6, padx=20, pady=5)
+   vottonframe.grid_columnconfigure((0,1), weight=1)
+   vottonframe.grid_rowconfigure((0), weight=1)
+
+   signlable = a.CTkLabel(vottonframe, text="Don't have an account?", font=("Arial", 12),fg_color = "transparent",text_color="black",width = 100,height = 20)
+   signlable.grid(column=0, row=0, padx=0, pady=0)
    
-   signup_button = b.Button(vottonframe,text="SignUp",bootstyle="primary.outline",command = breakop)
-
-   signup_button.grid(column=0,row=0,padx=5, pady=0)
-   signin_button = b.Button(vottonframe,text="Log In",bootstyle="primary",command = transfer)
-
-   signin_button.grid(column=1,row=0,padx=5, pady=0)
+   signup_button = a.CTkButton(vottonframe,text="SignUp",width = 5,height = 20,fg_color= "whitesmoke",hover_color= "whitesmoke",text_color = "blue",command = breakop)
+   signup_button.grid(column=1,row=0,padx=0, pady=0)
    
-  
+   signin_button = a.CTkButton(input_vox,text="Log In",width = 250,height = 35,fg_color = "#02b875",hover_color = "#03eb95",corner_radius = 10,font=("Arial", 18),text_color = "white",command = transfer)
+
+   signin_button.grid(column=1,row=5,padx=5, pady=8)

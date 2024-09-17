@@ -5,7 +5,7 @@ from PIL import Image, ImageDraw, ImageTk, ImageSequence
 from tkinter import messagebox
 import time
 
-def formop(a, b, c, d, x, y,m,e,depart,to,dateop):
+def formop(a, b, c, d, x, y,m,e,depart,to,dateop,flightname,flighttime):
     from .authenticating import add_booking_record
     ct = a.CTkToplevel(c, fg_color="white")
     ct.geometry("600x600")
@@ -35,7 +35,7 @@ def formop(a, b, c, d, x, y,m,e,depart,to,dateop):
         gender = selected_value
         print(f"Selected option: {selected_value}")
 
-    def makinghistory(m,y,passengernames,selected_seats,depart,to,dateop):
+    def makinghistory(m,y,passengernames,selected_seats,depart,to,dateop,flightname,flighttime):
         if ph.get() == "Phone Number" or email.get() == "Email ID eg: user@gmail.com":
             messagebox.showerror("Error", "Enter proper contact details")
             return
@@ -43,7 +43,7 @@ def formop(a, b, c, d, x, y,m,e,depart,to,dateop):
             seating = ""
             for i in selected_seats:
                 seating += i + ","
-            add_booking_record(m,y,passengernames,seating,depart,to,dateop)
+            add_booking_record(m,y,passengernames,seating,depart,to,dateop,flightname,flighttime)
         print(m,y,passengernames,selected_seats,depart,to,dateop)
         passengernames = ""
     
@@ -260,53 +260,12 @@ def formop(a, b, c, d, x, y,m,e,depart,to,dateop):
     seat.grid(row=0, column=1, padx=5, pady=5, sticky="ew")
 
 
-    def laststep(m, y, passengernames, selected_seats, depart, to, dateop):
+    def laststep(m, y, passengernames, selected_seats, depart, to, dateop,flightname,flighttime):
 
-        makinghistory(m,y,passengernames,selected_seats,depart,to,dateop)
+        makinghistory(m,y,passengernames,selected_seats,depart,to,dateop,flightname,flighttime)
         ct.destroy()
         messagebox.showinfo("Success", "Booking Successful!!")
-        # # Hide all widgets in bm
-        # for widget in bm.winfo_children():
-        #     widget.grid_forget()  # or widget.pack_forget() if using pack()
 
-        # # Store widget data
-        # data = {}
-        # data['passengernames'] = passengernames
-        # data['selected_seats'] = selected_seats
-        # data['depart'] = depart
-        # data['to'] = to
-        # data['dateop'] = dateop
-
-        # # Create and display loading frame
-        # loadingframe = a.CTkFrame(bm, fg_color="transparent")
-        # loadingframe.place(relwidth=1, relheight=1, anchor="center")
-
-        # # Load and display GIF
-        # gif = Image.open("assets/loading.gif")
-        # frames = []
-        # durations = []
-
-        # for frame in ImageSequence.Iterator(gif):
-        #     frame_ctk = a.CTkImage(light_image=frame.convert('RGBA'), size=(480, 273))
-        #     frames.append(frame_ctk)
-        #     durations.append(frame.info.get('duration', 100))
-
-        # gif_label = a.CTkLabel(loadingframe, text="")
-        # gif_label.grid(row=0, column=0, sticky="nsew")
-
-        # def play_gif(frame_index=0):
-        #     if frames:
-        #         frame = frames[frame_index]
-        #         gif_label.configure(image=frame)
-        #         next_frame_index = (frame_index + 1) % len(frames)
-        #         loadingframe.after(durations[frame_index], play_gif, next_frame_index)
-
-        # play_gif()
-
-        # Schedule makinghistory to be called after 8 seconds
-        # loadingframe.after(8000, lambda: makinghistory(m, y, data['passengernames'], data['selected_seats'], data['depart'], data['to'], data['dateop']))
-
-    # Example usage
-    booking = b.Button(bm, text="Book Flight", command=lambda: laststep(m, y, passengernames, selected_seats, depart, to, dateop), style="success")
+    booking = b.Button(bm, text="Book Flight", command=lambda: laststep(m, y, passengernames, selected_seats, depart, to, dateop,flightname,flighttime), style="success")
     booking.configure(state="disabled")
     booking.grid(row=5, column=1, padx=10, pady=5, sticky="ew")

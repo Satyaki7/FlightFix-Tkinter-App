@@ -82,24 +82,32 @@ def signop(a,b,window,return_callback,u):
    label_pic1.place(relx=0, rely=0, relwidth=1, relheight=1)
 
    # Create a yellow frame inside the red frame on the right
-   input_vox = a.CTkFrame(main_frame, width=400, height=400, corner_radius=20, fg_color="whitesmoke")
+   input_vox = a.CTkFrame(main_frame, width=450, height=450, corner_radius=20, fg_color="whitesmoke")
    input_vox.grid_propagate(False)
    input_vox.grid(column=1,row=1, padx=20, pady=20)
    input_vox.grid_columnconfigure(0, weight=0)
    input_vox.grid_columnconfigure(1, weight=1)
    input_vox.grid_columnconfigure(2, weight=0)
    input_vox.grid_rowconfigure((1,3,5), weight=1)
-   input_vox.grid_rowconfigure((0,2,4,6,7), weight=1)
+   input_vox.grid_rowconfigure((0,2,4,6,7,8), weight=1)
 
 
    # Entry boxes
-   log = a.CTkLabel(input_vox, text="Sign Up", font=("Arial", 32),fg_color= "transparent")
-   log.grid(column=1, row=0, padx=50, pady=20,sticky = "nsew")
-   log1 = a.CTkLabel(input_vox, text="Username:", font=("Arial", 16),fg_color= "transparent",text_color="black")
+   logframe = a.CTkFrame(input_vox, width=0, height=0, fg_color="transparent")
+   logframe.grid_columnconfigure(0, weight=1)
+   logframe.grid_rowconfigure((0,1),weight = 1)
+   logframe.grid(column =1,row = 0,padx=50, pady=15)
+   log = a.CTkLabel(logframe, text="Sign Up", font=("Helvetica", 32),fg_color= "transparent")
+   log.grid(column=0, row=0, padx=0, pady=5,sticky = "nsew")
+   logunder = a.CTkLabel(logframe, text="Don't have an account? Sign up now ", font=("Helvetica", 10),fg_color= "transparent")
+   logunder.grid(column=0, row=1, padx=0, pady=2,sticky = "nsew")
+   
+   
+   log1 = a.CTkLabel(input_vox, text="Username:", font=("Helvetica", 16),fg_color= "transparent",text_color="black")
    log1.grid(column=1, row=1, padx=50, pady=5,sticky = "w")
-   log2 = a.CTkLabel(input_vox, text="Password:", font=("Arial", 16),fg_color= "transparent",text_color="black")
+   log2 = a.CTkLabel(input_vox, text="Password:", font=("Helvetica", 16),fg_color= "transparent",text_color="black")
    log2.grid(column=1, row=3, padx=50, pady=5,sticky = "w")
-   log3 = a.CTkLabel(input_vox, text="Re-Enter Password:", font=("Arial", 16),fg_color="transparent",text_color="black")
+   log3 = a.CTkLabel(input_vox, text="Re-Enter Password:", font=("Helvetica", 16),fg_color="transparent",text_color="black")
    log3.grid(column=1, row=5, padx=50, pady=5,sticky = "w")
 
    username = b.Entry(input_vox)
@@ -122,16 +130,16 @@ def signop(a,b,window,return_callback,u):
    password1.grid(column=1, row=6,padx=50, pady=5,sticky = "nsew")
 
    vottonframe = a.CTkFrame(input_vox, width=50, height=25,fg_color= "transparent")
-   vottonframe.grid(column=1, row=7, padx=20, pady=20)
-   vottonframe.grid_columnconfigure(0, weight=1)
-   vottonframe.grid_columnconfigure(1, weight=1)
+   vottonframe.grid(column=1, row=8, padx=20, pady=20)
+   vottonframe.grid_columnconfigure((0,1), weight=1)
    vottonframe.grid_rowconfigure(0, weight=0)
 
-   signup_button = b.Button(vottonframe,text="SignUp",bootstyle="primary",command = transfer)
+   signlable = a.CTkLabel(vottonframe, text="Already have an account?", font=("Helvetica", 12),fg_color = "transparent",text_color="black",width = 100,height = 20)
+   signlable.grid(column=0, row=0, padx=0, pady=0)
 
-   signup_button.grid(column=0,row=0,padx=5, pady=0)
-   signin_button = b.Button(vottonframe,text="Log In",bootstyle="primary.outline",command = breakop)
+   signin_button = a.CTkButton(vottonframe,text="LogIn",width = 5,height = 20,fg_color= "whitesmoke",hover_color= "whitesmoke",text_color = "blue",command = breakop)
+   signin_button.grid(column=1,row=0,padx=0, pady=0)
 
-   signin_button.grid(column=1,row=0,padx=5, pady=0)
+   signup_button = a.CTkButton(input_vox,text="Sign Up",width = 250,height = 35,fg_color = "#02b875",hover_color = "#03eb95",corner_radius = 10,font=("Helvetica", 18),text_color = "white",command = transfer)
 
-
+   signup_button.grid(column=1,row=7,padx=5, pady=10)

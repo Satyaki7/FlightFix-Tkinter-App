@@ -7,10 +7,10 @@ def dashboardop(a, b, c, d, m):
     from .explore import create_rounded_image
     from .authenticating import get_bookings_by_username
     import tkinter as tk
-    import time
+    import time#b8dbef
     c.geometry("1000x700")
     c.title("Dashboard")
-    c.configure(fg_color='#1c82e3')
+    c.configure(fg_color='#1c99ed')
     # Configure grid layout for the window
     c.grid_columnconfigure((0,2), weight=0)
     c.grid_columnconfigure(1, weight=1)
@@ -25,12 +25,12 @@ def dashboardop(a, b, c, d, m):
     bm.grid_rowconfigure((0), weight=0)
     bm.grid_rowconfigure((1, 2,3), weight=1)
 
-    # Load the background image
-    # bg_photo = a.CTkImage(Image.open("assets/14337.jpg"), size=(1100, 700))
+    # the background image
+    bg_photo = a.CTkImage(Image.open("assets/background.jpg"), size=(1100, 700))
 
-    # # Create a Label to hold the background image
-    # bg_label = a.CTkLabel(bm, image=bg_photo, text="")
-    # bg_label.place(relwidth=1, relheight=1)
+    # Create a Label to hold the background image
+    bg_label = a.CTkLabel(bm, image=bg_photo, text="")
+    bg_label.place(relwidth=1, relheight=1)
     
     def on_button_click(a):
         print("booking is working")
@@ -172,7 +172,7 @@ def dashboardop(a, b, c, d, m):
     cancelbook = a.CTkButton(user_info_frame, text="Cancel a Booking", width=150, height=30,fg_color = "#02b875",hover_color = "#03eb95",corner_radius = 10,text_color = "white",font = ("Arial", 12),command = cancelbooking)
     cancelbook.grid(row=4, column=0, padx=5, pady=5, sticky="")
 
-    bookingmanagement = a.CTkFrame(bm, width=273, height=273, corner_radius=10, fg_color="white", border_color="black", border_width=1)
+    bookingmanagement = a.CTkFrame(bm, width=273, height=273, corner_radius=20, fg_color="white", border_color="black", border_width=1)
     bookingmanagement.grid(row=1, column=2,padx=2, pady=5)
     bookingmanagement.grid_propagate(False)
     bookingmanagement.grid_columnconfigure(0, weight=1)
@@ -204,7 +204,7 @@ def dashboardop(a, b, c, d, m):
 
     # Create a frame to hold the canvas
     frame = a.CTkFrame(user_info_frame, width=60, height=60, fg_color="transparent")
-    frame.grid(row=0, column=0, pady=5)
+    frame.grid(row=0, column=0, pady=2)
 
     # Create a canvas to display the image
     canvas = a.CTkCanvas(frame, width=size, height=size, bg='white', highlightthickness=0)
@@ -217,11 +217,11 @@ def dashboardop(a, b, c, d, m):
     # Username
     userop = m
     usernamela = a.CTkLabel(user_info_frame, fg_color="white", text=userop, font=("Arial", 25), text_color="black")
-    usernamela.grid(row=1, column=0, padx=5, pady=0)
-    usertype = a.CTkLabel(user_info_frame, fg_color="white", text="Account Type:", font=("Arial", 15), text_color="black")
+    usernamela.grid(row=1, column=0, padx=5, pady=4)
+    usertype = a.CTkLabel(user_info_frame, fg_color="white", text="Your next flight is on: ", font=("Arial", 15), text_color="black")
     usertype.grid(row=2, column=0, padx=5, pady=0)
-    usertype = a.CTkLabel(user_info_frame, fg_color="white", text="Non-Premium", font=("Arial", 15), text_color="black")
-    usertype.grid(row=3, column=0, padx=5, pady=0)
+    usertype = a.CTkLabel(user_info_frame, fg_color="white", text="xx/xx/xxxx at xx:xx", font=("Arial", 15), text_color="black")
+    usertype.grid(row=3, column=0, padx=5, pady=2)
 
 
     # Premium Frame
@@ -263,7 +263,7 @@ def dashboardop(a, b, c, d, m):
     # upcoming_flights_frame.grid_propagate(False)
 
     flighthistory = [
-        ["Booking ID","From","To","Passengers","Seating","Date"]
+        ["Booking ID","Flight_ID","From","To","Passengers","Seating","Date","Time"]
     ]
 
     nv = get_bookings_by_username(m)
@@ -271,7 +271,7 @@ def dashboardop(a, b, c, d, m):
         flighthistory.append(record)
         print(record)
     
-    table = CTkTable(master = upcoming_flights_frame, row=len(flighthistory), column=6, values=flighthistory,colors = ["white","whitesmoke"])
+    table = CTkTable(master = upcoming_flights_frame, row=len(flighthistory), column=8, values=flighthistory,colors = ["white","whitesmoke"])
     table.pack(expand=True, fill="both", padx=2, pady=2)
 
    

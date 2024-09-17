@@ -25,13 +25,12 @@ def exploreop(a, b, c, d,m):
     bm.grid_columnconfigure((1, 2, 3), weight=1)
     bm.grid_rowconfigure((0, 1), weight=1)
 
-    # # Load the background image
-    # bg_image = Image.open("assets/14337.jpg")
-    # bg_photo = a.CTkImage(bg_image, size=(960, 700))
+    # the background image
+    bg_photo = a.CTkImage(Image.open("assets/background.jpg"), size=(1100, 700))
 
-    # # Create a Label to hold the background image
-    # bg_label = a.CTkLabel(bm, image=bg_photo, text="")
-    # bg_label.place(relwidth=1, relheight=1)
+    # Create a Label to hold the background image
+    bg_label = a.CTkLabel(bm, image=bg_photo, text="")
+    bg_label.place(relwidth=1, relheight=1)
     # cards
     def bookingplaces(place):
         if place == "Delhi":

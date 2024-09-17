@@ -9,18 +9,23 @@ def book(a, b, c, d, m, placename):
 
     c.geometry("960x700")
     c.title("Booking")
-    c.configure(fg_color='#1c82e3')
+    c.configure(fg_color='#289beb')
     c.grid_columnconfigure((0, 2), weight=0)
     c.grid_columnconfigure(1, weight=1)
     c.grid_rowconfigure((0, 2), weight=0)
     c.grid_rowconfigure(1, weight=1)
     r = 1
+    aaa = []
     q, w, e, r, t, y = "", "", "", "", "", ""
 
     def flightb(x, r, m, e):
-        print("the row may be: ",x)
+        global aaa
+        timelist = get_flight_times()
+        flighttime = timelist[x-1]
+        flightname = aaa[x-1]
+        print("the row may be: ",x,"and flight may be: ",aaa[x-1],"time",timelist[x-1])
         global q, w, t, y
-        formop(a, b, c, d, x, r, m, e, q, w, t)
+        formop(a, b, c, d, x, r, m, e, q, w, t,flightname,flighttime)
 
     bm = a.CTkFrame(c, fg_color="transparent", width=960, height=700, corner_radius=10)
     bm.grid(row=1, column=1, sticky="nsew", padx=0, pady=0)
@@ -30,6 +35,13 @@ def book(a, b, c, d, m, placename):
     bm.grid_rowconfigure((0, 2), weight=1)
     bm.grid_propagate(False)
 
+    # the background image
+    bg_photo = a.CTkImage(Image.open("assets/background.jpg"), size=(1100, 700))
+
+    # Create a Label to hold the background image
+    bg_label = a.CTkLabel(bm, image=bg_photo, text="")
+    bg_label.place(relwidth=1, relheight=1)
+    
     def btframe(w,r,t,y,e):
         bottom_frame = a.CTkScrollableFrame(bm, width=700, height=400, corner_radius=20, fg_color="white")
         bottom_frame.grid(row=2, column=1, padx=10, pady=10)
@@ -54,6 +66,7 @@ def book(a, b, c, d, m, placename):
                         label.grid(row=row, column=col, padx=5, pady=5, sticky="nsew")
                 elif col == 1:
                     #flight search function
+                    global aaa
                     aaa = searchfli(w.lower())
                     if aaa is None:
                         messagebox.showerror("Error", "No flights found.")
