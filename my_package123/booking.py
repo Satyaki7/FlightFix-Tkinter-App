@@ -254,7 +254,7 @@ def book(a, b, c, d, m, placename):
     spinbox.grid(row=1, column=3, padx=10, pady=1, sticky="ew")
     spinbox.set("Passengers")
 
-    departure = a.CTkLabel(top_frame, text="Departure", text_color="black",font = ("Arial", 10))
+    departure = a.CTkLabel(top_frame, text="Departure", text_color="black",font = ("Arial", 15))
     departure.grid(row=2, column=1, padx=10, pady=1, sticky="w")
     
     datepicker1 = b.DateEntry(top_frame, style='primary', startdate=None, dateformat="%d/%m/%Y")
@@ -266,8 +266,8 @@ def book(a, b, c, d, m, placename):
         else:
             datepicker2.configure(state="disabled")
     
-    returndate = a.CTkLabel(top_frame, text="Return", text_color="black",font = ("Arial", 10))
-    returndate.grid(row=2, column=2, padx=10, pady=1, sticky = "ew")
+    returndate = a.CTkLabel(top_frame, text="Return", text_color="black",font = ("Arial", 15))
+    returndate.grid(row=2, column=2, padx=10, pady=1, sticky = "w")
 
     retcheck_var = b.BooleanVar()
     retcheck = b.Checkbutton(top_frame, style = "success",text="Return Ticket", variable=retcheck_var, command=toggle_datepicker)

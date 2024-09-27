@@ -1,54 +1,67 @@
 # import mysql.connector
 # from mysql.connector import Error
+# from tkinter import messagebox
 # import random
 # import string
-# from tkinter import messagebox
+
+# def create_connection():
+#     try:
+#         connection = mysql.connector.connect(
+#             host='localhost',
+#             database='flightfix',  # Ensure the 'flightfix' database exists
+#             user='root',
+#             password='bbit@123'
+#         )
+#         if connection.is_connected():
+#             return connection
+#     except Error as e:
+#         print(f"Error while connecting to MySQL: {e}")
+#         return None
 
 # def generate_booking_id(length=10):
+#     # Generate a random booking ID
 #     return ''.join(random.choices(string.ascii_uppercase + string.digits, k=length))
 
-# def add_booking_record(username, no_passengers, passenger_names, seating, depart, to, dateop):
-#     try:
-#         conn = mysql.connector.connect(
-#             host='localhost',
-#             user='root',
-#             password='bbit@123',
-#             database='users_db'
-#         )
-#         cursor = conn.cursor()
+# def add_booking_record(username, no_passengers, passenger_names, seating, depart, to, dateop, flightname, flighttime):
+#     conn = create_connection()
+#     if conn is None:
+#         return
 
-#         booking_id = generate_booking_id()
+#     cursor = conn.cursor()
 
-#         passenger_names_str = passenger_names
+#     # Generate a random booking ID
+#     booking_id = generate_booking_id()
 
-#         cursor.execute('''
-#         INSERT INTO bookinghistory (BOOKING_ID, USER, NO_PASSENGERS, PASSENGER_NAMES, SEATING_PREFERENCE, DEPARTURE, ARRIVAL, DATE)
-#         VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
-#         ''', (booking_id, username, no_passengers, passenger_names_str, seating, depart, to, dateop))
+#     # Convert the list of passenger names to a single string
+#     passenger_names_str = passenger_names
 
-#         conn.commit()
-#         print(f"Booking record added successfully with Booking ID: {booking_id}")
-#     except Error as e:
-#         print(f"Error: {e}")
-#     finally:
-#         if conn.is_connected():
-#             cursor.close()
-#             conn.close()
+#     # Insert the booking record into the bookinghistory table
+#     cursor.execute('''
+#     INSERT INTO bookinghistory (BOOKING_ID, FLIGHT_ID, USER, NO_PASSENGERS, PASSENGER_NAMES, SEATING_PREFERENCE, DEPARTURE, ARRIVAL, DATE, TIME)
+#     VALUES (%s, %s, %s, %s, %s ,%s, %s, %s, %s, %s)
+#     ''', (booking_id, flightname, username, no_passengers, passenger_names_str, seating, depart, to, dateop, flighttime))
+
+#     print("Details added to bookinghistory table.", booking_id, username, no_passengers, passenger_names_str, seating, depart, to, dateop)
+
+#     conn.commit()
+#     cursor.close()
+#     conn.close()
+#     print(f"Booking record added successfully with Booking ID: {booking_id}")
 
 # def add_city_and_flights(city, flight1, flight2, flight3, flight4, flight5):
+#     # Check if any input is empty
 #     if not city or not flight1 or not flight2 or not flight3 or not flight4 or not flight5:
 #         print("Error: All fields are required.")
 #         return
 
-#     try:
-#         conn = mysql.connector.connect(
-#             host='localhost',
-#             user='root',
-#             password='bbit@123',
-#             database='users_db'
-#         )
-#         cursor = conn.cursor()
+#     conn = create_connection()
+#     if conn is None:
+#         return
 
+#     cursor = conn.cursor()
+
+#     try:
+#         # Insert the data into the cities table
 #         cursor.execute('''
 #             INSERT INTO cities (CITY, FLIGHT1, FLIGHT2, FLIGHT3, FLIGHT4, FLIGHT5)
 #             VALUES (%s, %s, %s, %s, %s, %s)
@@ -59,267 +72,124 @@
 #     except Error as e:
 #         print(f"Error: {e}")
 #     finally:
-#         if conn.is_connected():
-#             cursor.close()
-#             conn.close()
+#         cursor.close()
+#         conn.close()
 
 # def view_database():
-#     try:
-#         conn = mysql.connector.connect(
-#             host='localhost',
-#             user='root',
-#             password='bbit@123',
-#             database='users_db'
-#         )
-#         cursor = conn.cursor()
+#     conn = create_connection()
+#     if conn is None:
+#         return
 
-#         cursor.execute("SELECT * FROM users")
-#         users = cursor.fetchall()
-#         print("Users Table:")
-#         for user in users:
-#             print(user)
-#         print("\n")
+#     cursor = conn.cursor()
 
-#         cursor.execute("SELECT * FROM cities")
-#         cities = cursor.fetchall()
-#         print("Cities Table:")
-#         for city in cities:
-#             print(city)
-#         print("\n")
+#     # View all data from the users table
+#     print("Users Table:")
+#     cursor.execute("SELECT * FROM users")
+#     users = cursor.fetchall()
+#     for user in users:
+#         print(user)
+#     print("\n")
 
-#         cursor.execute("SELECT * FROM bookinghistory")
-#         bookings = cursor.fetchall()
-#         print("Booking History Table:")
-#         for booking in bookings:
-#             print(booking)
-#         print("\n")
-#     except Error as e:
-#         print(f"Error: {e}")
-#     finally:
-#         if conn.is_connected():
-#             cursor.close()
-#             conn.close()
+#     # View all data from the cities table
+#     print("Cities Table:")
+#     cursor.execute("SELECT * FROM cities")
+#     cities = cursor.fetchall()
+#     for city in cities:
+#         print(city)
+#     print("\n")
+
+#     # View all data from the bookinghistory table
+#     print("Booking History Table:")
+#     cursor.execute("SELECT * FROM bookinghistory")
+#     bookinghistory = cursor.fetchall()
+#     for booking in bookinghistory:
+#         print(booking)
+#     print("\n")
+
+#     cursor.close()
+#     conn.close()
 
 # def initialop():
-#     try:
-#         conn = mysql.connector.connect(
-#             host='localhost',
-#             user='root',
-#             password='bbit@123',
-#             database='users_db'
-#         )
-#         cursor = conn.cursor()
-
-#         cursor.execute('''
-#         CREATE TABLE IF NOT EXISTS users (
-#             id INT AUTO_INCREMENT PRIMARY KEY,
-#             username VARCHAR(255) NOT NULL UNIQUE,
-#             password VARCHAR(255) NOT NULL
-#         )
-#         ''')
-
-#         cursor.execute('''
-#         CREATE TABLE IF NOT EXISTS cities (
-#             CITY VARCHAR(255) PRIMARY KEY,
-#             FLIGHT1 VARCHAR(255),
-#             FLIGHT2 VARCHAR(255),
-#             FLIGHT3 VARCHAR(255),
-#             FLIGHT4 VARCHAR(255),
-#             FLIGHT5 VARCHAR(255),
-#             FLIGHT6 VARCHAR(255),
-#             FLIGHT7 VARCHAR(255),
-#             FLIGHT8 VARCHAR(255),
-#             FLIGHT9 VARCHAR(255),
-#             FLIGHT10 VARCHAR(255)
-#         )
-#         ''')
-
-#         cursor.execute('''
-#         CREATE TABLE IF NOT EXISTS bookinghistory (
-#             BOOKING_ID VARCHAR(255) PRIMARY KEY,
-#             USER VARCHAR(255) NOT NULL,
-#             NO_PASSENGERS INT,
-#             PASSENGER_NAMES TEXT,
-#             SEATING_PREFERENCE VARCHAR(255),
-#             DEPARTURE VARCHAR(255),
-#             ARRIVAL VARCHAR(255),
-#             DATE VARCHAR(255)
-#         )
-#         ''')
-
-#         print("Database setup complete.")
-#         view_database()
-#     except Error as e:
-#         print(f"Error: {e}")
-#     finally:
-#         if conn.is_connected():
-#             cursor.close()
-#             conn.close()
-
-# def authenticate(username, password):
-#     try:
-#         conn = mysql.connector.connect(
-#             host='localhost',
-#             user='root',
-#             password='bbit@123',
-#             database='users_db'
-#         )
-#         cursor = conn.cursor()
-
-#         cursor.execute('SELECT * FROM users WHERE username = %s', (username,))
-#         user = cursor.fetchone()
-
-#         if user is None:
-#             return "user_not_found"
-
-#         cursor.execute('SELECT * FROM users WHERE username = %s AND password = %s', (username, password))
-#         user = cursor.fetchone()
-
-#         if user:
-#             return "authenticated"
-#         else:
-#             return "incorrect_password"
-#     except Error as e:
-#         print(f"Error: {e}")
-#         return "error"
-#     finally:
-#         if conn.is_connected():
-#             cursor.close()
-#             conn.close()
-
-# def on_login(username, password):
-#     if username == "Username" or password == "Password":
-#         messagebox.showerror("Error", "Username and password cannot be empty.")
+#     conn = create_connection()
+#     if conn is None:
 #         return
 
-#     auth_result = authenticate(username, password)
+#     cursor = conn.cursor()
 
-#     if auth_result == "authenticated":
-#         messagebox.showinfo("Success", "Signed in successfully!")
-#         return True
-#     elif auth_result == "user_not_found":
-#         messagebox.showerror("Error", "User does not exist.")
-#     elif auth_result == "incorrect_password":
-#         messagebox.showerror("Error", "Incorrect password.")
+#     # Create the users table
+#     cursor.execute('''
+#     CREATE TABLE IF NOT EXISTS users (
+#         id INT AUTO_INCREMENT PRIMARY KEY,
+#         username VARCHAR(255) NOT NULL UNIQUE,
+#         password VARCHAR(255) NOT NULL
+#     )
+#     ''')
 
-# def on_signup(username, password, confirm_password):
-#     if username == "Username" or password == "Password":
-#         messagebox.showerror("Error", "Username and password cannot be empty.")
-#         return
-#     elif password != confirm_password:
-#         messagebox.showerror("Error", "Passwords do not match.")
-#         return
+#     # Create the Cities table
+#     cursor.execute('''
+#     CREATE TABLE IF NOT EXISTS Cities (
+#         FlightID INT AUTO_INCREMENT PRIMARY KEY,
+#         Mumbai VARCHAR(255),
+#         Delhi VARCHAR(255),
+#         Bangalore VARCHAR(255),
+#         Hyderabad VARCHAR(255),
+#         Chennai VARCHAR(255),
+#         Kolkata VARCHAR(255),
+#         London VARCHAR(255),
+#         Paris VARCHAR(255),
+#         Tokyo VARCHAR(255),
+#         Sydney VARCHAR(255),
+#         Dubai VARCHAR(255),
+#         NewYork VARCHAR(255),
+#         Srinagar VARCHAR(255),
+#         Kochi VARCHAR(255),
+#         Kyoto VARCHAR(255),
+#         Jaipur VARCHAR(255),
+#         Time VARCHAR(255)
+#     )
+#     ''')
 
-#     try:
-#         conn = mysql.connector.connect(
-#             host='localhost',
-#             user='root',
-#             password='bbit@123',
-#             database='users_db'
-#         )
-#         cursor = conn.cursor()
+#     # Insert the data into the 'Cities' table
+#     flights_data = [
+#         ('AI101', 'AI204', 'AI307', 'AI412', 'AI515', 'AI620', 'BA101', 'AF101', 'NH101', 'QF101', 'EK101', 'DL101', 'AI901', 'AI902', 'NH901', 'AI903', '06:00 AM'),
+#         ('6E203', '6E410', '6E315', '6E527', '6E634', '6E741', 'LH202', 'LH202', 'JL202', 'VA202', 'FZ202', 'UA202', '6E601', '6E602', 'JL901', '6E603', '07:30 AM'),
+#         ('UK305', 'UK511', 'UK423', 'UK634', 'UK745', 'UK856', 'AF303', 'BA303', 'ANA303', 'JQ303', 'EY303', 'AA303', 'UK501', 'UK502', 'ANA901', 'UK503', '09:00 AM'),
+#         ('G8467', 'G8721', 'G8345', 'G8612', 'G8964', 'G8210', 'EK404', 'EK404', 'EK404', 'EK404', 'QR404', 'B6404', 'G9021', 'G9022', 'EK901', 'G9023', '10:30 AM'),
+#         ('SG558', 'SG663', 'SG772', 'SG883', 'SG994', 'SG105', 'SQ505', 'SQ505', 'SQ505', 'SQ505', 'SV505', 'EK505', 'SG901', 'SG902', 'SQ901', 'SG903', '12:00 PM'),
+#         ('AI999', 'AI998', 'AI997', 'AI996', 'AI995', 'AI994', 'BA202', 'AF202', 'NH202', 'QF202', 'EK202', 'DL202', 'AI902', 'AI903', 'NH902', 'AI904', '01:30 PM'),
+#         ('6E999', '6E998', '6E997', '6E996', '6E995', '6E994', 'LH303', 'LH303', 'JL303', 'VA303', 'FZ303', 'UA303', '6E602', '6E603', 'JL902', '6E604', '03:00 PM'),
+#         ('UK999', 'UK998', 'UK997', 'UK996', 'UK995', 'UK994', 'AF404', 'BA404', 'ANA404', 'JQ404', 'EY404', 'AA404', 'UK502', 'UK503', 'ANA902', 'UK504', '04:30 PM'),
+#         ('G9999', 'G9989', 'G9978', 'G9967', 'G9956', 'G9945', 'EK505', 'EK505', 'EK505', 'EK505', 'QR505', 'B6405', 'G9022', 'G9023', 'EK902', 'G9024', '06:00 PM'),
+#         ('SG999', 'SG998', 'SG997', 'SG996', 'SG995', 'SG994', 'SQ606', 'SQ606', 'SQ606', 'SQ606', 'SV606', 'EK606', 'SG902', 'SG903', 'SQ902', 'SG904', '07:30 PM')
+#     ]
 
-#         cursor.execute('SELECT * FROM users WHERE username = %s', (username,))
-#         user = cursor.fetchone()
+#     cursor.executemany('''INSERT INTO Cities (Mumbai, Delhi, Bangalore, Hyderabad, Chennai, Kolkata, London, Paris, Tokyo, Sydney, Dubai, NewYork, Srinagar, Kochi, Kyoto, Jaipur, Time) 
+#                     VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)''', flights_data)
 
-#         if user:
-#             messagebox.showerror("Error", "Username already exists.")
-#         else:
-#             cursor.execute('INSERT INTO users (username, password) VALUES (%s, %s)', (username, password))
-#             conn.commit()
-#             messagebox.showinfo("Success", "User signed up successfully!")
-#             return True
-#     except Error as e:
-#         print(f"Error: {e}")
-#     finally:
-#         if conn.is_connected():
-#             cursor.close()
-#             conn.close()
+#     # Create the bookinghistory table if it doesn't exist
+#     cursor.execute('''
+#     CREATE TABLE IF NOT EXISTS bookinghistory (
+#         BOOKING_ID VARCHAR(255) PRIMARY KEY,
+#         FLIGHT_ID VARCHAR(255),
+#         USER VARCHAR(255) NOT NULL,
+#         NO_PASSENGERS INT,
+#         PASSENGER_NAMES TEXT,
+#         SEATING_PREFERENCE VARCHAR(255),
+#         DEPARTURE VARCHAR(255),
+#         ARRIVAL VARCHAR(255),
+#         DATE DATE,
+#         TIME VARCHAR(255)
+#     )
+#     ''')
 
-# def searchfli(city_name):
-#     try:
-#         conn = mysql.connector.connect(
-#             host='localhost',
-#             user='root',
-#             password='bbit@123',
-#             database='users_db'
-#         )
-#         cursor = conn.cursor()
+#     print("Booking history table setup complete.")
+#     # Execute a query to list all tables
+#     cursor.execute("SHOW TABLES")
+#     tables = cursor.fetchall()
+#     print("Tables in the database:", tables)
 
-#         city_name_lower = city_name.lower()
-
-#         cursor.execute('''
-#         SELECT FLIGHT1, FLIGHT2, FLIGHT3, FLIGHT4, FLIGHT5, FLIGHT6, FLIGHT7, FLIGHT8, FLIGHT9, FLIGHT10
-#         FROM cities WHERE LOWER(CITY) = %s
-#         ''', (city_name_lower,))
-#         flights = cursor.fetchone()
-
-#         if flights:
-#             return flights
-#         else:
-#             return None
-#     except Error as e:
-#         print(f"Error: {e}")
-#         return None
-#     finally:
-#         if conn.is_connected():
-#             cursor.close()
-#             conn.close()
-
-# def get_bookings_by_username(username):
-#     try:
-#         conn = mysql.connector.connect(
-#             host='localhost',
-#             user='root',
-#             password='bbit@123',
-#             database='users_db'
-#         )
-#         cursor = conn.cursor()
-
-#         cursor.execute('''
-#         SELECT BOOKING_ID, DEPARTURE, ARRIVAL, NO_PASSENGERS, SEATING_PREFERENCE, DATE 
-#         FROM bookinghistory 
-#         WHERE USER = %s
-#         ''', (username,))
-
-#         bookings = cursor.fetchall()
-#         booking_lists = [list(booking) for booking in bookings]
-
-#         return booking_lists
-#     except Error as e:
-#         print(f"Error: {e}")
-#         return []
-#     finally:
-#         if conn.is_connected():
-#             cursor.close()
-#             conn.close()
-
-# def search_and_delete(unique_id_var):
-#     unique_id = unique_id_var.get()
-#     try:
-#         conn = mysql.connector.connect(
-#             host='localhost',
-#             user='root',
-#             password='bbit@123',
-#             database='users_db'
-#         )
-#         cursor = conn.cursor()
-
-#         cursor.execute("SELECT * FROM bookinghistory WHERE BOOKING_ID=%s", (unique_id,))
-#         result = cursor.fetchone()
-
-#         if result:
-#             cursor.execute("DELETE FROM bookinghistory WHERE BOOKING_ID=%s", (unique_id,))
-#             conn.commit()
-#             messagebox.showinfo("Success", "Booking has been cancelled.")
-#         else:
-#             messagebox.showerror("Error", "Booking not found.")
-#     except Error as e:
-#         print(f"Error: {e}")
-#     finally:
-#         if conn.is_connected():
-#             cursor.close()
-#             conn.close()
+#     cursor.close()
+#     conn.close()
 
 
 
