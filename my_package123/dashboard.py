@@ -271,7 +271,7 @@ def dashboardop(a, b, c, d, m):
         flighthistory.append(record)
         print(record)
     
-    table = CTkTable(master = upcoming_flights_frame, row=len(flighthistory), column=8, values=flighthistory,colors = ["white","whitesmoke"])
+    table = CTkTable(master = upcoming_flights_frame, row=len(flighthistory), column=8, values=flighthistory,colors = ["white","whitesmoke"],text_color = "black")
     table.pack(expand=True, fill="both", padx=2, pady=2)
 
    

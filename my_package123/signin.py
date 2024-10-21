@@ -97,9 +97,9 @@ def signop(a,b,window,return_callback,u):
    logframe.grid_columnconfigure(0, weight=1)
    logframe.grid_rowconfigure((0,1),weight = 1)
    logframe.grid(column =1,row = 0,padx=50, pady=15)
-   log = a.CTkLabel(logframe, text="Sign Up", font=("Helvetica", 32),fg_color= "transparent")
+   log = a.CTkLabel(logframe, text="Sign Up", font=("Helvetica", 32),fg_color= "transparent",text_color = "black")
    log.grid(column=0, row=0, padx=0, pady=5,sticky = "nsew")
-   logunder = a.CTkLabel(logframe, text="Don't have an account? Sign up now ", font=("Helvetica", 10),fg_color= "transparent")
+   logunder = a.CTkLabel(logframe, text="Don't have an account? Sign up now ", font=("Helvetica", 10),fg_color= "transparent",text_color = "black")
    logunder.grid(column=0, row=1, padx=0, pady=2,sticky = "nsew")
    
    

@@ -132,7 +132,7 @@ def book(a, b, c, d, m, placename):
             if t == y:
                 messagebox.showerror("Error", "Departure and Return date cannot be same.")
                 return
-            elif t > y:
+            elif t < y:
                 messagebox.showerror("Error", "Time travel not allowed!")
                 return
             elif q != "From" and w != "To" and dropdown3 != "Class" and spinbox.get() != "Passengers" and t != y:
